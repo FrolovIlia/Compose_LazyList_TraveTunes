@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Compose_LazyList_TraveTunes</string>
+
+    <string name="iv_description1">Достопримечательность 1</string>
+    <string name="iv_description2">Достопримечательность 2</string>
+    <string name="iv_description3">Достопримечательность 3</string>
+    <string name="iv_description4">Достопримечательность 4</string>
+    <string name="iv_description5">Достопримечательность 5</string>
+    <string name="iv_description6">Достопримечательность 6</string>
+    <string name="iv_description7">Достопримечательность 7</string>
+    <string name="iv_description8">Достопримечательность 8</string>
+    <string name="iv_description9">Достопримечательность 9</string>
+    <string name="iv_description10">Достопримечательность 10</string>
+    <string name="iv_description11">Достопримечательность 11</string>
+    <string name="iv_description12">Достопримечательность 12</string>
+    <string name="iv_description13">Достопримечательность 13</string>
+    <string name="iv_description14">Достопримечательность 14</string>
+    <string name="iv_description15">Достопримечательность 15</string>
+    <string name="iv_description16">Достопримечательность 16</string>
+    <string name="iv_description17">Достопримечательность 17</string>
+    <string name="iv_description18">Достопримечательность 18</string>
+    <string name="iv_description19">Достопримечательность 19</string>
+    <string name="iv_description20">Достопримечательность 20</string>
+    <string name="iv_description21">Достопримечательность 21</string>
+    <string name="iv_description22">Достопримечательность 22</string>
+    <string name="iv_description23">Достопримечательность 23</string>
+    <string name="iv_description24">Достопримечательность 24</string>
+    <string name="iv_description25">Достопримечательность 25</string>
+    <string name="iv_description26">Достопримечательность 26</string>
+    <string name="iv_description27">Достопримечательность 27</string>
+    <string name="iv_description28">Достопримечательность 28</string>
+    <string name="iv_description29">Достопримечательность 29</string>
+    <string name="iv_description30">Достопримечательность 30</string>
+    <string name="iv_description31">Достопримечательность 31</string>
+    <string name="iv_description32">Достопримечательность 32</string>
+
+</resources>
