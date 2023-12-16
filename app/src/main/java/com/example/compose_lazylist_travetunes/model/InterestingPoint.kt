@@ -5,5 +5,6 @@ import androidx.annotation.StringRes
 
 data class InterestingPoint(
     @StringRes val titleID: Int,
+    @StringRes val descriptionID: Int,
     @DrawableRes val pictureID: Int
 )

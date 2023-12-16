@@ -5,20 +5,12 @@ import com.example.compose_lazylist_travetunes.model.InterestingPoint
 
 
 class Datasource() {
-    fun loadAffirmations(): List<InterestingPoint> {
+    fun loadInterestingPoint(): List<InterestingPoint> {
         return listOf<InterestingPoint>(
-            InterestingPoint(R.string.iv_description1, R.drawable.iv_1),
-            InterestingPoint(R.string.iv_description2, R.drawable.iv_2),
-            InterestingPoint(R.string.iv_description3, R.drawable.iv_3),
-            InterestingPoint(R.string.iv_description4, R.drawable.iv_4),
-            InterestingPoint(R.string.iv_description5, R.drawable.iv_5),
-            InterestingPoint(R.string.iv_description6, R.drawable.iv_6),
-            InterestingPoint(R.string.iv_description7, R.drawable.iv_7),
-            InterestingPoint(R.string.iv_description8, R.drawable.iv_8),
-            InterestingPoint(R.string.iv_description9, R.drawable.iv_9),
-            InterestingPoint(R.string.iv_description10, R.drawable.iv_10),
-            InterestingPoint(R.string.iv_description11, R.drawable.iv_12)
-
+            InterestingPoint(R.string.spb_title1, R.string.spb_description1, R.drawable.spb_1),
+            InterestingPoint(R.string.spb_title2, R.string.spb_description2, R.drawable.spb_2),
+            InterestingPoint(R.string.spb_title3, R.string.spb_description3, R.drawable.spb_3),
+            InterestingPoint(R.string.spb_title4, R.string.spb_description4, R.drawable.spb_4),
         )
     }
 }
