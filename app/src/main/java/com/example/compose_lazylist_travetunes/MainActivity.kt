@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TravelTunesApp() {
-    InterestingPointList(interestingPointList = Datasource().loadInterestingPoint())
+        InterestingPointList(interestingPointList = Datasource().loadInterestingPoint())
 }
 
 @Composable
@@ -108,12 +108,11 @@ fun InterestingPointList(interestingPointList: List<InterestingPoint>, modifier:
 }
 
 
-
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Compose_LazyList_TraveTunesTheme {
         InterestingPointCard(InterestingPoint(R.string.spb_title1, R.string.spb_description1, R.drawable.spb_1))
+
     }
 }
