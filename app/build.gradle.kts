@@ -76,4 +76,9 @@ dependencies {
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$room_version")
 
+    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
+
+    implementation("androidx.navigation:navigation-compose:2.7.6")
+
 }
