@@ -63,8 +63,8 @@ fun InterestingPointCard(interestingPoint: InterestingPoint, modifier: Modifier 
         Row {
             Box {
                 Image(
-                    painter = painterResource(interestingPoint.pictureID),
-                    contentDescription = stringResource(interestingPoint.titleID),
+                    painter = painterResource(interestingPoint.picture),
+                    contentDescription = stringResource(interestingPoint.title),
                     modifier = modifier
                         .width(width = 151.dp)
                         .fillMaxHeight(),
@@ -76,13 +76,13 @@ fun InterestingPointCard(interestingPoint: InterestingPoint, modifier: Modifier 
             Column(modifier = Modifier
                 .padding(16.dp)) {
                 Text(
-                    text = LocalContext.current.getString(interestingPoint.titleID),
+                    text = LocalContext.current.getString(interestingPoint.title),
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
-                    text = LocalContext.current.getString(interestingPoint.descriptionID),
+                    text = LocalContext.current.getString(interestingPoint.description),
                     fontSize = 18.sp,
                     modifier = Modifier.padding(top = 16.dp),
                     style = MaterialTheme.typography.headlineSmall
@@ -112,7 +112,7 @@ fun InterestingPointList(interestingPointList: List<InterestingPoint>, modifier:
 @Composable
 fun GreetingPreview() {
     Compose_LazyList_TraveTunesTheme {
-        InterestingPointCard(InterestingPoint(R.string.spb_title1, R.string.spb_description1, R.drawable.spb_1))
+        InterestingPointCard(InterestingPoint(title = R.string.spb_title1, description = R.string.spb_description1, picture = R.drawable.spb_1))
 
     }
 }
