@@ -4,11 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.compose_lazylist_travetunes.model.InterestingPoint
-import com.example.compose_lazylist_travetunes.persistence.InterestingPointDao
+import com.example.compose_lazylist_travetunes.data.InterestingPointDao
 
-class InterestingPointViewModel(private val db: InterestingPointDao): ViewModel() {
+class InterestingPointViewModel(
+    private val db: InterestingPointDao
+): ViewModel() {
 
-    suspend fun getNote() : LiveData<List<InterestingPoint>> {
+    fun getPoints() : LiveData<List<InterestingPoint>> {
         return db.getAllInterestingPoints()
     }
 }

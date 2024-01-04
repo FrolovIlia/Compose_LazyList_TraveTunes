@@ -1,4 +1,4 @@
-package com.example.compose_lazylist_travetunes.persistence
+package com.example.compose_lazylist_travetunes.data
 
 
 import androidx.lifecycle.LiveData
