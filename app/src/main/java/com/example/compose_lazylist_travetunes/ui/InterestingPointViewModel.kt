@@ -1,19 +1,22 @@
 package com.example.compose_lazylist_travetunes.ui
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.compose_lazylist_travetunes.R
 import com.example.compose_lazylist_travetunes.data.Datasource
 import com.example.compose_lazylist_travetunes.model.InterestingPoint
+import com.example.compose_lazylist_travetunes.persistence.InterestingPointDatabase
 
 class InterestingPointViewModel(
 //    private val db: InterestingPointDao
 ): ViewModel() {
     private val dataSource = Datasource()
+    private val db = InterestingPointDatabase
 
     // FIXME: тут заменить на использование для interestingPoints данных из бд вместо DataSource 
-//    val interestingPoints : LiveData<List<InterestingPoint>>  = db.getAllInterestingPoints()
+//    val interestingPoints : InterestingPointDatabase = db.getDatabase()
     var interestingPoints: LiveData<List<InterestingPoint>> = dataSource.loadInterestingPoints()
 
     fun addTestItemToDataSource() {
