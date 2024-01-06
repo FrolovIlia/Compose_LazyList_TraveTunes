@@ -21,10 +21,8 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     InterestingPointDatabase::class.java,
-                    "notes_database"
-                )
-                    // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
+                    "interesting_point_database"
+                ).createFromAsset("interesting_point_database")
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
