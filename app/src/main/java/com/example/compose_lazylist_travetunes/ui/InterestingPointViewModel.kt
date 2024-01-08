@@ -8,17 +8,16 @@ import com.example.compose_lazylist_travetunes.R
 import com.example.compose_lazylist_travetunes.data.Datasource
 import com.example.compose_lazylist_travetunes.model.InterestingPoint
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDao
-import com.example.compose_lazylist_travetunes.persistence.InterestingPointDatabase
 
 class InterestingPointViewModel(
-//    private val interestingPointDao: InterestingPointDao
+    private val db: InterestingPointDao
 ): ViewModel() {
     private val dataSource = Datasource()
 //    private val db: LiveData<List<InterestingPoint>> = interestingPointDao.getAllInterestingPoints().asLiveData()
 
     // FIXME: тут заменить на использование для interestingPoints данных из бд вместо DataSource 
-//    val interestingPoints : InterestingPointDatabase = db.getDatabase()
-    var interestingPoints: LiveData<List<InterestingPoint>> = dataSource.loadInterestingPoints()
+    val interestingPoints : LiveData<List<InterestingPoint>> = db.getAllInterestingPoints()
+//    var interestingPoints: LiveData<List<InterestingPoint>> = dataSource.loadInterestingPoints()
 
     fun addTestItemToDataSource() {
         val interestingPoint = InterestingPoint(
@@ -34,12 +33,11 @@ class InterestingPointViewModel(
 
 
 class InterestingPointViewModelFactory(
-//    private val db: InterestingPointDao,
+    private val db: InterestingPointDao,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return  InterestingPointViewModel(
-//            db = db,
+            db = db,
         ) as T
     }
-
 }
