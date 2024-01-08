@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.compose_lazylist_travetunes.databinding.ActivityInterestingPointsBinding
-import com.example.compose_lazylist_travetunes.persistence.InterestingPointDao
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDatabase
 import com.example.compose_lazylist_travetunes.ui.InterestingPointViewModel
 import com.example.compose_lazylist_travetunes.ui.InterestingPointViewModelFactory
@@ -20,6 +19,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInterestingPointsBinding
     private lateinit var adapterIP: InterestingPointsAdapter
 
+    private lateinit var database: InterestingPointDatabase
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInterestingPointsBinding.inflate(layoutInflater)
@@ -30,9 +32,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        var database: InterestingPointDatabase
+        val dao = database.InterestingPointDao()
         // FIXME: добавить тут передачу бд
-//        viewModelFactory = InterestingPointViewModelFactory(db = )
+        viewModelFactory = InterestingPointViewModelFactory(dao)
         viewModel = ViewModelProvider(this)[InterestingPointViewModel::class.java]
 
         viewModel.interestingPoints.observe(this) { points ->

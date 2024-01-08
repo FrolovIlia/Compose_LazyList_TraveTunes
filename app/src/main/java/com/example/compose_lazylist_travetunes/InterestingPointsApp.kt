@@ -1,16 +1,13 @@
 package com.example.compose_lazylist_travetunes
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDatabase
-import android.content.Intent
-import android.net.Uri
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDao
 
 
 class InterestingPointsApp: Application() {
-    var db: InterestingPointDatabase? = null
+    private var db: InterestingPointDatabase? = null
 
     init {
         INSTANCE = this
@@ -45,10 +42,5 @@ class InterestingPointsApp: Application() {
 //        }
 //
 
-}
-
-
-
-
-
+    }
 }
