@@ -1,9 +1,11 @@
 package com.example.compose_lazylist_travetunes
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.compose_lazylist_travetunes.databinding.ActivityInterestingPointsBinding
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDatabase
 import com.example.compose_lazylist_travetunes.ui.InterestingPointViewModel
@@ -13,13 +15,13 @@ import com.example.compose_lazylist_travetunes.utils.adapters.MySpaceItemDecorat
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModelFactory: InterestingPointViewModelFactory
-    private lateinit var viewModel: InterestingPointViewModel
-
-    private lateinit var binding: ActivityInterestingPointsBinding
-    private lateinit var adapterIP: InterestingPointsAdapter
-
     private lateinit var database: InterestingPointDatabase
+    private lateinit var viewModelFactory: InterestingPointViewModelFactory
+
+    private lateinit var viewModel: InterestingPointViewModel
+    private lateinit var binding: ActivityInterestingPointsBinding
+
+    private lateinit var adapterIP: InterestingPointsAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +33,9 @@ class MainActivity : AppCompatActivity() {
         initViewModel()
     }
 
+
     private fun initViewModel() {
+        database = InterestingPointDatabase.getDatabase(this)
         val dao = database.InterestingPointDao()
         // FIXME: добавить тут передачу бд
         viewModelFactory = InterestingPointViewModelFactory(dao)
@@ -41,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             adapterIP.updateData(points)
         }
     }
+
 
     private fun initViews() {
         adapterIP = InterestingPointsAdapter { interestingPoint ->
