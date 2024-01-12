@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import com.example.compose_lazylist_travetunes.model.InterestingPoint
 
 @Database(entities = [InterestingPoint::class], version = 1)
-abstract class InterestingPointDatabase: RoomDatabase() {
-    abstract fun InterestingPointDao(): InterestingPointDao
+public abstract class InterestingPointDatabase: RoomDatabase() {
 
+    abstract fun InterestingPointDao(): InterestingPointDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the same time.
@@ -35,10 +35,6 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                 instance
             }
         }
-
         private fun getDatabaseName() = "interesting_points_db"
     }
-
-
-
 }

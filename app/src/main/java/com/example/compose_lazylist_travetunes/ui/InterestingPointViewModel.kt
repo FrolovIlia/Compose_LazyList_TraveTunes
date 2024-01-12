@@ -8,8 +8,9 @@ import com.example.compose_lazylist_travetunes.R
 import com.example.compose_lazylist_travetunes.data.Datasource
 import com.example.compose_lazylist_travetunes.model.InterestingPoint
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDao
+import kotlinx.coroutines.flow.Flow
 
-class InterestingPointViewModel(
+public class InterestingPointViewModel(
     private val db: InterestingPointDao
 ): ViewModel() {
     private val dataSource = Datasource()
@@ -28,11 +29,10 @@ class InterestingPointViewModel(
         )
         dataSource.addInterestingPoint(point = interestingPoint)
     }
-
 }
 
 
-class InterestingPointViewModelFactory(
+public class InterestingPointViewModelFactory(
     private val db: InterestingPointDao,
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
