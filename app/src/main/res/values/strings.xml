@@ -1,14 +1,32 @@
 <resources>
     <string name="app_name">Compose_LazyList_TraveTunes</string>
 
-    <string name="spb_description1">Улица с разноцветными домами</string>
-    <string name="spb_description2">Площадь с величественной колонной</string>
-    <string name="spb_description3">Набережная Невы</string>
-    <string name="spb_description4">Собор, который нельзя пропустить</string>
+    <string name="spb_point_description1">Улица с разноцветными домами</string>
+    <string name="spb_point_description2">Площадь с величественной колонной</string>
+    <string name="spb_point_description3">Набережная Невы</string>
+    <string name="spb_point_description4">Собор, который нельзя пропустить</string>
 
-    <string name="spb_title1">Улица</string>
-    <string name="spb_title2">Площадь</string>
-    <string name="spb_title3">Набережная</string>
-    <string name="spb_title4">Исакиевский собор</string>
+    <string name="spb_point_title1">Улица</string>
+    <string name="spb_point_title2">Площадь</string>
+    <string name="spb_point_title3">Набережная</string>
+    <string name="spb_point_title4">Исакиевский собор</string>
 
+    <string name="msk_point_description1">Особенно хороша в дни праздников и гуляний. Украшена очень красиво,со вкусом и роскошью.</string>
+    <string name="msk_point_description2">В этом месте должен побывать каждый. Величественный, роскошный, пафосный внутри и снаружи.</string>
+    <string name="msk_point_description3">Выставка достижений народного хозяйства</string>
+    <string name="msk_point_description4">Старый Арбат - культовое место. Очень нравятся прогулки по Старому Арбату.</string>
+
+    <string name="msk_point_title1">Красная площадь</string>
+    <string name="msk_point_title2">Большой театр</string>
+    <string name="msk_point_title3">ВДНХ</string>
+    <string name="msk_point_title4">Старый арбат</string>
+
+    <string name="msk_name">Москва</string>
+    <string name="msk_description">Столица России</string>
+
+    <string name="spb_name">Санкт-Петербург</string>
+    <string name="spb_description">Северная столица России</string>
+
+    <string name="city_items_show">Интересности</string>
+    <string name="point_item_info_show">Подробнее</string>
 </resources>

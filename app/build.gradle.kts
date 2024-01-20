@@ -52,6 +52,19 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
+
+    sourceSets {
+        getByName("androidTest") {
+            // Adds exported schema location as test app assets.
+            assets.srcDirs("$projectDir/schemas")
+        }
+    }
 }
 
 dependencies {

@@ -7,14 +7,16 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.compose_lazylist_travetunes.Constants
 import com.example.compose_lazylist_travetunes.data.DataGenerator
+import com.example.compose_lazylist_travetunes.model.CityEntity
 import com.example.compose_lazylist_travetunes.model.InterestingPointEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [InterestingPointEntity::class], version = 1)
+@Database(entities = [InterestingPointEntity::class, CityEntity::class], version = 2)
 abstract class InterestingPointDatabase: RoomDatabase() {
 
     abstract fun interestingPointDao(): InterestingPointDao
+    abstract fun cityDao(): CityDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the same time.
@@ -33,8 +35,8 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                     InterestingPointDatabase::class.java,
                     nameDatabase
                 )
-                    .fallbackToDestructiveMigration()
                     .addCallback(InterestingPointsDatabaseCallback(scope))
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 // return instance
@@ -52,6 +54,7 @@ abstract class InterestingPointDatabase: RoomDatabase() {
             INSTANCE?.let { database ->
                 scope.launch {
                     val interestingPointDao = database.interestingPointDao()
+                    val cityDao = database.cityDao()
 
                     // Delete all content here.
                     interestingPointDao.deleteAll()
@@ -60,6 +63,16 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                     val listOfPoints = DataGenerator.getDefaultPointsList()
                     listOfPoints.forEach { point ->
                         interestingPointDao.insert(point)
+                    }
+
+
+                    // Delete all content here.
+                    cityDao.deleteAll()
+
+                    // Add sample words.
+                    val listOfCities = DataGenerator.getDefaultCities()
+                    listOfCities.forEach { point ->
+                        cityDao.insert(point)
                     }
                 }
             }

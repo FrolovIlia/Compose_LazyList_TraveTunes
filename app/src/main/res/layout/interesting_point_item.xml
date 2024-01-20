@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_marginBottom="@dimen/spacing_8"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +16,8 @@
             android:id="@+id/image"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:src="@drawable/ivanovo_city"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ivanovo_city"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            android:text="Иваново"
+            tools:text="Иваново"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="#000000"
@@ -38,7 +41,7 @@
             android:id="@+id/cityDescription"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Город административного значения в центральной части России. Нередко Иваново называют – «город невест», а также «родина Первого Совета», «ситцевый край» и «текстильная столица России». "
+            tools:text="Город административного значения в центральной части России. Нередко Иваново называют – «город невест», а также «родина Первого Совета», «ситцевый край» и «текстильная столица России». "
             app:layout_constraintTop_toBottomOf="@id/cityName"
             android:textColor="#555555"
             android:ellipsize="end"
@@ -53,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:backgroundTint="@color/purple_200"
-            android:text="Отправиться"
+            android:text="@string/point_item_info_show"
             android:layout_marginBottom="4dp"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="@id/cityName"
