@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.compose_lazylist_travetunes.databinding.ActivityInterestingPointsBinding
-import com.example.compose_lazylist_travetunes.persistence.InterestingPointDatabase
 import com.example.compose_lazylist_travetunes.ui.InterestingPointViewModel
 import com.example.compose_lazylist_travetunes.ui.InterestingPointViewModelFactory
 import com.example.compose_lazylist_travetunes.utils.adapters.InterestingPointsAdapter
@@ -13,7 +12,6 @@ import com.example.compose_lazylist_travetunes.utils.adapters.MySpaceItemDecorat
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var database: InterestingPointDatabase
     private lateinit var viewModelFactory: InterestingPointViewModelFactory
 
     private lateinit var viewModel: InterestingPointViewModel
@@ -33,11 +31,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initViewModel() {
-        database = InterestingPointDatabase.getDatabase(this)
-        val dao = database.InterestingPointDao()
-        // FIXME: добавить тут передачу бд
-        viewModelFactory = InterestingPointViewModelFactory(dao)
-        viewModel = ViewModelProvider(this)[InterestingPointViewModel::class.java]
+        val repository = (application as InterestingPointsApp).repository
+        viewModelFactory = InterestingPointViewModelFactory(repository)
+
+        viewModel = ViewModelProvider(this, viewModelFactory)[InterestingPointViewModel::class.java]
 
         viewModel.interestingPoints.observe(this) { points ->
             adapterIP.updateData(points)
@@ -56,9 +53,5 @@ class MainActivity : AppCompatActivity() {
         binding.cityRecyclerView.adapter = adapterIP
         val divider = MySpaceItemDecoration(spaceSize = resources.getDimensionPixelSize(R.dimen.spacing_8))
         binding.cityRecyclerView.addItemDecoration(divider)
-
-        binding.buttonAdd.setOnClickListener { viewModel.addTestItemToDataSource()
-
-        }
     }
 }

@@ -4,43 +4,15 @@ import android.app.Application
 import androidx.room.Room
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDatabase
 import com.example.compose_lazylist_travetunes.persistence.InterestingPointDao
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 
 class InterestingPointsApp: Application() {
-    private var db: InterestingPointDatabase? = null
+    // No need to cancel this scope as it'll be torn down with the process
+    val applicationScope = CoroutineScope(SupervisorJob())
 
-    init {
-        INSTANCE = this
-    }
-
-
-    private fun getDb(): InterestingPointDatabase {
-        return if (db != null){
-            db!!
-        } else {
-            db = Room.databaseBuilder(
-                INSTANCE!!.applicationContext,
-                InterestingPointDatabase::class.java, Constants.DATABASE_NAME
-            ).fallbackToDestructiveMigration()// remove in prod
-                .build()
-            db!!
-        }
-    }
-
-    companion object {
-        private var INSTANCE: InterestingPointsApp? = null
-
-        fun getDao(): InterestingPointDao {
-            return INSTANCE!!.getDb().InterestingPointDao()
-        }
-
-//        fun getUriPermission(uri: Uri){
-//            INSTANCE!!.applicationContext.contentResolver.takePersistableUriPermission(
-//                uri,
-//                Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
-//            )
-//        }
-//
-
-    }
+    // Using by lazy so the database and the repository are only created when they're needed
+    // rather than when the application starts
+    val database by lazy { InterestingPointDatabase.getDatabase(this, applicationScope) }
+    val repository by lazy { InterestingPointRepository(database.interestingPointDao()) }
 }

@@ -1,43 +1,35 @@
 package com.example.compose_lazylist_travetunes.ui
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import com.example.compose_lazylist_travetunes.InterestingPointRepository
 import com.example.compose_lazylist_travetunes.R
-import com.example.compose_lazylist_travetunes.data.Datasource
-import com.example.compose_lazylist_travetunes.model.InterestingPoint
-import com.example.compose_lazylist_travetunes.persistence.InterestingPointDao
-import kotlinx.coroutines.flow.Flow
+import com.example.compose_lazylist_travetunes.model.InterestingPointEntity
+import com.example.compose_lazylist_travetunes.utils.BaseViewModelFactory
 
-public class InterestingPointViewModel(
-    private val db: InterestingPointDao
-): ViewModel() {
-    private val dataSource = Datasource()
-//    private val db: LiveData<List<InterestingPoint>> = interestingPointDao.getAllInterestingPoints().asLiveData()
+class InterestingPointViewModel(
+    private val interestingPointRepository: InterestingPointRepository
+) : ViewModel() {
 
-    // FIXME: тут заменить на использование для interestingPoints данных из бд вместо DataSource 
-    val interestingPoints : LiveData<List<InterestingPoint>> = db.getAllInterestingPoints()
-//    var interestingPoints: LiveData<List<InterestingPoint>> = dataSource.loadInterestingPoints()
+    val interestingPoints: LiveData<List<InterestingPointEntity>> =
+        interestingPointRepository.allPoints.asLiveData()
 
     fun addTestItemToDataSource() {
-        val interestingPoint = InterestingPoint(
+        val interestingPointEntity = InterestingPointEntity(
             title = R.string.spb_title1,
             description = R.string.spb_description2,
             picture = R.drawable.spb_1,
             id = 234
         )
-        dataSource.addInterestingPoint(point = interestingPoint)
     }
 }
 
 
-public class InterestingPointViewModelFactory(
-    private val db: InterestingPointDao,
-) : ViewModelProvider.NewInstanceFactory() {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return  InterestingPointViewModel(
-            db = db,
-        ) as T
+class InterestingPointViewModelFactory(
+    private val interestingPointRepository: InterestingPointRepository
+) : BaseViewModelFactory<InterestingPointViewModel>() {
+    override fun getViewModel(): InterestingPointViewModel {
+        return InterestingPointViewModel(interestingPointRepository)
     }
 }

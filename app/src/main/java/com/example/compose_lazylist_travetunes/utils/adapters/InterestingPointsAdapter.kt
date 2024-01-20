@@ -8,12 +8,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.compose_lazylist_travetunes.R
 import com.example.compose_lazylist_travetunes.databinding.InterestingPointItemBinding
-import com.example.compose_lazylist_travetunes.model.InterestingPoint
+import com.example.compose_lazylist_travetunes.model.InterestingPointEntity
 
-class InterestingPointsAdapter(private val onButtonClickListener: (InterestingPoint) -> Unit) :
+class InterestingPointsAdapter(private val onButtonClickListener: (InterestingPointEntity) -> Unit) :
     RecyclerView.Adapter<InterestingPointsAdapter.InterestingPointItemHolder>() {
 
-    private var itemsList: List<InterestingPoint> = listOf()
+    private var itemsList: List<InterestingPointEntity> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InterestingPointItemHolder {
         val binding = InterestingPointItemBinding
@@ -27,7 +27,7 @@ class InterestingPointsAdapter(private val onButtonClickListener: (InterestingPo
 
     override fun getItemCount(): Int = itemsList.size
 
-    fun updateData(data: List<InterestingPoint>) {
+    fun updateData(data: List<InterestingPointEntity>) {
         val diffCallback = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = itemsList.size
 
@@ -47,7 +47,7 @@ class InterestingPointsAdapter(private val onButtonClickListener: (InterestingPo
 
     inner class InterestingPointItemHolder(private val binding: InterestingPointItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(info: InterestingPoint) {
+        fun bind(info: InterestingPointEntity) {
             val context = binding.root.context
             binding.cityName.text = context.resources.getText(info.title)
             binding.cityDescription.text = context.resources.getText(info.description)
