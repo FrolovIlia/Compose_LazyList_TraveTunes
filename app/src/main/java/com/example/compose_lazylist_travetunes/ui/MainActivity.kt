@@ -20,13 +20,13 @@ class MainActivity : AppCompatActivity(), CitiesFragment.OnFragmentInteractionLi
          * start cities fragment
          */
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, CitiesFragment.getInstance())
+            .replace(R.id.container, CitiesFragment.getInstance())
             .commit()
     }
 
     override fun openPointsWithCodeName(cityCodeName: String) {
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, PointsFragment.getInstance(cityCodeName))
+            .replace(R.id.container, PointsFragment.getInstance(cityCodeName))
             .addToBackStack(null)
             .commit()
     }
