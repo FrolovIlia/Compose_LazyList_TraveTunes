@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Compose_LazyList_TraveTunes</string>
+    <string name="app_name">TravelTunes_With_DB</string>
 
     <string name="spb_point_description1">Улица с разноцветными домами</string>
     <string name="spb_point_description2">Площадь с величественной колонной</string>
