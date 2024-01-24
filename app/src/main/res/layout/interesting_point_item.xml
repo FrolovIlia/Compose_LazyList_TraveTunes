@@ -51,18 +51,19 @@
             app:layout_constraintEnd_toEndOf="@id/cityName"
             app:layout_constraintStart_toStartOf="@id/cityName" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/moveInCity"
-            android:layout_width="wrap_content"
+            android:layout_width="197dp"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/purple_200"
+            android:backgroundTint="@color/main_blue"
             android:text="@string/point_item_info_show"
+            app:cornerRadius="40dp"
             android:layout_marginBottom="4dp"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="@id/cityName"
             app:layout_constraintEnd_toEndOf="@id/cityName"
             app:layout_constraintBottom_toBottomOf="@id/image"
-            app:cornerRadius="40dp" />
+             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -27,6 +27,6 @@
     <string name="spb_name">Санкт-Петербург</string>
     <string name="spb_description">Северная столица России</string>
 
-    <string name="city_items_show">Интересности</string>
-    <string name="point_item_info_show">Подробнее</string>
+    <string name="city_items_show">▶ Отправиться</string>
+    <string name="point_item_info_show">▶ Пройтись</string>
 </resources>

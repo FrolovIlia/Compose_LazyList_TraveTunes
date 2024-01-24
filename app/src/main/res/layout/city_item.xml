@@ -53,11 +53,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/moveInCity"
-            android:layout_width="wrap_content"
+            android:layout_width="197dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            android:backgroundTint="@color/purple_200"
+            android:backgroundTint="@color/main_blue"
             android:text="@string/city_items_show"
+            app:cornerRadius="40dp"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="@id/image"
             app:layout_constraintEnd_toEndOf="@id/cityName"
