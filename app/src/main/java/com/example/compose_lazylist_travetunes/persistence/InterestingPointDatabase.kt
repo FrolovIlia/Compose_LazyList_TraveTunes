@@ -35,7 +35,10 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                     InterestingPointDatabase::class.java,
                     nameDatabase
                 )
-                    .addCallback(InterestingPointsDatabaseCallback(scope))
+//                    FIXME
+//                    .addCallback(InterestingPointsDatabaseCallback(scope))
+                    .createFromAsset("interesting_point_database.db")
+
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
