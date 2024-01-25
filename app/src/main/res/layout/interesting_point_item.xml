@@ -29,7 +29,7 @@
             android:layout_marginStart="16dp"
             tools:text="Иваново"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="#000000"
             android:textSize="20sp"
             android:layout_marginEnd="16dp"
@@ -53,17 +53,18 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/moveInCity"
-            android:layout_width="197dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
             android:backgroundTint="@color/main_blue"
             android:text="@string/point_item_info_show"
-            app:cornerRadius="40dp"
-            android:layout_marginBottom="4dp"
             android:textAllCaps="false"
-            app:layout_constraintStart_toStartOf="@id/cityName"
-            app:layout_constraintEnd_toEndOf="@id/cityName"
+            app:cornerRadius="40dp"
             app:layout_constraintBottom_toBottomOf="@id/image"
-             />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
