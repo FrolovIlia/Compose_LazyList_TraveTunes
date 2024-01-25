@@ -36,8 +36,8 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                     nameDatabase
                 )
 //                    FIXME
-//                    .addCallback(InterestingPointsDatabaseCallback(scope))
-                    .createFromAsset("interesting_point_database.db")
+                    .addCallback(InterestingPointsDatabaseCallback(scope))
+//                    .createFromAsset("interesting_point_database.db")
 
                     .fallbackToDestructiveMigration()
                     .build()
