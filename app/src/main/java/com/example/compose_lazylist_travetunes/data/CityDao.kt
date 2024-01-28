@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CityDao {
-
     /**
      * получить все города
      */
