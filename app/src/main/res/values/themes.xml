@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Compose_LazyList_TraveTunes" parent="android:Theme.Material.Light.NoActionBar" />
+<!--    <style name="Theme.Compose_LazyList_TraveTunes" parent="android:Theme.Material.Light.NoActionBar" />-->
+    <style name="Theme.TT" parent="Theme.AppCompat.Light.NoActionBar" />
+    <style name="Theme.TT_MATERIAL" parent="Theme.MaterialComponents.Light.NoActionBar" />
 </resources>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="road_info">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/main_blue"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textViewHeader"
+        android:layout_width="0dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Всё о Невском"
+        android:textColor="#FEFEFE"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#00FFFFFF"
+        android:contentDescription="back step"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <ScrollView
+            android:id="@+id/scrollContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="scroll content">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="237dp"
+                    app:srcCompat="@drawable/spb_road_pic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="112dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageDistance"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/journey" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/distanceView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="Расстояние"
+                                    android:textColor="#212121"
+                                    android:textSize="16sp"
+                                    tools:ignore="RtlHardcoded" />
+
+                                <TextView
+                                    android:id="@+id/city_choice_title"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="4 километра"
+                                    android:textSize="16sp"
+                                    tools:ignore="RtlHardcoded" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageTime"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/hourglass" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/timeView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="Время"
+                                    android:textColor="#212121"
+                                    android:textSize="16sp"
+                                    tools:ignore="RtlHardcoded" />
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="45 минут"
+                                    android:textSize="16sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageTransport"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/rocket" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/transportView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="Транспорт"
+                                    android:textColor="#212121"
+                                    android:textSize="16sp"
+                                    tools:ignore="RtlHardcoded" />
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="Пешком"
+                                    android:textSize="16sp"
+                                    tools:ignore="RtlHardcoded" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imageObjects"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                app:srcCompat="@drawable/temple" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/objectsView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="Объектов"
+                                    android:textColor="#212121"
+                                    android:textSize="16sp"
+                                    tools:ignore="RtlHardcoded" />
+
+                                <TextView
+                                    android:id="@+id/textView8"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center|left"
+                                    android:text="19"
+                                    android:textSize="16sp"
+                                    tools:ignore="RtlHardcoded" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/shortAbout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="Коротко про ..."
+                        android:textColor="#212121"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:id="@+id/play_story"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+
+                        <ImageButton
+                            android:id="@+id/play"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="#00FFFFFF"
+                            android:contentDescription="playButton"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/play_button" />
+
+                        <SeekBar
+                            android:id="@+id/seekbar"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            tools:ignore="NestedWeights" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp" />
+
+                <TextView
+
+                    android:id="@+id/storyView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Маршрут по Невскому проспекту в Петербурге – один из самых популярных и захватывающих путешествий для туристов, а также любителей искусства, истории и архитектуры. Протяженность Невского проспекта составляет около 4,5 километров, и он буквально пронизывает сердце города, соединяя такие исторические районы, как Адмиралтейская набережная, Гостиный двор, Владимирский проспект, Литейный проспект и Московский вокзал.\n
+                    \nНачинающийся от трех крестов при площади Восстания, маршрут на Невском проспекте вплетается во все атмосферные улицы Петербурга. Его история насчитывает более 300 лет, и это было и по-прежнему является самым важным местом для жителей и гостей города. По пути можно увидеть массу монастырей, кафе, магазинов высокой моды, кинотеатров, ресторанов, музеев и памятников архитектуры.\n
+                    \nНевский проспект также предлагает отличные возможности для шопинга и даёт вам возможность приобрести самые изысканные российские бренды."
+                    />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!--Переход на карту-->
+    <Button
+        android:id="@+id/buttonMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/main_blue"
+        android:text="Пройтись по маршруту"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
