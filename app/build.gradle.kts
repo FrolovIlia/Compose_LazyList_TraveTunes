@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.compose_lazylist_travetunes"
+    namespace = "io.travel_tunes"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.compose_lazylist_travetunes"
+        applicationId = "io.travel_tunes"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Compose_LazyList_TraveTunes"
+rootProject.name = "TravelTunes"
 include(":app")
  
