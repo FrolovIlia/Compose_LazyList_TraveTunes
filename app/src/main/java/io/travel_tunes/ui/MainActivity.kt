@@ -1,5 +1,7 @@
 package io.travel_tunes.ui
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.travel_tunes.R
@@ -10,6 +12,12 @@ import io.travel_tunes.ui.fragments.points.PointsFragment
 class MainActivity : AppCompatActivity(), CitiesFragment.OnFragmentInteractionListener {
 
     private lateinit var binding: ActivityInterestingPointsBinding
+
+    companion object {
+        fun getInstance(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import io.travel_tunes.model.CityEntity
 import io.travel_tunes.model.InterestingPointEntity
+import io.travel_tunes.utils.Constants
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -44,7 +45,7 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                 instance
             }
         }
-        private fun getDatabaseName() = io.travel_tunes.Constants.DATABASE_NAME
+        private fun getDatabaseName() = Constants.DATABASE_NAME
     }
 
     private class InterestingPointsDatabaseCallback(

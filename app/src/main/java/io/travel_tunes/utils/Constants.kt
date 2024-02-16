@@ -1,4 +1,4 @@
-package io.travel_tunes
+package io.travel_tunes.utils
 
 object Constants {
 

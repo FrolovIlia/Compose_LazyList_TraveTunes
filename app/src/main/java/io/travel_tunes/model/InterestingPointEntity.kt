@@ -6,7 +6,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import io.travel_tunes.Constants
+import io.travel_tunes.utils.Constants
 
 @Entity(tableName = Constants.POINT_TABLE_NAME, indices = [Index(value = ["id"], unique = true)])
 data class InterestingPointEntity(

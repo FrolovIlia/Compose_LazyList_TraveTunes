@@ -2,6 +2,17 @@
 <resources>
 
 <!--    <style name="Theme.TravelTunes" parent="android:Theme.Material.Light.NoActionBar" />-->
-    <style name="Theme.TT" parent="Theme.AppCompat.Light.NoActionBar" />
-    <style name="Theme.TT_MATERIAL" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="TravelTunes" parent="Theme.MaterialComponents.Light" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/color_status_bar_background</item>
+        <item name="android:windowBackground">@color/color_background</item>
+    </style>
+
+    <style name="TravelTunes.Splash">
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
 </resources>
