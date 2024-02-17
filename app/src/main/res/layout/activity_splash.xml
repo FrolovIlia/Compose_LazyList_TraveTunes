@@ -4,22 +4,38 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<!--    <ProgressBar-->
+<!--        android:layout_width="220dp"-->
+<!--        android:layout_height="220dp"-->
+<!--        android:id="@+id/progressBar"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:indeterminate="true"-->
+<!--        android:progressDrawable="@drawable/custom_progress"-->
+<!--        android:indeterminateTint="#047CFF"-->
+<!--        android:layout_marginTop="200dp"-->
+<!--        />-->
+
     <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:id="@+id/progressBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:indeterminate="true"
-        android:progressDrawable="@drawable/custom_progress"
+        android:backgroundTint="#000000"
+        android:foregroundTint="#FFFFFF"
         android:indeterminateTint="#047CFF"
-        android:layout_marginTop="200dp"
-        />
+        android:progressBackgroundTint="#000000"
+        android:progressTint="#000000"
+        android:secondaryProgressTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="143dp"
-        android:layout_height="wrap_content"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         app:srcCompat="@drawable/pic_splash_logo"
         android:id="@+id/logoImg"
         app:layout_constraintStart_toStartOf="@id/progressBar"

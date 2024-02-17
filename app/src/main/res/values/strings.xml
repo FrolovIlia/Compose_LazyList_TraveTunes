@@ -12,6 +12,7 @@
     <string name="fragment_route_info_description_label">Коротко про…</string>
     <string name="fragment_route_info_button_text">Пройтись по маршруту</string>
 
+    <string name="empty"></string>
 
     <string name="city_items_show">▶ В путь</string>
     <string name="point_item_info_show">▶ Пройтись</string>
