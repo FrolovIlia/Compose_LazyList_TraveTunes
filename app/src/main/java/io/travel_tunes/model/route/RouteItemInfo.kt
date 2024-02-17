@@ -14,9 +14,7 @@ data class RouteItemInfo(
     private val distance: String,
     private val duration: String,
     private val points: List<PointItemInfo>
-//    private val pictures: List
 ): Parcelable {
-    fun getId() = id
     fun getTitle() = title
     fun getTag() = tag
     fun getDescription() = description
