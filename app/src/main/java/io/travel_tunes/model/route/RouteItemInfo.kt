@@ -1,6 +1,7 @@
 package io.travel_tunes.model.route
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -8,7 +9,7 @@ data class RouteItemInfo(
     private val id: String,
     private val title: String,
     private val description: String,
-    private val descriptionShort: String,
+    @SerializedName("description_short") private val descriptionShort: String,
     private val distance: String,
     private val duration: String,
     private val points: List<PointItemInfo>
