@@ -5,7 +5,7 @@
     <style name="TravelTunes" parent="Theme.MaterialComponents.Light" >
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/color_status_bar_background</item>
+        <item name="android:statusBarColor">@color/main_blue</item>
         <item name="android:windowBackground">@color/color_background</item>
     </style>
 

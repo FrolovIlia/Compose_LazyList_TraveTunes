@@ -11,4 +11,5 @@
 
     <color name="color_status_bar_background">#1F000000</color>
     <color name="color_background">#eee</color>
+    <color name="color_toolbar_background">@color/main_blue</color>
 </resources>

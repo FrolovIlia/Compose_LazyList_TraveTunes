@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="8dp"
-    android:layout_marginBottom="@dimen/spacing_8"
-    app:cardElevation="0dp">
+    app:cardElevation="@dimen/elevation_0">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -67,67 +66,5 @@
             app:layout_constraintStart_toEndOf="@+id/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        android:padding="0dp">-->
-
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:orientation="horizontal"-->
-    <!--            android:outlineAmbientShadowColor="#000000">-->
-
-    <!--            <ImageView-->
-    <!--                android:id="@+id/cityImg"-->
-    <!--                android:layout_width="150dp"-->
-    <!--                android:layout_height="200dp"-->
-    <!--                app:srcCompat="@drawable/ivanovo_city" />-->
-
-    <!--            <Space-->
-    <!--                android:layout_width="10dp"-->
-    <!--                android:layout_height="match_parent" />-->
-
-    <!--            <LinearLayout-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:orientation="vertical">-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/cityName"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="match_parent"-->
-    <!--                    android:text="Иваново"-->
-    <!--                    android:textColor="#000000"-->
-    <!--                    android:textSize="20sp" />-->
-
-    <!--                <TextView-->
-    <!--                    android:id="@+id/cityDescription"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="125dp"-->
-    <!--                    android:text="Город административного значения в центральной части России. Нередко Иваново называют – «город невест», а также «родина Первого Совета», «ситцевый край» и «текстильная столица России». "-->
-    <!--                    android:textColor="#555555" />-->
-
-    <!--                <Button-->
-    <!--                    android:id="@+id/move_in_city"-->
-    <!--                    android:layout_width="match_parent"-->
-    <!--                    android:layout_height="match_parent"-->
-    <!--                    android:backgroundTint="@color/actionbar_background"-->
-    <!--                    android:foregroundGravity="right"-->
-    <!--                    android:text="Отправиться"-->
-    <!--                    android:textAllCaps="false"-->
-    <!--                    app:cornerRadius="40dp" />-->
-
-    <!--            </LinearLayout>-->
-
-    <!--        </LinearLayout>-->
-
-
-    <!--    </LinearLayout>-->
-
 
 </com.google.android.material.card.MaterialCardView>

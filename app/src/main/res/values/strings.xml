@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TravelTunes</string>
 
+    <string name="fragment_routes_title">Санкт-Петербург</string>
+
     <string name="spb_point_description1">Улица с разноцветными домами</string>
     <string name="spb_point_description2">Площадь с величественной колонной</string>
     <string name="spb_point_description3">Набережная Невы</string>
