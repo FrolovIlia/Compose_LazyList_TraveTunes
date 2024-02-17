@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class RouteItemInfo(
     private val id: String,
     private val title: String,
+    private val tag: String,
     private val description: String,
     @SerializedName("description_short") private val descriptionShort: String,
     private val distance: String,
@@ -17,6 +18,7 @@ data class RouteItemInfo(
 ): Parcelable {
     fun getId() = id
     fun getTitle() = title
+    fun getTag() = tag
     fun getDescription() = description
     fun getDescriptionShort() = descriptionShort
     fun getDistance() = distance

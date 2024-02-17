@@ -6,8 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import io.travel_tunes.R
+import io.travel_tunes.data.DataGenerator
 import io.travel_tunes.databinding.FragmentRouteInfoBinding
 import io.travel_tunes.model.route.RouteItemInfo
+import io.travel_tunes.utils.adapters.MyOuterHorizontalSpaceItemDecoration
+import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
+import io.travel_tunes.utils.adapters.MySpaceItemDecoration
+import io.travel_tunes.utils.adapters.PhotoMiniAdapter
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
@@ -18,6 +24,7 @@ class RouteInfoFragment : Fragment() {
     private lateinit var viewModel: RouteInfoViewModel
 
     private lateinit var binding: FragmentRouteInfoBinding
+    private lateinit var adapterPhotos: PhotoMiniAdapter
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
@@ -47,6 +54,26 @@ class RouteInfoFragment : Fragment() {
 
     private fun initViews() {
         initToolbar()
+        adapterPhotos = PhotoMiniAdapter()
+
+        val margin16 = resources.getDimensionPixelSize(R.dimen.spacing_16)
+        val margin8 = margin16 / 2
+        val dividerOuter = MyOuterHorizontalSpaceItemDecoration(
+            startSpaceSize = margin16,
+            endSpaceSize = margin16
+        )
+        val dividerInner = MySpaceItemDecoration(
+            orientation = MySpaceItemDecoration.Orientation.HORIZONTAL,
+            spaceSize = margin8
+        )
+        binding.photosRV.addItemDecoration(dividerOuter)
+        binding.photosRV.addItemDecoration(dividerInner)
+
+        with(binding.photosRV) {
+            adapter = adapterPhotos
+            setHasFixedSize(true)
+            addItemDecoration(dividerInner)
+        }
     }
 
     private fun initToolbar() {
@@ -98,6 +125,14 @@ class RouteInfoFragment : Fragment() {
             durationValue.changeText(routeItemInfo.getDuration())
             pointsValue.changeText(routeItemInfo.getPoints().size.toString())
             descriptionValue.changeText(routeItemInfo.getDescription())
+
+            val photos = DataGenerator.getPointPicturesResByRouteTag(routeItemInfo.getTag())
+            if (photos.isEmpty()) {
+                photosRV.changeVisibility(false)
+            } else {
+                photosRV.changeVisibility(true)
+                adapterPhotos.updateData(photos)
+            }
         }
     }
 }

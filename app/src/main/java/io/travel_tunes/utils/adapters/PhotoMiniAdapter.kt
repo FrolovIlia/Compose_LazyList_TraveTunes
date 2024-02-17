@@ -7,29 +7,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.travel_tunes.R
-import io.travel_tunes.data.DataGenerator
-import io.travel_tunes.databinding.RouteItemBinding
-import io.travel_tunes.model.route.RouteItemInfo
-import io.travel_tunes.utils.extencions.changeText
+import io.travel_tunes.databinding.PhotoItemBinding
 
-class RoutesAdapter(private val onButtonClickListener: (RouteItemInfo) -> Unit) :
-    RecyclerView.Adapter<RoutesAdapter.RouteItemHolder>() {
+class PhotoMiniAdapter :
+    RecyclerView.Adapter<PhotoMiniAdapter.PhotoItemHolder>() {
 
-    private var itemsList: List<RouteItemInfo> = listOf()
+    private var itemsList: List<Int> = listOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteItemHolder {
-        val binding = RouteItemBinding
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoItemHolder {
+        val binding = PhotoItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return RouteItemHolder(binding)
+        return PhotoItemHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RouteItemHolder, position: Int) {
+    override fun onBindViewHolder(holder: PhotoItemHolder, position: Int) {
         holder.bind(itemsList[position])
     }
 
     override fun getItemCount(): Int = itemsList.size
 
-    fun updateData(data: List<RouteItemInfo>) {
+    fun updateData(data: List<Int>) {
         val diffCallback = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = itemsList.size
 
@@ -47,20 +44,14 @@ class RoutesAdapter(private val onButtonClickListener: (RouteItemInfo) -> Unit) 
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class RouteItemHolder(private val binding: RouteItemBinding) :
+    inner class PhotoItemHolder(private val binding: PhotoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(route: RouteItemInfo) {
-            binding.routeTitle.changeText(route.getTitle())
-            binding.routeDescription.changeText(route.getDescriptionShort())
-            binding.showRouteInfo.setOnClickListener { onButtonClickListener.invoke(route) }
-
-            val pictureRes = DataGenerator.getRoutePictureResByRouteTag(route.getTag())
-
+        fun bind(drawableRes: Int) {
             with(binding.image) {
                 Glide
                     .with(this)
-                    .load(pictureRes)
-                    .error(R.drawable.ic_launcher_foreground)
+                    .load(drawableRes)
+                    .error(R.drawable.pic_default)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(this)
             }
