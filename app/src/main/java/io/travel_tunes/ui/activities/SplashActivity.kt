@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import io.travel_tunes.databinding.ActivitySplashBinding
-import io.travel_tunes.ui.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

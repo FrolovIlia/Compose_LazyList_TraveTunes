@@ -1,4 +1,4 @@
-package io.travel_tunes.ui
+package io.travel_tunes.ui.activities
 
 import android.content.Context
 import android.content.Intent
