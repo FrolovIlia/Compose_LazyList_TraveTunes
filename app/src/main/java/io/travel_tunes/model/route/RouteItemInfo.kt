@@ -8,6 +8,7 @@ data class RouteItemInfo(
     private val id: String,
     private val title: String,
     private val description: String,
+    private val descriptionShort: String,
     private val distance: String,
     private val duration: String,
     private val points: List<PointItemInfo>
@@ -16,6 +17,7 @@ data class RouteItemInfo(
     fun getId() = id
     fun getTitle() = title
     fun getDescription() = description
+    fun getDescriptionShort() = descriptionShort
     fun getDistance() = distance
     fun getDuration() = duration
     fun getPoints() = points

@@ -51,7 +51,7 @@ class RoutesAdapter(private val onButtonClickListener: (RouteItemInfo) -> Unit) 
         fun bind(route: RouteItemInfo) {
             val context = binding.root.context
             binding.routeTitle.changeText(route.getTitle())
-            binding.routeDescription.changeText(route.getDescription())
+            binding.routeDescription.changeText(route.getDescriptionShort())
             binding.showRouteInfo.setOnClickListener { onButtonClickListener.invoke(route) }
 
             val pictureRes = when(route.getId()) {

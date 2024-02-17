@@ -1,5 +1,6 @@
 package io.travel_tunes.ui.fragments.routes.list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRoutesBinding
+import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.RoutesAdapter
@@ -23,6 +25,7 @@ class RoutesFragment : Fragment() {
 
     private lateinit var binding: FragmentRoutesBinding
     private lateinit var adapterRoutes: RoutesAdapter
+    private var listener: OnFragmentInteractionListener? = null
 
     companion object {
         fun getInstance(): RoutesFragment {
@@ -31,6 +34,24 @@ class RoutesFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    interface OnFragmentInteractionListener {
+        fun openRouteInfoScreen(routeItemInfo: RouteItemInfo)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     override fun onCreateView(
@@ -51,22 +72,21 @@ class RoutesFragment : Fragment() {
     private fun initViews() {
         initToolbar()
         adapterRoutes = RoutesAdapter { route ->
-            Toast.makeText(
-                requireContext(),
-                route.getTitle(),
-                Toast.LENGTH_SHORT
-            ).show()
+            listener?.openRouteInfoScreen(route)
         }
 
         binding.routesRV.adapter = adapterRoutes
 
         val margin16 = resources.getDimensionPixelSize(R.dimen.spacing_16)
-        val margin8 = margin16/2
+        val margin8 = margin16 / 2
         val dividerOuter = MyOuterVerticalSpaceItemDecoration(
             topSpaceSize = margin16,
             bottomSpaceSize = margin16
         )
-        val dividerInner = MySpaceItemDecoration(orientation = MySpaceItemDecoration.Orientation.VERTICAL, spaceSize = margin8)
+        val dividerInner = MySpaceItemDecoration(
+            orientation = MySpaceItemDecoration.Orientation.VERTICAL,
+            spaceSize = margin8
+        )
         binding.routesRV.addItemDecoration(dividerOuter)
         binding.routesRV.addItemDecoration(dividerInner)
     }
