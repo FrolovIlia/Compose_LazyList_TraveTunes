@@ -41,7 +41,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/white"
             android:textSize="@dimen/text_24"
             app:layout_constraintBottom_toBottomOf="parent"
