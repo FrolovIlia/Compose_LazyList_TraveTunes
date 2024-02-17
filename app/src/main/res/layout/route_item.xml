@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/cityName"
+            android:id="@+id/routeTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
@@ -37,21 +37,21 @@
             app:layout_constraintTop_toTopOf="@id/image" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/cityDescription"
+            android:id="@+id/routeDescription"
             android:layout_width="0dp"
             android:layout_height="0dp"
             tools:text="Город административного значения в центральной части России. Нередко Иваново называют – «город невест», а также «родина Первого Совета», «ситцевый край» и «текстильная столица России». "
-            app:layout_constraintTop_toBottomOf="@id/cityName"
+            app:layout_constraintTop_toBottomOf="@id/routeTitle"
             android:textColor="#555555"
             android:ellipsize="end"
             android:layout_marginBottom="4dp"
             app:layout_constraintVertical_bias="0"
-            app:layout_constraintBottom_toTopOf="@id/moveInCity"
-            app:layout_constraintEnd_toEndOf="@id/cityName"
-            app:layout_constraintStart_toStartOf="@id/cityName" />
+            app:layout_constraintBottom_toTopOf="@id/showRouteInfo"
+            app:layout_constraintEnd_toEndOf="@id/routeTitle"
+            app:layout_constraintStart_toStartOf="@id/routeTitle" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/moveInCity"
+            android:id="@+id/showRouteInfo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"

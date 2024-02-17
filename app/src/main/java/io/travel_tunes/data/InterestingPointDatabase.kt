@@ -4,12 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import io.travel_tunes.model.CityEntity
 import io.travel_tunes.model.InterestingPointEntity
 import io.travel_tunes.utils.Constants
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Database(entities = [InterestingPointEntity::class, CityEntity::class], version = 2)
 abstract class InterestingPointDatabase: RoomDatabase() {
@@ -35,7 +33,7 @@ abstract class InterestingPointDatabase: RoomDatabase() {
                     nameDatabase
                 )
 //                    FIXME
-                    .addCallback(InterestingPointsDatabaseCallback(scope))
+//                    .addCallback(InterestingPointsDatabaseCallback(scope))
 //                    .createFromAsset("interesting_point_database.db")
 
                     .fallbackToDestructiveMigration()
@@ -48,36 +46,36 @@ abstract class InterestingPointDatabase: RoomDatabase() {
         private fun getDatabaseName() = Constants.DATABASE_NAME
     }
 
-    private class InterestingPointsDatabaseCallback(
-        private val scope: CoroutineScope
-    ): Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-            INSTANCE?.let { database ->
-                scope.launch {
-                    val interestingPointDao = database.interestingPointDao()
-                    val cityDao = database.cityDao()
-
-                    // Delete all content here.
-                    interestingPointDao.deleteAll()
-
-                    // Add sample words.
-                    val listOfPoints = DataGenerator.getDefaultPointsList()
-                    listOfPoints.forEach { point ->
-                        interestingPointDao.insert(point)
-                    }
-
-
-                    // Delete all content here.
-                    cityDao.deleteAll()
-
-                    // Add sample words.
-                    val listOfCities = DataGenerator.getDefaultCities()
-                    listOfCities.forEach { point ->
-                        cityDao.insert(point)
-                    }
-                }
-            }
-        }
-    }
+//    private class InterestingPointsDatabaseCallback(
+//        private val scope: CoroutineScope
+//    ): Callback() {
+//        override fun onCreate(db: SupportSQLiteDatabase) {
+//            super.onCreate(db)
+//            INSTANCE?.let { database ->
+//                scope.launch {
+//                    val interestingPointDao = database.interestingPointDao()
+//                    val cityDao = database.cityDao()
+//
+//                    // Delete all content here.
+//                    interestingPointDao.deleteAll()
+//
+//                    // Add sample words.
+//                    val listOfPoints = DataGenerator.getDefaultPointsList()
+//                    listOfPoints.forEach { point ->
+//                        interestingPointDao.insert(point)
+//                    }
+//
+//
+//                    // Delete all content here.
+//                    cityDao.deleteAll()
+//
+//                    // Add sample words.
+//                    val listOfCities = DataGenerator.getDefaultCities()
+//                    listOfCities.forEach { point ->
+//                        cityDao.insert(point)
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

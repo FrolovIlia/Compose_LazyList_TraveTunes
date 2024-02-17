@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRoutesBinding
-import io.travel_tunes.utils.adapters.InterestingPointsAdapter
 import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
+import io.travel_tunes.utils.adapters.RoutesAdapter
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.changeVisibilityInvisible
@@ -22,7 +22,7 @@ class RoutesFragment : Fragment() {
     private lateinit var viewModel: RoutesViewModel
 
     private lateinit var binding: FragmentRoutesBinding
-    private lateinit var adapterPoints: InterestingPointsAdapter
+    private lateinit var adapterRoutes: RoutesAdapter
 
     companion object {
         fun getInstance(): RoutesFragment {
@@ -50,18 +50,15 @@ class RoutesFragment : Fragment() {
 
     private fun initViews() {
         initToolbar()
-        adapterPoints = InterestingPointsAdapter { point ->
-            /**
-             * вот тут мы понимаем на какой элемент произошло нажатие в RecyclerView
-             */
+        adapterRoutes = RoutesAdapter { route ->
             Toast.makeText(
                 requireContext(),
-                "${this.resources.getText(point.title)}",
+                route.getTitle(),
                 Toast.LENGTH_SHORT
             ).show()
         }
 
-        binding.routesRV.adapter = adapterPoints
+        binding.routesRV.adapter = adapterRoutes
 
         val margin16 = resources.getDimensionPixelSize(R.dimen.spacing_16)
         val margin8 = margin16/2
@@ -100,7 +97,9 @@ class RoutesFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[RoutesViewModel::class.java]
 
         viewModel.routes.observe(viewLifecycleOwner) { points ->
-            adapterPoints.updateData(points)
+            adapterRoutes.updateData(points)
         }
+
+        viewModel.initRoutes(requireContext())
     }
 }
