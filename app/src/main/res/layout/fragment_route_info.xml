@@ -61,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_distance_label"
+                android:textColor="@color/main_black"
                 app:layout_constraintBottom_toTopOf="@id/distanceValue"
                 app:layout_constraintStart_toEndOf="@id/distanceImage"
                 app:layout_constraintTop_toTopOf="@id/distanceImage" />
@@ -72,7 +73,9 @@
                 app:layout_constraintBottom_toBottomOf="@id/distanceImage"
                 app:layout_constraintStart_toStartOf="@id/distanceLabel"
                 app:layout_constraintTop_toBottomOf="@id/distanceLabel"
-                tools:text="4 км" />
+                tools:text="4 км"
+                android:textSize="12dp"
+                />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/durationImage"
@@ -88,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_duration_label"
+                android:textColor="@color/main_black"
                 app:layout_constraintBottom_toTopOf="@id/durationValue"
                 app:layout_constraintStart_toEndOf="@id/durationImage"
                 app:layout_constraintTop_toTopOf="@id/durationImage" />
@@ -99,7 +103,9 @@
                 app:layout_constraintBottom_toBottomOf="@id/durationImage"
                 app:layout_constraintStart_toStartOf="@id/durationLabel"
                 app:layout_constraintTop_toBottomOf="@id/durationLabel"
-                tools:text="45 минут" />
+                tools:text="45 минут"
+                android:textSize="12dp"
+                />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/dividerHor1"
@@ -126,6 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_travel_mode_label"
+                android:textColor="@color/main_black"
                 app:layout_constraintBottom_toTopOf="@id/travelModeValue"
                 app:layout_constraintStart_toEndOf="@id/travelModeImage"
                 app:layout_constraintTop_toTopOf="@id/travelModeImage" />
@@ -135,6 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_travel_mode_value"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/travelModeImage"
                 app:layout_constraintStart_toStartOf="@id/travelModeLabel"
                 app:layout_constraintTop_toBottomOf="@id/travelModeLabel" />
@@ -154,6 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_points_label"
+                android:textColor="@color/main_black"
                 app:layout_constraintBottom_toTopOf="@id/pointsValue"
                 app:layout_constraintStart_toEndOf="@id/pointsImage"
                 app:layout_constraintTop_toTopOf="@id/pointsImage" />
@@ -165,7 +174,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/pointsImage"
                 app:layout_constraintStart_toStartOf="@id/pointsLabel"
                 app:layout_constraintTop_toBottomOf="@id/pointsLabel"
-                tools:text="19" />
+                tools:text="19"
+                android:textSize="12dp" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/dividerHor2"
@@ -184,6 +194,9 @@
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/fragment_route_info_photos_label"
+                android:textColor="@color/main_black"
+                android:textSize="20dp"
+                app:fontFamily="@font/roboto_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dividerHor2" />
 
@@ -208,6 +221,9 @@
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/fragment_route_info_description_label"
+                android:textColor="@color/main_black"
+                android:textSize="20dp"
+                app:fontFamily="@font/roboto_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/photosRV" />
 
@@ -221,7 +237,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descriptionLabel"
-                tools:text="@tools:sample/lorem/random" />
+                tools:text="@tools:sample/lorem/random"
+                android:textColor="@color/main_black" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -229,10 +246,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_16"
+        android:backgroundTint="@color/main_blue"
+        android:paddingLeft="17dp"
+        android:paddingRight="17dp"
         android:text="@string/fragment_route_info_button_text"
+        android:textAllCaps="false"
+        app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
