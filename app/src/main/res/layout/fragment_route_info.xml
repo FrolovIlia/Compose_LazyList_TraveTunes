@@ -18,6 +18,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="65dp"
         android:fillViewport="true"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,6 +36,7 @@
                 android:layout_height="220dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/spb_road_pic" />
@@ -70,12 +72,11 @@
                 android:id="@+id/distanceValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/distanceImage"
                 app:layout_constraintStart_toStartOf="@id/distanceLabel"
                 app:layout_constraintTop_toBottomOf="@id/distanceLabel"
-                tools:text="4 км"
-                android:textSize="12dp"
-                />
+                tools:text="4 км" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/durationImage"
@@ -100,12 +101,11 @@
                 android:id="@+id/durationValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/durationImage"
                 app:layout_constraintStart_toStartOf="@id/durationLabel"
                 app:layout_constraintTop_toBottomOf="@id/durationLabel"
-                tools:text="45 минут"
-                android:textSize="12dp"
-                />
+                tools:text="45 минут" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/dividerHor1"
@@ -171,11 +171,11 @@
                 android:id="@+id/pointsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/pointsImage"
                 app:layout_constraintStart_toStartOf="@id/pointsLabel"
                 app:layout_constraintTop_toBottomOf="@id/pointsLabel"
-                tools:text="19"
-                android:textSize="12dp" />
+                tools:text="19" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/dividerHor2"
@@ -233,12 +233,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_16"
                 android:paddingBottom="@dimen/spacing_56"
+                android:textColor="@color/main_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descriptionLabel"
-                tools:text="@tools:sample/lorem/random"
-                android:textColor="@color/main_black" />
+                tools:text="@tools:sample/lorem/random" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,8 +19,6 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="@dimen/spacing_16"
-            android:layout_marginTop="@dimen/spacing_16"
-            android:layout_marginBottom="@dimen/spacing_24"
             android:background="?android:attr/actionBarItemBackground"
             android:padding="@dimen/spacing_12"
             android:src="@drawable/ic_arrow_back"
@@ -35,9 +33,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_12"
-            android:layout_marginTop="@dimen/spacing_16"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/spacing_12"
-            android:layout_marginBottom="@dimen/spacing_24"
+            android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
@@ -46,8 +44,10 @@
             android:textSize="@dimen/text_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/toolbarSettings"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/toolbarBackArrow"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="title" />
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -59,9 +59,9 @@
             android:padding="@dimen/spacing_12"
             android:src="@drawable/ic_settings"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/toolbarBackArrow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/toolbarBackArrow"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
