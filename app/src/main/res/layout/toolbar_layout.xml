@@ -5,7 +5,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_toolbar_background"
+    android:background="@color/main_blue"
     android:elevation="@dimen/elevation_0"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp">
@@ -40,7 +40,7 @@
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
             android:maxLines="2"
-            android:textColor="@color/white"
+            android:textColor="@color/main_white"
             android:textSize="@dimen/text_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/toolbarSettings"

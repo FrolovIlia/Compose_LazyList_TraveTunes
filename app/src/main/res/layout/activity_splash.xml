@@ -4,30 +4,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <ProgressBar-->
-<!--        android:layout_width="220dp"-->
-<!--        android:layout_height="220dp"-->
-<!--        android:id="@+id/progressBar"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:indeterminate="true"-->
-<!--        android:progressDrawable="@drawable/custom_progress"-->
-<!--        android:indeterminateTint="#047CFF"-->
-<!--        android:layout_marginTop="200dp"-->
-<!--        />-->
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:backgroundTint="#000000"
-        android:foregroundTint="#FFFFFF"
-        android:indeterminateTint="#047CFF"
-        android:progressBackgroundTint="#000000"
-        android:progressTint="#000000"
-        android:secondaryProgressTint="#000000"
+        android:backgroundTint="@color/main_black"
+        android:foregroundTint="@color/main_white"
+        android:indeterminateTint="@color/main_blue"
+        android:progressBackgroundTint="@color/main_black"
+        android:progressTint="@color/main_black"
+        android:secondaryProgressTint="@color/main_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
