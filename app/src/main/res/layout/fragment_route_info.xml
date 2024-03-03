@@ -60,19 +60,19 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/distanceLabel"
+                style="@style/FontSemiBold.Dark16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_distance_label"
-                android:textColor="@color/main_black"
                 app:layout_constraintBottom_toTopOf="@id/distanceValue"
                 app:layout_constraintStart_toEndOf="@id/distanceImage"
                 app:layout_constraintTop_toTopOf="@id/distanceImage" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/distanceValue"
+                style="@style/FontRegular.Gray12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/distanceImage"
                 app:layout_constraintStart_toStartOf="@id/distanceLabel"
                 app:layout_constraintTop_toBottomOf="@id/distanceLabel"
@@ -89,19 +89,19 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/durationLabel"
+                style="@style/FontSemiBold.Dark16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_duration_label"
-                android:textColor="@color/main_black"
                 app:layout_constraintBottom_toTopOf="@id/durationValue"
                 app:layout_constraintStart_toEndOf="@id/durationImage"
                 app:layout_constraintTop_toTopOf="@id/durationImage" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/durationValue"
+                style="@style/FontRegular.Gray12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/durationImage"
                 app:layout_constraintStart_toStartOf="@id/durationLabel"
                 app:layout_constraintTop_toBottomOf="@id/durationLabel"
@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_travel_mode_label"
-                android:textColor="@color/main_black"
+                style="@style/FontSemiBold.Dark16"
                 app:layout_constraintBottom_toTopOf="@id/travelModeValue"
                 app:layout_constraintStart_toEndOf="@id/travelModeImage"
                 app:layout_constraintTop_toTopOf="@id/travelModeImage" />
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_travel_mode_value"
-                android:textSize="12dp"
+                style="@style/FontRegular.Gray12"
                 app:layout_constraintBottom_toBottomOf="@id/travelModeImage"
                 app:layout_constraintStart_toStartOf="@id/travelModeLabel"
                 app:layout_constraintTop_toBottomOf="@id/travelModeLabel" />
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_points_label"
-                android:textColor="@color/main_black"
+                style="@style/FontSemiBold.Dark16"
                 app:layout_constraintBottom_toTopOf="@id/pointsValue"
                 app:layout_constraintStart_toEndOf="@id/pointsImage"
                 app:layout_constraintTop_toTopOf="@id/pointsImage" />
@@ -171,7 +171,7 @@
                 android:id="@+id/pointsValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
+                style="@style/FontRegular.Gray12"
                 app:layout_constraintBottom_toBottomOf="@id/pointsImage"
                 app:layout_constraintStart_toStartOf="@id/pointsLabel"
                 app:layout_constraintTop_toBottomOf="@id/pointsLabel"
@@ -195,8 +195,7 @@
                 android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/fragment_route_info_photos_label"
                 android:textColor="@color/main_black"
-                android:textSize="20dp"
-                app:fontFamily="@font/roboto_medium"
+                style="@style/FontSemiBold.Dark20"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dividerHor2" />
 
@@ -221,9 +220,7 @@
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/fragment_route_info_description_label"
-                android:textColor="@color/main_black"
-                android:textSize="20dp"
-                app:fontFamily="@font/roboto_medium"
+                style="@style/FontSemiBold.Dark20"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/photosRV" />
 
@@ -233,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_16"
                 android:paddingBottom="@dimen/spacing_16"
-                android:textColor="@color/main_black"
+                style="@style/FontRegular.Dark16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -253,7 +250,7 @@
         android:paddingLeft="17dp"
         android:paddingRight="17dp"
         android:text="@string/fragment_route_info_button_text"
-        android:textAllCaps="false"
+        android:textAppearance="@style/FontRegular.Dark16"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

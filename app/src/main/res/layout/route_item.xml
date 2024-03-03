@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     app:cardCornerRadius="8dp"
     app:cardElevation="@dimen/elevation_0">
 
@@ -16,39 +16,38 @@
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            tools:src="@drawable/pic_ivanovo_city"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/pic_ivanovo_city" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/routeTitle"
+            style="@style/FontBold.Dark20"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            tools:text="Иваново"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/main_black"
-            android:textSize="20sp"
-            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toTopOf="@id/image" />
+            app:layout_constraintTop_toTopOf="@id/image"
+            tools:text="Иваново" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/routeDescription"
+            style="@style/FontRegular.Gray14"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            tools:text="Город административного значения в центральной части России. Нередко Иваново называют – «город невест», а также «родина Первого Совета», «ситцевый край» и «текстильная столица России». "
-            app:layout_constraintTop_toBottomOf="@id/routeTitle"
-            android:textColor="@color/main_gray"
-            android:ellipsize="end"
             android:layout_marginBottom="4dp"
-            app:layout_constraintVertical_bias="0"
+            android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@id/showRouteInfo"
             app:layout_constraintEnd_toEndOf="@id/routeTitle"
-            app:layout_constraintStart_toStartOf="@id/routeTitle" />
+            app:layout_constraintStart_toStartOf="@id/routeTitle"
+            app:layout_constraintTop_toBottomOf="@id/routeTitle"
+            app:layout_constraintVertical_bias="0"
+            tools:text="Город административного значения в центральной части России. Нередко Иваново называют – «город невест», а также «родина Первого Совета», «ситцевый край» и «текстильная столица России». " />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/showRouteInfo"
@@ -59,7 +58,7 @@
             android:layout_marginBottom="4dp"
             android:backgroundTint="@color/main_blue"
             android:text="@string/point_item_info_show"
-            android:textAllCaps="false"
+            android:textAppearance="@style/FontRegular.White14"
             app:cornerRadius="40dp"
             app:layout_constraintBottom_toBottomOf="@id/image"
             app:layout_constraintEnd_toEndOf="parent"

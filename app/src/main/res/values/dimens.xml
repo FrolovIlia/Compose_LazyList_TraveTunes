@@ -11,5 +11,10 @@
     <dimen name="spacing_72">72dp</dimen>
 
     <dimen name="elevation_0">0dp</dimen>
+
+    <dimen name="text_12">12dp</dimen>
+    <dimen name="text_14">14dp</dimen>
+    <dimen name="text_16">16dp</dimen>
+    <dimen name="text_20">20dp</dimen>
     <dimen name="text_24">24dp</dimen>
 </resources>
