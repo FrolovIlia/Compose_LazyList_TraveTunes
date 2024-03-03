@@ -129,20 +129,20 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/travelModeLabel"
+                style="@style/FontSemiBold.Dark16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_travel_mode_label"
-                style="@style/FontSemiBold.Dark16"
                 app:layout_constraintBottom_toTopOf="@id/travelModeValue"
                 app:layout_constraintStart_toEndOf="@id/travelModeImage"
                 app:layout_constraintTop_toTopOf="@id/travelModeImage" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/travelModeValue"
+                style="@style/FontRegular.Gray12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_travel_mode_value"
-                style="@style/FontRegular.Gray12"
                 app:layout_constraintBottom_toBottomOf="@id/travelModeImage"
                 app:layout_constraintStart_toStartOf="@id/travelModeLabel"
                 app:layout_constraintTop_toBottomOf="@id/travelModeLabel" />
@@ -159,19 +159,19 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pointsLabel"
+                style="@style/FontSemiBold.Dark16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_route_info_points_label"
-                style="@style/FontSemiBold.Dark16"
                 app:layout_constraintBottom_toTopOf="@id/pointsValue"
                 app:layout_constraintStart_toEndOf="@id/pointsImage"
                 app:layout_constraintTop_toTopOf="@id/pointsImage" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/pointsValue"
+                style="@style/FontRegular.Gray12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/FontRegular.Gray12"
                 app:layout_constraintBottom_toBottomOf="@id/pointsImage"
                 app:layout_constraintStart_toStartOf="@id/pointsLabel"
                 app:layout_constraintTop_toBottomOf="@id/pointsLabel"
@@ -189,13 +189,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/photosLabel"
+                style="@style/FontSemiBold.Dark20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/fragment_route_info_photos_label"
                 android:textColor="@color/main_black"
-                style="@style/FontSemiBold.Dark20"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dividerHor2" />
 
@@ -215,22 +215,22 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/descriptionLabel"
+                style="@style/FontSemiBold.Dark20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_24"
                 android:text="@string/fragment_route_info_description_label"
-                style="@style/FontSemiBold.Dark20"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/photosRV" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/descriptionValue"
+                style="@style/FontRegular.Dark16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_16"
                 android:paddingBottom="@dimen/spacing_16"
-                style="@style/FontRegular.Dark16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

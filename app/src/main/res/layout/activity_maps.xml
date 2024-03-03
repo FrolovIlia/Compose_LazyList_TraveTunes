@@ -90,8 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="135dp"
                 android:layout_weight="1"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView9"
@@ -155,8 +154,8 @@
                             android:background="#00FFFFFF"
                             android:contentDescription="BtnClosePoint"
                             android:outlineAmbientShadowColor="#00FFFFFF"
-                            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
-                            android:visibility="visible"/>
+                            android:visibility="visible"
+                            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
                     </LinearLayout>
 
