@@ -9,8 +9,9 @@ import io.travel_tunes.databinding.ActivityDefaultBinding
 import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.ui.fragments.routes.list.RoutesFragment
 import io.travel_tunes.ui.fragments.routes.route_info.RouteInfoFragment
+import io.travel_tunes.ui.fragments.routes.route_map.RouteMapFragment
 
-class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionListener, RouteInfoFragment.OnFragmentInteractionListener {
 
     private lateinit var binding: ActivityDefaultBinding
 
@@ -36,6 +37,13 @@ class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionLi
     override fun openRouteInfoScreen(routeItemInfo: RouteItemInfo) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, RouteInfoFragment.getInstance(routeItemInfo))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun openRouteMapScreen(routeItemInfo: RouteItemInfo) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, RouteMapFragment.getInstance(routeItemInfo))
             .addToBackStack(null)
             .commit()
     }

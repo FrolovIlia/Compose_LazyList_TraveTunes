@@ -1,5 +1,6 @@
 package io.travel_tunes.ui.fragments.routes.route_info
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,6 @@ import io.travel_tunes.data.DataGenerator
 import io.travel_tunes.databinding.FragmentRouteInfoBinding
 import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.adapters.MyOuterHorizontalSpaceItemDecoration
-import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.PhotoMiniAdapter
 import io.travel_tunes.utils.extencions.changeText
@@ -25,6 +25,26 @@ class RouteInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentRouteInfoBinding
     private lateinit var adapterPhotos: PhotoMiniAdapter
+
+    private var listener: OnFragmentInteractionListener? = null
+
+    interface OnFragmentInteractionListener {
+        fun openRouteMapScreen(routeItemInfo: RouteItemInfo)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
@@ -95,11 +115,9 @@ class RouteInfoFragment : Fragment() {
                 }
             }
             binding.button.setOnClickListener {
-                android.widget.Toast.makeText(
-                    requireContext(),
-                    "Почти даже работает, ожидайте :)",
-                    android.widget.Toast.LENGTH_SHORT
-                ).show()
+                viewModel.routeInfo.value?.let {
+                    listener?.openRouteMapScreen(routeItemInfo = it)
+                }
             }
         }
     }
