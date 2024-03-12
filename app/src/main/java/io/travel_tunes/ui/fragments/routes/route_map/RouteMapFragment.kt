@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.databinding.FragmentRouteMapBinding
-import io.travel_tunes.model.route.RouteItemInfo
+import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
 
@@ -20,10 +20,10 @@ class RouteMapFragment : Fragment() {
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
-        fun getInstance(routeItemInfo: RouteItemInfo): RouteMapFragment {
+        fun getInstance(routeSealedInfo: RouteSealedInfo): RouteMapFragment {
             val args = Bundle()
             val fragment = RouteMapFragment()
-            args.putParcelable(EXTRA_ROUTE_INFO, routeItemInfo)
+            args.putParcelable(EXTRA_ROUTE_INFO, routeSealedInfo)
             fragment.arguments = args
             return fragment
         }
@@ -68,8 +68,8 @@ class RouteMapFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val routeItemInfo = arguments?.parcelable<RouteItemInfo>(EXTRA_ROUTE_INFO) ?: return
-        viewModelFactory = RouteMapViewModelFactory(routeItemInfo)
+        val routeSealedInfo = arguments?.parcelable<RouteSealedInfo>(EXTRA_ROUTE_INFO) ?: return
+        viewModelFactory = RouteMapViewModelFactory(routeSealedInfo)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteMapViewModel::class.java]
 

@@ -2,22 +2,21 @@ package io.travel_tunes.ui.fragments.routes.route_map
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.BaseViewModelFactory
+import io.travel_tunes.utils.content.RouteSealedInfo
 
 class RouteMapViewModel(
-    routeItemInfo: RouteItemInfo
+    routeSealedInfo: RouteSealedInfo
 ) : ViewModel() {
 
-    val routeInfo = MutableLiveData(routeItemInfo)
+    val routeInfo = MutableLiveData(routeSealedInfo)
 
 }
 
-
 class RouteMapViewModelFactory(
-    private val routeItemInfo: RouteItemInfo
+    private val routeSealedInfo: RouteSealedInfo
 ) : BaseViewModelFactory<RouteMapViewModel>() {
     override fun getViewModel(): RouteMapViewModel {
-        return RouteMapViewModel(routeItemInfo)
+        return RouteMapViewModel(routeSealedInfo)
     }
 }

@@ -7,15 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.travel_tunes.R
-import io.travel_tunes.data.DataGenerator
 import io.travel_tunes.databinding.RouteItemBinding
-import io.travel_tunes.model.route.RouteItemInfo
+import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 
-class RoutesAdapter(private val onButtonClickListener: (RouteItemInfo) -> Unit) :
+class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit) :
     RecyclerView.Adapter<RoutesAdapter.RouteItemHolder>() {
 
-    private var itemsList: List<RouteItemInfo> = listOf()
+    private var itemsList: List<RouteSealedInfo> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteItemHolder {
         val binding = RouteItemBinding
@@ -29,7 +28,7 @@ class RoutesAdapter(private val onButtonClickListener: (RouteItemInfo) -> Unit) 
 
     override fun getItemCount(): Int = itemsList.size
 
-    fun updateData(data: List<RouteItemInfo>) {
+    fun updateData(data: List<RouteSealedInfo>) {
         val diffCallback = object : DiffUtil.Callback() {
             override fun getOldListSize(): Int = itemsList.size
 
@@ -49,12 +48,13 @@ class RoutesAdapter(private val onButtonClickListener: (RouteItemInfo) -> Unit) 
 
     inner class RouteItemHolder(private val binding: RouteItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(route: RouteItemInfo) {
-            binding.routeTitle.changeText(route.getTitle())
-            binding.routeDescription.changeText(route.getDescriptionShort())
-            binding.showRouteInfo.setOnClickListener { onButtonClickListener.invoke(route) }
+        fun bind(routeSealedInfo: RouteSealedInfo) {
+            val routeItemInfo = routeSealedInfo.getRouteItemInfo(binding.root.context)
+            binding.routeTitle.changeText(routeItemInfo.getTitle())
+            binding.routeDescription.changeText(routeItemInfo.getDescriptionShort())
+            binding.showRouteInfo.setOnClickListener { onButtonClickListener.invoke(routeSealedInfo) }
 
-            val pictureRes = DataGenerator.getRoutePictureResByRouteTag(route.getTag())
+            val pictureRes = routeSealedInfo.getRoutePictureRes()
 
             with(binding.image) {
                 Glide

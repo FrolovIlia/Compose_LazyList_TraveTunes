@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
-import io.travel_tunes.data.DataGenerator
 import io.travel_tunes.databinding.FragmentRouteInfoBinding
-import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.adapters.MyOuterHorizontalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.PhotoMiniAdapter
+import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
@@ -29,7 +28,7 @@ class RouteInfoFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     interface OnFragmentInteractionListener {
-        fun openRouteMapScreen(routeItemInfo: RouteItemInfo)
+        fun openRouteMapScreen(routeSealedInfo: RouteSealedInfo)
     }
 
     override fun onAttach(context: Context) {
@@ -48,10 +47,10 @@ class RouteInfoFragment : Fragment() {
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
-        fun getInstance(routeItemInfo: RouteItemInfo): RouteInfoFragment {
+        fun getInstance(routeSealedInfo: RouteSealedInfo): RouteInfoFragment {
             val args = Bundle()
             val fragment = RouteInfoFragment()
-            args.putParcelable(EXTRA_ROUTE_INFO, routeItemInfo)
+            args.putParcelable(EXTRA_ROUTE_INFO, routeSealedInfo)
             fragment.arguments = args
             return fragment
         }
@@ -116,15 +115,15 @@ class RouteInfoFragment : Fragment() {
             }
             binding.button.setOnClickListener {
                 viewModel.routeInfo.value?.let {
-                    listener?.openRouteMapScreen(routeItemInfo = it)
+                    listener?.openRouteMapScreen(routeSealedInfo = it)
                 }
             }
         }
     }
 
     private fun initViewModel() {
-        val routeItemInfo = arguments?.parcelable<RouteItemInfo>(EXTRA_ROUTE_INFO) ?: return
-        viewModelFactory = RouteInfoViewModelFactory(routeItemInfo)
+        val routeSealedInfo = arguments?.parcelable<RouteSealedInfo>(EXTRA_ROUTE_INFO) ?: return
+        viewModelFactory = RouteInfoViewModelFactory(routeSealedInfo)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteInfoViewModel::class.java]
 
@@ -133,7 +132,8 @@ class RouteInfoFragment : Fragment() {
         }
     }
 
-    private fun showRouteInfo(routeItemInfo: RouteItemInfo) {
+    private fun showRouteInfo(routeSealedInfo: RouteSealedInfo) {
+        val routeItemInfo = routeSealedInfo.getRouteItemInfo(requireContext())
         with(binding) {
             toolbarLayout.toolbarTitle.apply {
                 changeVisibility(true)
@@ -144,7 +144,8 @@ class RouteInfoFragment : Fragment() {
             pointsValue.changeText(routeItemInfo.getPoints().size.toString())
             descriptionValue.changeText(routeItemInfo.getDescription())
 
-            val photos = DataGenerator.getPointPicturesResByRouteTag(routeItemInfo.getTag())
+
+            val photos = routeSealedInfo.getPointPictureResList()
             if (photos.isEmpty()) {
                 photosRV.changeVisibility(false)
             } else {

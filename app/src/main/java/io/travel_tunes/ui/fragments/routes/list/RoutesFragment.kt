@@ -14,6 +14,7 @@ import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.RoutesAdapter
+import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.changeVisibilityInvisible
@@ -37,7 +38,7 @@ class RoutesFragment : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun openRouteInfoScreen(routeItemInfo: RouteItemInfo)
+        fun openRouteInfoScreen(routeSealedInfo: RouteSealedInfo)
     }
 
     override fun onAttach(context: Context) {
@@ -55,9 +56,7 @@ class RoutesFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentRoutesBinding.inflate(inflater, container, false)
         return binding.root
@@ -80,12 +79,10 @@ class RoutesFragment : Fragment() {
         val margin16 = resources.getDimensionPixelSize(R.dimen.spacing_16)
         val margin8 = margin16 / 2
         val dividerOuter = MyOuterVerticalSpaceItemDecoration(
-            topSpaceSize = margin16,
-            bottomSpaceSize = margin16
+            topSpaceSize = margin16, bottomSpaceSize = margin16
         )
         val dividerInner = MySpaceItemDecoration(
-            orientation = MySpaceItemDecoration.Orientation.VERTICAL,
-            spaceSize = margin8
+            orientation = MySpaceItemDecoration.Orientation.VERTICAL, spaceSize = margin8
         )
         binding.routesRV.addItemDecoration(dividerOuter)
         binding.routesRV.addItemDecoration(dividerInner)
@@ -116,10 +113,8 @@ class RoutesFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RoutesViewModel::class.java]
 
-        viewModel.routes.observe(viewLifecycleOwner) { points ->
-            adapterRoutes.updateData(points)
+        viewModel.routesNew.observe(viewLifecycleOwner) { routesSealed ->
+            adapterRoutes.updateData(routesSealed)
         }
-
-        viewModel.initRoutes(requireContext())
     }
 }

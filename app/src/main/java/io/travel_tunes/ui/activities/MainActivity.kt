@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.travel_tunes.R
 import io.travel_tunes.databinding.ActivityDefaultBinding
-import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.ui.fragments.routes.list.RoutesFragment
 import io.travel_tunes.ui.fragments.routes.route_info.RouteInfoFragment
 import io.travel_tunes.ui.fragments.routes.route_map.RouteMapFragment
+import io.travel_tunes.utils.content.RouteSealedInfo
 
 class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionListener, RouteInfoFragment.OnFragmentInteractionListener {
 
@@ -34,16 +34,16 @@ class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionLi
             .commit()
     }
 
-    override fun openRouteInfoScreen(routeItemInfo: RouteItemInfo) {
+    override fun openRouteInfoScreen(routeSealedInfo: RouteSealedInfo) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RouteInfoFragment.getInstance(routeItemInfo))
+            .replace(R.id.container, RouteInfoFragment.getInstance(routeSealedInfo))
             .addToBackStack(null)
             .commit()
     }
 
-    override fun openRouteMapScreen(routeItemInfo: RouteItemInfo) {
+    override fun openRouteMapScreen(routeSealedInfo: RouteSealedInfo) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RouteMapFragment.getInstance(routeItemInfo))
+            .replace(R.id.container, RouteMapFragment.getInstance(routeSealedInfo))
             .addToBackStack(null)
             .commit()
     }
