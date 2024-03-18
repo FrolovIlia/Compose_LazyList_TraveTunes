@@ -1,64 +1,49 @@
 package io.travel_tunes.ui.fragments.routes.route_map
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRouteMapBinding
+import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
 
 internal class RouteMapFragment : Fragment(),
-    OnMapReadyCallback,
     GoogleMap.OnMarkerClickListener,
     GoogleMap.OnMyLocationButtonClickListener,
     GoogleMap.OnMyLocationClickListener {
 
-    private lateinit var mMap: GoogleMap
+    private var mMap: GoogleMap? = null
     private lateinit var binding: FragmentRouteMapBinding
     private lateinit var viewModelFactory: RouteMapViewModelFactory
     private lateinit var viewModel: RouteMapViewModel
 
-    private val places = ArrayList<Any>()
-
-
-    private val callback = OnMapReadyCallback { googleMap ->
-//        val sydney = LatLng(-34.0, 151.0)
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker at interesting point"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-
-        val polyline1 = googleMap.addPolyline(
-            PolylineOptions()
-                .clickable(true)
-                .add(
-                    LatLng(56.995246, 40.982064),
-                    LatLng(56.995400, 40.979892),
-                    LatLng(56.995663, 40.978882),
-                    LatLng(56.999137, 40.973710),
-                    LatLng(57.001521, 40.973780),
-                    LatLng(57.010588, 40.972023)
-                )
-                .color(Color.BLUE)
-        )
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(polyline1.points[4], 14f))
-
-    }
-
-
+    private val markers = mutableListOf<Marker>()
+    private var polylineShape: Polyline? = null
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
@@ -83,21 +68,33 @@ internal class RouteMapFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        initMap()
         initViews()
         initViewModel()
 
-        places.add(LatLng(56.995246, 40.982064))
-        places.add(LatLng(56.999137, 40.973710))
-        places.add(LatLng(57.001521, 40.973780))
-        places.add(LatLng(57.010588, 40.972023))
-
+//        places.add(LatLng(56.995246, 40.982064))
+//        places.add(LatLng(56.999137, 40.973710))
+//        places.add(LatLng(57.001521, 40.973780))
+//        places.add(LatLng(57.010588, 40.972023))
+//
 //        binding = FragmentRouteMapBinding.inflate(layoutInflater)
 ////        setContentView(binding.root)
 
 
+    }
+
+    private fun initMap() {
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment?
+        mapFragment?.getMapAsync { googleMap ->
+            mMap = googleMap
+            mMap?.apply {
+                setOnMarkerClickListener(this@RouteMapFragment)
+                uiSettings.isZoomControlsEnabled = true
+            }
+
+            viewModel.onMapReady()
+        }
     }
 
     private fun initViews() {
@@ -115,10 +112,10 @@ internal class RouteMapFragment : Fragment(),
             toolbarSettings.apply {
                 changeVisibility(true)
                 setOnClickListener {
-                    android.widget.Toast.makeText(
+                    Toast.makeText(
                         requireContext(),
                         "Неплохо бы сначала добавить экран, а потом уже тыкать 😉",
-                        android.widget.Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -133,43 +130,16 @@ internal class RouteMapFragment : Fragment(),
 
         viewModel.routeInfo.observe(viewLifecycleOwner) { routeInfo ->
             // FIXME: наименование для toolbar задать и точки на карте отрисовать
-//            showRoutePoints(routeInfo)
+            showRoutePoints(routeInfo)
             // тут может быть реализация отображения маркеров на карте (points)
+
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        mMap.setOnMarkerClickListener(this)
-        mMap.uiSettings.isZoomControlsEnabled = true
-
-
-//        mMap.isMyLocationEnabled = true
-
-        val markers = arrayOfNulls<MarkerOptions>(places.size)
-        for (i in places.indices) {
-            markers[i] = MarkerOptions()
-                .position(places[i] as LatLng)
-            googleMap.addMarker(markers[i]!!)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(places[1] as LatLng, 16f))
-        }
-
-
-        val polylineOptions = PolylineOptions()
-            .add(LatLng(56.995246, 40.982064))
-            .add(LatLng(56.995400, 40.979892))
-            .add(LatLng(56.995663, 40.978882))
-            .add(LatLng(56.999137, 40.973710))
-            .add(LatLng(57.001521, 40.973780))
-            .add(LatLng(57.010588, 40.972023))
-            .color(Color.BLUE)
-
-// Get back the mutable Polyline
-        mMap.addPolyline(polylineOptions)
-    }
-
-    override fun onMarkerClick(p0: Marker): Boolean {
-        TODO("Not yet implemented")
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val pointItemInfo = marker.tag as? PointItemInfo ?: return false
+        Toast.makeText(requireContext(), pointItemInfo.getTitle(), Toast.LENGTH_SHORT).show()
+        return false
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -180,5 +150,63 @@ internal class RouteMapFragment : Fragment(),
         TODO("Not yet implemented")
     }
 
+    private fun showRoutePoints(routeInfo: RouteItemInfo) {
+        mMap.let {
+            val points = routeInfo.getPoints()
+            points.forEach { point ->
+                val iconBitmap = bitmapIconFromVector(requireContext(), R.drawable.ic_points)
+                val icon = if (iconBitmap != null) {
+                    BitmapDescriptorFactory.fromBitmap(iconBitmap)
+                } else {
+                    BitmapDescriptorFactory.defaultMarker()
+                }
+                mMap?.addMarker(
+                    MarkerOptions()
+                        .position(point.getPosition())
+                        .icon(icon)
+                )?.let { newMarker ->
+                    newMarker.tag = point
+                    markers.add(newMarker)
+                }
+            }
 
+            val pointPositions = routeInfo.getRoutePolyline()
+            polylineShape = mMap?.addPolylineGeofence(pointPositions)
+
+            val bounds = LatLngBounds.builder()
+                .apply {
+                    pointPositions.map { position -> include(position) }
+                }
+                .build()
+            val padding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
+            mMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
+        }
+    }
+
+
+    private fun GoogleMap.addPolylineGeofence(positions: List<LatLng>): Polyline? {
+        return if (positions.isNotEmpty()) {
+            val mapPoints = positions.toTypedArray()
+            val color = Color.BLUE
+            val polylineOptions = PolylineOptions()
+                .add(*mapPoints)
+                .color(color)
+            val polyline = addPolyline(polylineOptions)
+            polyline
+        } else null
+    }
+
+    private fun bitmapIconFromVector(context: Context?, vectorResId: Int): Bitmap? {
+        if (context == null) return null
+        ContextCompat.getDrawable(context, vectorResId)?.let {
+            it.setBounds(0, 0, it.intrinsicWidth, it.intrinsicHeight)
+            val bitmap =
+                Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            it.draw(canvas)
+            return bitmap
+        }.run {
+            return null
+        }
+    }
 }

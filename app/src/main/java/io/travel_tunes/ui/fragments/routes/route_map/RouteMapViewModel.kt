@@ -8,9 +8,12 @@ import io.travel_tunes.utils.BaseViewModelFactory
 class RouteMapViewModel(
     routeItemInfo: RouteItemInfo
 ) : ViewModel() {
-
     val routeInfo = MutableLiveData(routeItemInfo)
 
+
+    fun onMapReady() {
+        routeInfo.value = routeInfo.value
+    }
 }
 
 
