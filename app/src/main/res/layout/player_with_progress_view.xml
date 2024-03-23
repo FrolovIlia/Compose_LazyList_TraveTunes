@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/actionButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_play" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_4"
+        android:layout_marginEnd="@dimen/spacing_4"
+        app:layout_constraintBottom_toBottomOf="@id/actionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/actionButton"
+        app:layout_constraintTop_toTopOf="@id/actionButton" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/currentProgressText"
+        style="@style/FontRegular.Gray12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_10"
+        app:layout_constraintStart_toStartOf="@id/seekbar"
+        app:layout_constraintTop_toBottomOf="@id/seekbar"
+        tools:text="01:00" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/maxProgressText"
+        style="@style/FontRegular.Gray12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_12"
+        app:layout_constraintEnd_toEndOf="@id/seekbar"
+        app:layout_constraintTop_toBottomOf="@id/seekbar"
+        tools:text="03:00" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
