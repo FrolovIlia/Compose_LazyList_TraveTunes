@@ -15,9 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -31,6 +29,7 @@ import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
+
 
 internal class RouteMapFragment : Fragment(),
     GoogleMap.OnMarkerClickListener,
@@ -71,17 +70,8 @@ internal class RouteMapFragment : Fragment(),
         initMap()
         initViews()
         initViewModel()
-
-//        places.add(LatLng(56.995246, 40.982064))
-//        places.add(LatLng(56.999137, 40.973710))
-//        places.add(LatLng(57.001521, 40.973780))
-//        places.add(LatLng(57.010588, 40.972023))
-//
-//        binding = FragmentRouteMapBinding.inflate(layoutInflater)
-////        setContentView(binding.root)
-
-
     }
+
 
     private fun initMap() {
         val mapFragment =
