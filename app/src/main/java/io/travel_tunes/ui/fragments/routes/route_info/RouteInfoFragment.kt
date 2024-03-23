@@ -144,6 +144,13 @@ class RouteInfoFragment : Fragment() {
             pointsValue.changeText(routeItemInfo.getPoints().size.toString())
             descriptionValue.changeText(routeItemInfo.getDescription())
 
+            val audioRes = routeSealedInfo.getRouteAudioRes()
+            if (audioRes != null) {
+                playerView.changeVisibility(true)
+                playerView.setAudioRaw(audioRes)
+            } else {
+                playerView.changeVisibility(false)
+            }
 
             val photos = routeSealedInfo.getPointPictureResList()
             if (photos.isEmpty()) {
