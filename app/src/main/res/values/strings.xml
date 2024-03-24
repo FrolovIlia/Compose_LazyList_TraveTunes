@@ -16,4 +16,5 @@
 
     <string name="city_items_show">▶ В путь</string>
     <string name="point_item_info_show">▶ Пройтись</string>
+    <string name="fragment_route_info_button_pay">Купить аудио гид</string>
 </resources>
