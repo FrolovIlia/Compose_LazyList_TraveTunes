@@ -6,4 +6,5 @@ object Constants {
     const val CITY_TABLE_NAME = "cities"
     const val DATABASE_NAME = "PointsDatabase"
 
+    const val ZOOM_MAP_DEFAULT = 16f
 }

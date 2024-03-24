@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
     android:clickable="true"
+    android:focusable="true"
     android:orientation="vertical">
 
     <include
@@ -32,16 +32,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/map_fragment"
+            <io.travel_tunes.utils.map.view.MapViewImpl
+                android:id="@+id/mapView"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/spb_road_pic" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/verticalGL"
@@ -57,7 +54,7 @@
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_6"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/map_fragment"
+                app:layout_constraintTop_toBottomOf="@id/mapView"
                 app:srcCompat="@drawable/ic_distance" />
 
             <androidx.appcompat.widget.AppCompatTextView

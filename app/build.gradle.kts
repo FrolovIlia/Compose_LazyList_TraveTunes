@@ -20,6 +20,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     viewBinding {
         enable = true
     }
@@ -86,5 +90,6 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation("com.google.code.gson:gson:2.10.1")
-    implementation("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.10.0")
+
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }

@@ -4,6 +4,9 @@ import android.app.Application
 import io.travel_tunes.data.InterestingPointDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import timber.log.Timber.*
+import timber.log.Timber.Forest.plant
+
 
 class InterestingPointsApp: Application() {
     // No need to cancel this scope as it'll be torn down with the process
@@ -17,5 +20,12 @@ class InterestingPointsApp: Application() {
             database.interestingPointDao(),
             database.cityDao()
         )
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        if (BuildConfig.DEBUG) {
+            plant(DebugTree())
+        }
     }
 }
