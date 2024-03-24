@@ -3,81 +3,102 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:maxHeight="800dp"
     android:layout_height="wrap_content"
     android:background="@color/color_transparent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/bottom_background_corners_top_white_color_24"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_background_corners_top_white_color_8"
+        android:overScrollMode="never">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/verticalGL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.50" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/pointPictureCard"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/spacing_12"
-            app:cardCornerRadius="@dimen/corner_8"
-            app:cardElevation="@dimen/elevation_0"
-            app:layout_constraintDimensionRatio="4:3"
-            app:layout_constraintEnd_toEndOf="@id/verticalGL"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/main_blue"
-            app:strokeWidth="@dimen/spacing_1">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/pointDrawable"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/route_ivanovo_1_1" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pointTitle"
-            style="@style/FontSemiBold.Dark20"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/spacing_16"
-            app:layout_constraintBottom_toTopOf="@id/showMoreButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/verticalGL"
-            app:layout_constraintTop_toTopOf="@id/pointPictureCard"
-            app:layout_constraintVertical_bias="0.5"
-            tools:text="Большая замоскворецкая улица" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/showMoreButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="@id/pointPictureCard"
-            app:layout_constraintStart_toStartOf="@id/verticalGL"
-            android:text="@string/show_more_button_text" />
-
-        <io.travel_tunes.utils.customViews.PlayerView
-            android:id="@+id/playerView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_margin="@dimen/spacing_12"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pointPictureCard"
-            app:layout_constraintVertical_bias="0" />
+            android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalGL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.50" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/pointPictureCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/spacing_12"
+                app:cardCornerRadius="@dimen/corner_8"
+                app:cardElevation="@dimen/elevation_0"
+                app:layout_constraintDimensionRatio="4:3"
+                app:layout_constraintEnd_toEndOf="@id/verticalGL"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/main_blue"
+                app:strokeWidth="@dimen/spacing_1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/pointDrawable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/route_ivanovo_1_1" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pointTitle"
+                style="@style/FontSemiBold.Dark20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/spacing_16"
+                app:layout_constraintBottom_toTopOf="@id/showMoreButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/verticalGL"
+                app:layout_constraintTop_toTopOf="@id/pointPictureCard"
+                app:layout_constraintVertical_bias="0.5"
+                tools:text="Большая замоскворецкая улица" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showMoreButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_more_button_text"
+                android:textAllCaps="false"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/pointPictureCard"
+                app:layout_constraintStart_toStartOf="@id/verticalGL" />
+
+            <io.travel_tunes.utils.customViews.PlayerView
+                android:id="@+id/playerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pointPictureCard" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pointDescription"
+                style="@style/FontRegular.Dark16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_16"
+                android:layout_marginTop="@dimen/spacing_12"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_marginBottom="@dimen/spacing_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/playerView"
+                tools:text="@tools:sample/lorem/random" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

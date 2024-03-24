@@ -199,8 +199,8 @@ class RouteMapFragment : Fragment() {
 
     private fun openPointInfoBottomFragment(pointItemFullInfo: PointItemFullInfo) {
         bottomSheetBehavior.apply {
-            peekHeight = 260.toDp(requireContext())
-            state = BottomSheetBehavior.STATE_EXPANDED
+            peekHeight = 240.toDp(requireContext())
+            state = BottomSheetBehavior.STATE_COLLAPSED
             skipCollapsed = false
             isHideable = true
         }

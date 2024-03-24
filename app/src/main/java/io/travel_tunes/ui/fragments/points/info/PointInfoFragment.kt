@@ -71,6 +71,8 @@ class PointInfoFragment : Fragment() {
 
                 pointTitle.changeText(pointInfo.getTitle())
 
+                pointDescription.changeText(pointInfo.getDescription())
+
                 val audioRes = pointInfo.getAudioRes()
                 if (audioRes != null) {
                     playerView.setAudioRaw(audioRes)
