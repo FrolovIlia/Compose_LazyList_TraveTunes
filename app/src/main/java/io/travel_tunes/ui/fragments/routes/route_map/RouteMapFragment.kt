@@ -1,52 +1,31 @@
 package io.travel_tunes.ui.fragments.routes.route_map
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.Polyline
-import com.google.android.gms.maps.model.PolylineOptions
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRouteMapBinding
-import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
+import io.travel_tunes.utils.map.SomeMapInterface
 
+internal class RouteMapFragment : Fragment() {
 
-internal class RouteMapFragment : Fragment(),
-    GoogleMap.OnMarkerClickListener,
-    GoogleMap.OnMyLocationButtonClickListener,
-    GoogleMap.OnMyLocationClickListener {
-
-    private var mMap: GoogleMap? = null
     private lateinit var binding: FragmentRouteMapBinding
     private lateinit var viewModelFactory: RouteMapViewModelFactory
     private lateinit var viewModel: RouteMapViewModel
 
-    private val markers = mutableListOf<Marker>()
-    private var polylineShape: Polyline? = null
+    private var someMap: SomeMapInterface? = null
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
+        private const val MAP_VIEW_BUNDLE_KEY = "map_view_bundle_key"
         fun getInstance(routeSealedInfo: RouteSealedInfo): RouteMapFragment {
             val args = Bundle()
             val fragment = RouteMapFragment()
@@ -63,28 +42,59 @@ internal class RouteMapFragment : Fragment(),
     ): View {
         binding = FragmentRouteMapBinding.inflate(inflater, container, false)
         return binding.root
-//        return inflater.inflate(R.layout.fragment_route_map, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initMap()
+        initMap(savedInstanceState)
         initViews()
         initViewModel()
     }
 
+    override fun onStart() {
+        binding.mapView.onStart()
+        super.onStart()
+    }
 
-    private fun initMap() {
-        val mapFragment =
-            childFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment?
-        mapFragment?.getMapAsync { googleMap ->
-            mMap = googleMap
-            mMap?.apply {
-                setOnMarkerClickListener(this@RouteMapFragment)
-                uiSettings.isZoomControlsEnabled = true
+    override fun onResume() {
+        super.onResume()
+        binding.mapView.onResume()
+        view?.requestApplyInsets()
+    }
+
+    override fun onPause() {
+        binding.mapView.onPause()
+        super.onPause()
+    }
+
+    override fun onStop() {
+        binding.mapView.onStop()
+        super.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        saveMapInstanceState(outState)
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        binding.mapView.onLowMemory()
+    }
+
+    private fun saveMapInstanceState(outState: Bundle?) {
+        val mapViewBundle = Bundle()
+        binding.mapView.onSaveInstanceState(mapViewBundle)
+        outState?.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle)
+    }
+
+    private fun initMap(savedInstanceState: Bundle?) {
+        val mapViewBundle = savedInstanceState?.getBundle(MAP_VIEW_BUNDLE_KEY)
+        with(binding.mapView) {
+            onCreate(mapViewBundle)
+            getMapAsync {
+                onMapReady(it)
             }
-
-            viewModel.onMapReady()
         }
     }
 
@@ -120,85 +130,29 @@ internal class RouteMapFragment : Fragment(),
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteMapViewModel::class.java]
 
         viewModel.routeInfo.observe(viewLifecycleOwner) { routeInfo ->
-            // FIXME: наименование для toolbar задать и точки на карте отрисовать
-            binding.toolbarLayout.toolbarTitle.changeText(routeInfo.getRouteItemInfo(requireContext()).getTitle())
-            showRoutePoints(routeInfo)
-
+            binding.toolbarLayout.toolbarTitle.changeText(
+                routeInfo.getRouteItemInfo(requireContext()).getTitle()
+            )
         }
     }
 
-    override fun onMarkerClick(marker: Marker): Boolean {
-        val pointItemInfo = marker.tag as? PointItemInfo ?: return false
-        Toast.makeText(requireContext(), pointItemInfo.getTitle(), Toast.LENGTH_SHORT).show()
-        return false
-    }
+    private fun onMapReady(map: SomeMapInterface) {
+        someMap = map
+        map.setUiSettings(
+            context = requireContext(),
+            isMapToolbarEnabled = false,
+            isZoomControlsEnabled = true,
+            isRotateGesturesEnabled = false,
+            isCompassEnabled = false,
+            isMyLocationButtonEnabled = false
+        )
 
-    override fun onMyLocationButtonClick(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun onMyLocationClick(p0: Location) {
-        TODO("Not yet implemented")
-    }
-
-    private fun showRoutePoints(routeSealedInfo: RouteSealedInfo) {
-        val routeInfo = routeSealedInfo.getRouteItemInfo(requireContext())
-        mMap.let {
-            val points = routeInfo.getPoints()
-            points.forEach { point ->
-                val iconBitmap = bitmapIconFromVector(requireContext(), R.drawable.ic_points)
-                val icon = if (iconBitmap != null) {
-                    BitmapDescriptorFactory.fromBitmap(iconBitmap)
-                } else {
-                    BitmapDescriptorFactory.defaultMarker()
-                }
-                mMap?.addMarker(
-                    MarkerOptions()
-                        .position(point.getPosition())
-                        .icon(icon)
-                )?.let { newMarker ->
-                    newMarker.tag = point
-                    markers.add(newMarker)
-                }
-            }
-
-            val pointPositions = routeInfo.getRoutePolyline()
-            polylineShape = mMap?.addPolylineGeofence(pointPositions)
-
-            val bounds = LatLngBounds.builder()
-                .apply {
-                    pointPositions.map { position -> include(position) }
-                }
-                .build()
-            val padding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
-            mMap?.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding))
-        }
-    }
-
-
-    private fun GoogleMap.addPolylineGeofence(positions: List<LatLng>): Polyline? {
-        return if (positions.isNotEmpty()) {
-            val mapPoints = positions.toTypedArray()
-            val color = Color.BLUE
-            val polylineOptions = PolylineOptions()
-                .add(*mapPoints)
-                .color(color)
-            val polyline = addPolyline(polylineOptions)
-            polyline
-        } else null
-    }
-
-    private fun bitmapIconFromVector(context: Context?, vectorResId: Int): Bitmap? {
-        if (context == null) return null
-        ContextCompat.getDrawable(context, vectorResId)?.let {
-            it.setBounds(0, 0, it.intrinsicWidth, it.intrinsicHeight)
-            val bitmap =
-                Bitmap.createBitmap(it.intrinsicWidth, it.intrinsicHeight, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(bitmap)
-            it.draw(canvas)
-            return bitmap
-        }.run {
-            return null
+        viewModel.routeInfo.value?.getRouteItemInfo(requireContext())?.let { routeItemInfo ->
+            map.addRouteMarkers(
+                requireContext(),
+                routeItemInfo,
+                mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
+            )
         }
     }
 }
