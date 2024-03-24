@@ -158,6 +158,7 @@ class RouteInfoFragment : Fragment() {
             }
             binding.button.setOnClickListener {
                 viewModel.routeInfo.value?.let {
+                    binding.playerView.pause()
                     listener?.openRouteMapScreen(routeSealedInfo = it)
                 }
             }
