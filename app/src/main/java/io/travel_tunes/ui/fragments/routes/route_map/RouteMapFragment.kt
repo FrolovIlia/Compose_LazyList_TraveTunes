@@ -7,21 +7,27 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRouteMapBinding
+import io.travel_tunes.model.route.PointItemFullInfo
+import io.travel_tunes.ui.fragments.points.info.PointInfoFragment
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
+import io.travel_tunes.utils.extencions.toDp
 import io.travel_tunes.utils.map.SomeMapInterface
 
-internal class RouteMapFragment : Fragment() {
+class RouteMapFragment : Fragment() {
 
     private lateinit var binding: FragmentRouteMapBinding
     private lateinit var viewModelFactory: RouteMapViewModelFactory
     private lateinit var viewModel: RouteMapViewModel
 
     private var someMap: SomeMapInterface? = null
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
@@ -48,6 +54,7 @@ internal class RouteMapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initMap(savedInstanceState)
         initViews()
+        initBottomSheet()
         initViewModel()
     }
 
@@ -142,6 +149,21 @@ internal class RouteMapFragment : Fragment() {
         }
     }
 
+    private fun initBottomSheet() {
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomContainer)
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    viewModel.bottomSheetIsHidden()
+                }
+            }
+        })
+    }
+
     private fun onMapReady(map: SomeMapInterface) {
         someMap = map
         map.setUiSettings(
@@ -157,13 +179,63 @@ internal class RouteMapFragment : Fragment() {
             context = requireContext(),
             pointItemClickCallback = { pointItemInfo ->
                 viewModel.handleOnMarkerPointClick(pointItemInfo)
-                Toast.makeText(requireContext(), pointItemInfo.title, Toast.LENGTH_SHORT).show()
+                if (!pointItemInfo.isSelected()) {
+                    viewModel.getPointItemFullInfo(pointItemInfo.getId())?.let {
+                        openPointInfoBottomFragment(
+                            pointItemFullInfo = it
+                        )
+                    }
+                }
             }
         )
 
         map.setOnMapClickListener {
             viewModel.handleOnMapClick()
+            // FIXME: move it to viewModel
+            hidePointInfoBottomFragment()
         }
         viewModel.onMapReady()
+    }
+
+    private fun openPointInfoBottomFragment(pointItemFullInfo: PointItemFullInfo) {
+        bottomSheetBehavior.apply {
+            peekHeight = 260.toDp(requireContext())
+            state = BottomSheetBehavior.STATE_EXPANDED
+            skipCollapsed = false
+            isHideable = true
+        }
+        var fragment =
+            childFragmentManager.findFragmentByTag(PointInfoFragment.POINT_INFO_BOTTOM) as? PointInfoFragment
+        if (fragment == null) {
+            fragment = PointInfoFragment.getInstance(pointItemFullInfo)
+            childFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.bottomContainer,
+                    fragment,
+                    PointInfoFragment.POINT_INFO_BOTTOM
+                )
+                .setCustomAnimations(
+                    R.anim.fragment_slide_top_enter,
+                    R.anim.fragment_slide_top_exit,
+                    R.anim.fragment_slide_bottom_enter,
+                    R.anim.fragment_slide_bottom_exit
+                )
+                .commit()
+
+        } else {
+            fragment.updateData(pointItemFullInfo)
+        }
+        if (fragment.isHidden) {
+            childFragmentManager.beginTransaction().show(fragment).commit()
+        }
+    }
+
+    private fun hidePointInfoBottomFragment() {
+        val fragment =
+            childFragmentManager.findFragmentByTag(PointInfoFragment.POINT_INFO_BOTTOM) as? PointInfoFragment
+        if (fragment != null) {
+            childFragmentManager.beginTransaction().hide(fragment).commit()
+        }
     }
 }

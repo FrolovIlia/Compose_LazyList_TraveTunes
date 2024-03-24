@@ -23,4 +23,5 @@ data class PointItemInfo(
 
     fun isSelected() = isSelected
     fun getId() = id
+    fun getDescription() = description
 }

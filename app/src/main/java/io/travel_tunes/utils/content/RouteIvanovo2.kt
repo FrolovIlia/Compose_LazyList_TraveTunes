@@ -2,6 +2,7 @@ package io.travel_tunes.utils.content
 
 import android.content.Context
 import io.travel_tunes.R
+import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.parseJsonRes
 import kotlinx.parcelize.IgnoredOnParcel
@@ -102,6 +103,17 @@ data class RouteIvanovo2(
             routeInfo = result
             return result
         }
+    }
+
+    override fun getPointItemFullInfo(id: String): PointItemFullInfo? {
+        routeInfo?.let { route ->
+            val point = route.getPoints().firstOrNull { id == it.getId() } ?: return null
+            return PointItemFullInfo(
+                pointItemInfo = point,
+                audioRes = audioRes,
+                pictureRes = pictureRes
+            )
+        } ?: run { return null }
     }
 
 }

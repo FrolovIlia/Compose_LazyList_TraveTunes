@@ -46,6 +46,12 @@ class RouteMapViewModel(
 
         // скрыть плашку если есть
     }
+
+    fun getPointItemFullInfo(id: String) = routeSealedInfo.getPointItemFullInfo(id)
+
+    fun bottomSheetIsHidden() {
+        handleOnMapClick()
+    }
 }
 
 class RouteMapViewModelFactory(
