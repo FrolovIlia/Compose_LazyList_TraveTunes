@@ -8,7 +8,8 @@
     android:background="@color/main_blue"
     android:elevation="@dimen/elevation_0"
     app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp">
+    app:contentInsetStart="0dp"
+    tools:ignore="MissingClass">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

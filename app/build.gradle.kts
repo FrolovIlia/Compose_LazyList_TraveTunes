@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -85,4 +86,5 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.16.0")
 
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.10.0")
 }

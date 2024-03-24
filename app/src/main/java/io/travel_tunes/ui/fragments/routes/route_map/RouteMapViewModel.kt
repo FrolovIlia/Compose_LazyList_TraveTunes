@@ -11,6 +11,10 @@ class RouteMapViewModel(
 
     val routeInfo = MutableLiveData(routeSealedInfo)
 
+
+    fun onMapReady() {
+        routeInfo.value = routeInfo.value
+    }
 }
 
 class RouteMapViewModelFactory(
