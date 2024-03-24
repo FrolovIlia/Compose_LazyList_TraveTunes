@@ -147,8 +147,15 @@ internal class RouteMapFragment : Fragment() {
             isMyLocationButtonEnabled = false
         )
 
+        map.setClusterManagers(
+            context = requireContext(),
+            pointItemClickCallback = { pointItemInfo ->
+                Toast.makeText(requireContext(), pointItemInfo.title, Toast.LENGTH_SHORT).show()
+            }
+        )
+
         viewModel.routeInfo.value?.getRouteItemInfo(requireContext())?.let { routeItemInfo ->
-            map.addRouteMarkers(
+            map.updateRouteMarkers(
                 requireContext(),
                 routeItemInfo,
                 mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)

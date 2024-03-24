@@ -2,6 +2,8 @@ package io.travel_tunes.model.route
 
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.clustering.ClusterItem
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -11,8 +13,14 @@ data class PointItemInfo(
     private val description: String,
     private val locationLat: String,
     private val locationLon: String
-): Parcelable {
+) : Parcelable, ClusterItem {
+    @IgnoredOnParcel private var isSelected: Boolean = false
 
-    fun getTitle() = title
-    fun getPosition() = LatLng(locationLat.toDouble(), locationLon.toDouble())
+    override fun getTitle() = title
+    override fun getSnippet() = ""
+    override fun getZIndex(): Float? = null
+    override fun getPosition() = LatLng(locationLat.toDouble(), locationLon.toDouble())
+
+    fun isSelected() = isSelected
+    fun getId() = id
 }

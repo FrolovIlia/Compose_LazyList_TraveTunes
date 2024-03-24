@@ -1,8 +1,9 @@
 package io.travel_tunes.utils.map
 
 import android.content.Context
+import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
-import io.travel_tunes.utils.Constants.ZOOM_MAP_DEFAULT
+import io.travel_tunes.utils.map.MapConstants.ZOOM_MAP_DEFAULT
 
 interface SomeMapInterface {
     fun setUiSettings(
@@ -17,7 +18,12 @@ interface SomeMapInterface {
         minZoomPreference: Float = 2.7F
     )
 
-    fun addRouteMarkers(context: Context, routeInfo: RouteItemInfo, mapPadding: Int)
+    fun setClusterManagers(
+        context: Context,
+        pointItemClickCallback: ((PointItemInfo) -> Unit)? = null
+    )
+
+    fun updateRouteMarkers(context: Context, routeInfo: RouteItemInfo, mapPadding: Int)
 
     fun centerMapAtPosition(
         position: LatLngNew,

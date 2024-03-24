@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.maps.GoogleMap
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRouteInfoBinding
-import io.travel_tunes.utils.Constants
 import io.travel_tunes.utils.adapters.MyOuterHorizontalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.PhotoMiniAdapter
@@ -197,8 +196,12 @@ class RouteInfoFragment : Fragment() {
             isMyLocationButtonEnabled = false
         )
 
+        map.setClusterManagers(
+            context = requireContext()
+        )
+
         viewModel.routeInfo.value?.getRouteItemInfo(requireContext())?.let { routeItemInfo ->
-            map.addRouteMarkers(requireContext(), routeItemInfo, mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56))
+            map.updateRouteMarkers(requireContext(), routeItemInfo, mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56))
         }
 
     }

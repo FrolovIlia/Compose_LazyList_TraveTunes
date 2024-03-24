@@ -3,6 +3,7 @@ package io.travel_tunes.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.view.View
 import androidx.core.content.ContextCompat
 
 fun bitmapIconFromVector(context: Context?, vectorResId: Int): Bitmap? {
@@ -17,4 +18,19 @@ fun bitmapIconFromVector(context: Context?, vectorResId: Int): Bitmap? {
     }.run {
         return null
     }
+}
+
+fun getBitmapFromView(view: View, needMeasure: Boolean = true): Bitmap {
+    view.isDrawingCacheEnabled = true
+    if (needMeasure) {
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+    }
+    view.buildDrawingCache()
+    val bitmap = Bitmap.createBitmap(view.drawingCache)
+    view.isDrawingCacheEnabled = false
+    return bitmap
 }
