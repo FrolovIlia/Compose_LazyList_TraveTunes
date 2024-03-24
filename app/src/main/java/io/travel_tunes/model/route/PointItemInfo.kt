@@ -12,9 +12,9 @@ data class PointItemInfo(
     private val title: String,
     private val description: String,
     private val locationLat: String,
-    private val locationLon: String
-) : Parcelable, ClusterItem {
+    private val locationLon: String,
     @IgnoredOnParcel private var isSelected: Boolean = false
+) : Parcelable, ClusterItem {
 
     override fun getTitle() = title
     override fun getSnippet() = ""

@@ -38,3 +38,4 @@ fun GoogleMap.addPolylineGeofence(positions: List<LatLng>): Polyline? {
 }
 
 fun LatLngNew.toLatLng(): LatLng = LatLng(latitude, longitude)
+fun LatLng.toLatLngNew(): LatLngNew = LatLngNew(latitude, longitude)

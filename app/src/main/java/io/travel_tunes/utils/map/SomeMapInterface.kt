@@ -23,6 +23,8 @@ interface SomeMapInterface {
         pointItemClickCallback: ((PointItemInfo) -> Unit)? = null
     )
 
+    fun setOnMapClickListener(function: (LatLngNew?) -> Unit)
+
     fun updateRouteMarkers(context: Context, routeInfo: RouteItemInfo, mapPadding: Int)
 
     fun centerMapAtPosition(

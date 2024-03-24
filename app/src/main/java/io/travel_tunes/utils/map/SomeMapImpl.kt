@@ -12,6 +12,7 @@ import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.extencions.addPolylineGeofence
 import io.travel_tunes.utils.extencions.setMapStyle
 import io.travel_tunes.utils.extencions.toLatLng
+import io.travel_tunes.utils.extencions.toLatLngNew
 
 class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
 
@@ -75,6 +76,10 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
             }
         }
         googleMap.setOnCameraIdleListener(pointsClusterManager)
+    }
+
+    override fun setOnMapClickListener(function: (LatLngNew?) -> Unit) {
+        googleMap.setOnMapClickListener { function(it.toLatLngNew()) }
     }
 
     override fun centerMapAtPosition(position: LatLngNew, zoom: Float) {

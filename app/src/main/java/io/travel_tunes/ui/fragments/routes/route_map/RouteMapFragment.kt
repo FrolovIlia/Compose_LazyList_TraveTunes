@@ -128,10 +128,16 @@ internal class RouteMapFragment : Fragment() {
         viewModelFactory = RouteMapViewModelFactory(routeSealedInfo)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteMapViewModel::class.java]
+        viewModel.initRouteInfo(requireContext())
 
-        viewModel.routeInfo.observe(viewLifecycleOwner) { routeInfo ->
-            binding.toolbarLayout.toolbarTitle.changeText(
-                routeInfo.getRouteItemInfo(requireContext()).getTitle()
+        viewModel.routeTitle.observe(viewLifecycleOwner) { routeTitle ->
+            binding.toolbarLayout.toolbarTitle.changeText(routeTitle)
+        }
+        viewModel.routeItemInfo.observe(viewLifecycleOwner) { routeItemInfo ->
+            someMap?.updateRouteMarkers(
+                requireContext(),
+                routeItemInfo,
+                mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
             )
         }
     }
@@ -150,16 +156,14 @@ internal class RouteMapFragment : Fragment() {
         map.setClusterManagers(
             context = requireContext(),
             pointItemClickCallback = { pointItemInfo ->
+                viewModel.handleOnMarkerPointClick(pointItemInfo)
                 Toast.makeText(requireContext(), pointItemInfo.title, Toast.LENGTH_SHORT).show()
             }
         )
 
-        viewModel.routeInfo.value?.getRouteItemInfo(requireContext())?.let { routeItemInfo ->
-            map.updateRouteMarkers(
-                requireContext(),
-                routeItemInfo,
-                mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
-            )
+        map.setOnMapClickListener {
+            viewModel.handleOnMapClick()
         }
+        viewModel.onMapReady()
     }
 }

@@ -41,7 +41,7 @@ fun getPointMarkerBitmapOrDrawableRes(
     pointItemInfo: PointItemInfo,
     zoom: Float
 ): BitmapOrDrawableRes {
-    return if (!pointItemInfo.isSelected()) {
+    return if (pointItemInfo.isSelected()) {
         val clusterView =
             LayoutInflater.from(context)
                 .inflate(R.layout.marker_selected_layout, null)
