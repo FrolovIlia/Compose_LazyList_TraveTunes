@@ -4,11 +4,11 @@
     android:layout_width="44dp"
     android:layout_height="56dp"
     android:background="@drawable/ic_marker"
-    android:paddingTop="10dp">
+    android:paddingTop="11dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text"
-        style="@style/FontSemiBold.Dark10"
+        style="@style/FontSemiBold.Dark11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

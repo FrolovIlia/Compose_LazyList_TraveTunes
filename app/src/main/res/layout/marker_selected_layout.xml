@@ -4,7 +4,7 @@
     android:layout_width="54dp"
     android:layout_height="71dp"
     android:background="@drawable/ic_marker_selected"
-    android:paddingTop="12dp">
+    android:paddingTop="14dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text"
