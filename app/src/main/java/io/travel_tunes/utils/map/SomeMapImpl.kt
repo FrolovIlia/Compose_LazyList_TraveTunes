@@ -88,6 +88,7 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
 
     override fun updateRouteMarkers(context: Context, routeInfo: RouteItemInfo, mapPadding: Int) {
         val points = routeInfo.getPoints()
+        val isFirstTime = pointsClusterManager?.algorithm?.items.isNullOrEmpty()
         pointsClusterManager?.apply {
             clearItems()
             addItems(points)
@@ -98,11 +99,13 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
         polylineShape?.remove()
         polylineShape = googleMap.addPolylineGeofence(pointPositions)
 
-        val bounds = LatLngBounds.builder()
-            .apply {
-                pointPositions.map { position -> include(position) }
-            }
-            .build()
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, mapPadding))
+        if (isFirstTime) {
+            val bounds = LatLngBounds.builder()
+                .apply {
+                    pointPositions.map { position -> include(position) }
+                }
+                .build()
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, mapPadding))
+        }
     }
 }
