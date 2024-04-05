@@ -54,7 +54,7 @@ class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit
             binding.routeDescription.changeText(routeItemInfo.getDescriptionShort())
             binding.showRouteInfo.setOnClickListener { onButtonClickListener.invoke(routeSealedInfo) }
 
-            val pictureRes = routeSealedInfo.getRoutePictureRes()
+            val pictureRes = routeSealedInfo.getRouteMainPictureRes()
 
             with(binding.image) {
                 Glide

@@ -13,8 +13,17 @@ sealed class RouteSealedInfo: Parcelable {
      */
     open fun getCountFreePoints(): Int = 5
 
+    /**
+     * изображение для экрана со списком маршрутов
+     */
     @DrawableRes
-    abstract fun getRoutePictureRes(): Int
+    abstract fun getRouteMainPictureRes(): Int
+
+    /**
+     * изображение для экрана информации о маршруте
+     */
+    @DrawableRes
+    abstract fun getRouteDescriptionPictureRes(): Int
 
     @RawRes
     abstract fun getRouteAudioRes(): Int?

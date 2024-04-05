@@ -17,7 +17,6 @@ import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
-import io.travel_tunes.utils.map.SomeMapInterface
 
 class RouteInfoFragment : Fragment() {
 
@@ -28,8 +27,6 @@ class RouteInfoFragment : Fragment() {
     private lateinit var adapterPhotos: PhotoMiniAdapter
 
     private var listener: OnFragmentInteractionListener? = null
-
-    private var someMap: SomeMapInterface? = null
 
     interface OnFragmentInteractionListener {
         fun openRouteMapScreen(routeSealedInfo: RouteSealedInfo)
@@ -51,7 +48,6 @@ class RouteInfoFragment : Fragment() {
 
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
-        private const val MAP_VIEW_BUNDLE_KEY = "map_view_bundle_key"
         fun getInstance(routeSealedInfo: RouteSealedInfo): RouteInfoFragment {
             val args = Bundle()
             val fragment = RouteInfoFragment()
@@ -73,45 +69,7 @@ class RouteInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        initMap(savedInstanceState)
         initViewModel()
-    }
-
-    override fun onStart() {
-        binding.mapView.onStart()
-        super.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.mapView.onResume()
-        view?.requestApplyInsets()
-    }
-
-    override fun onPause() {
-        binding.mapView.onPause()
-        super.onPause()
-    }
-
-    override fun onStop() {
-        binding.mapView.onStop()
-        super.onStop()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        saveMapInstanceState(outState)
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding.mapView.onLowMemory()
-    }
-
-    private fun saveMapInstanceState(outState: Bundle?) {
-        val mapViewBundle = Bundle()
-        binding.mapView.onSaveInstanceState(mapViewBundle)
-        outState?.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle)
     }
 
     private fun initViews() {
@@ -149,10 +107,10 @@ class RouteInfoFragment : Fragment() {
             toolbarSettings.apply {
                 changeVisibility(true)
                 setOnClickListener {
-                    android.widget.Toast.makeText(
+                    Toast.makeText(
                         requireContext(),
                         "Неплохо бы сначала добавить экран, а потом уже тыкать 😉",
-                        android.widget.Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -176,37 +134,6 @@ class RouteInfoFragment : Fragment() {
         }
     }
 
-    private fun initMap(savedInstanceState: Bundle?) {
-        val mapViewBundle = savedInstanceState?.getBundle(MAP_VIEW_BUNDLE_KEY)
-        with(binding.mapView) {
-            onCreate(mapViewBundle)
-            getMapAsync {
-                onMapReady(it)
-            }
-        }
-    }
-
-    private fun onMapReady(map: SomeMapInterface) {
-        someMap = map
-        map.setUiSettings(
-            context = requireContext(),
-            isMapToolbarEnabled = false,
-            isZoomControlsEnabled = true,
-            isRotateGesturesEnabled = false,
-            isCompassEnabled = false,
-            isMyLocationButtonEnabled = false
-        )
-
-        map.setClusterManagers(
-            context = requireContext()
-        )
-
-        viewModel.routeInfo.value?.getRouteItemInfo(requireContext())?.let { routeItemInfo ->
-            map.updateRouteMarkers(requireContext(), routeItemInfo, mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56))
-        }
-
-    }
-
     private fun showRouteInfo(routeSealedInfo: RouteSealedInfo) {
         val routeItemInfo = routeSealedInfo.getRouteItemInfo(requireContext())
         with(binding) {
@@ -218,6 +145,8 @@ class RouteInfoFragment : Fragment() {
             durationValue.changeText(routeItemInfo.getDuration())
             pointsValue.changeText(routeItemInfo.getPoints().size.toString())
             descriptionValue.changeText(routeItemInfo.getDescription())
+
+            routeDescriptionImage.setImageResource(routeSealedInfo.getRouteDescriptionPictureRes())
 
             val audioRes = routeSealedInfo.getRouteAudioRes()
             if (audioRes != null) {
