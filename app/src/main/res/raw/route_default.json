@@ -1,0 +1,18 @@
+{
+  "description_short": "короткое_описание",
+  "description": "полное_описание",
+  "distance": "9_км",
+  "duration": "2_часа",
+  "id": "1",
+  "points": [
+    {
+      "description": "Первый_в_Иваново",
+      "id": "1",
+      "locationLat": "57",
+      "locationLon": "40",
+      "title": "Железнодорожный_вокзал"
+    }
+  ],
+  "tag": "ivanovo_1",
+  "title": "История_текстильного_края"
+}
