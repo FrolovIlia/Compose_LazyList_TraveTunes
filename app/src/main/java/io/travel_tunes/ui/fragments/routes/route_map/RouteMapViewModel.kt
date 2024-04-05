@@ -1,6 +1,7 @@
 package io.travel_tunes.ui.fragments.routes.route_map
 
 import android.content.Context
+import androidx.annotation.RawRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.travel_tunes.model.route.PointItemInfo
@@ -16,14 +17,20 @@ class RouteMapViewModel(
 
     val routeItemInfo = MutableLiveData<RouteItemInfo>()
 
+    @RawRes
+    val routeKmlInfo = MutableLiveData<Int>()
+
     fun initRouteInfo(context: Context) {
         val routeInfo = routeSealedInfo.getRouteItemInfo(context)
+        val routeKmlRes = routeSealedInfo.getRouteKml()
         routeItemInfo.value = routeInfo
         routeTitle.value = routeInfo.getTitle()
+        routeKmlInfo.value = routeKmlRes
     }
 
     fun onMapReady() {
         routeItemInfo.value = routeItemInfo.value
+        routeKmlInfo.value = routeKmlInfo.value
     }
 
     fun handleOnMarkerPointClick(pointItemInfo: PointItemInfo) {

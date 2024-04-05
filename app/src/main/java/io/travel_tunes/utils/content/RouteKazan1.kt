@@ -12,6 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class RouteKazan1(
     private val tag: String = "kazan_1",
     private val jsonDescription: Int = R.raw.route_kazan_1,
+    private val routeKml: Int = R.raw.route_kazan_1_kml,
     private val pictureMainRes: Int = R.drawable.route_kazan_1_main,
     private val pictureDescriptionRes: Int = R.drawable.route_kazan_1_description,
     private val audioRes: Int = R.raw.route_kazan_1_description
@@ -19,6 +20,8 @@ data class RouteKazan1(
 
     @IgnoredOnParcel
     private var routeInfo: RouteItemInfo? = null
+
+    override fun getRouteKml() = routeKml
 
     override fun getRouteMainPictureRes() = pictureMainRes
     override fun getRouteDescriptionPictureRes() = pictureDescriptionRes

@@ -147,6 +147,13 @@ class RouteMapFragment : Fragment() {
                 mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
             )
         }
+        viewModel.routeKmlInfo.observe(viewLifecycleOwner) {
+            someMap?.updateKml(
+                requireContext(),
+                kmlRes = it,
+                mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
+            )
+        }
     }
 
     private fun initBottomSheet() {

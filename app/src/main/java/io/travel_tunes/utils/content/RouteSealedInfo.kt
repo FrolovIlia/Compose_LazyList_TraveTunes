@@ -7,11 +7,14 @@ import androidx.annotation.RawRes
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.model.route.RouteItemInfo
 
-sealed class RouteSealedInfo: Parcelable {
+sealed class RouteSealedInfo : Parcelable {
     /**
      * количество доступных для ознакомления с маршрутом точек
      */
     open fun getCountFreePoints(): Int = 5
+
+    @RawRes
+    abstract fun getRouteKml(): Int
 
     /**
      * изображение для экрана со списком маршрутов

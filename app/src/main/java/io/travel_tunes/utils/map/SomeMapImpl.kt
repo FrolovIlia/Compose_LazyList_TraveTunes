@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Polyline
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.collections.MarkerManager
+import com.google.maps.android.data.kml.KmlLayer
 import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.extencions.addPolylineGeofence
@@ -19,6 +20,8 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
     private var pointsClusterManager: ClusterManager<PointItemInfo>? = null
 
     private var polylineShape: Polyline? = null
+    private var kmlLayer: KmlLayer? = null
+    private var isFirstStart: Boolean = true
 
     override fun setUiSettings(
         context: Context,
@@ -95,17 +98,20 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
             cluster()
         }
 
-        val pointPositions = routeInfo.getRoutePolyline()
-        polylineShape?.remove()
-        polylineShape = googleMap.addPolylineGeofence(pointPositions)
-
         if (isFirstTime) {
             val bounds = LatLngBounds.builder()
                 .apply {
-                    pointPositions.map { position -> include(position) }
+                    include(routeInfo.getNortheast().toLatLng())
+                    include(routeInfo.getSouthwest().toLatLng())
                 }
                 .build()
             googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, mapPadding))
         }
+    }
+
+    override fun updateKml(context: Context, kmlRes: Int, mapPadding: Int) {
+        kmlLayer?.removeLayerFromMap()
+        kmlLayer = KmlLayer(googleMap, kmlRes, context)
+        kmlLayer?.addLayerToMap()
     }
 }
