@@ -4,13 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.travel_tunes.utils.BaseViewModelFactory
 import io.travel_tunes.utils.content.RouteIvanovo1
+import io.travel_tunes.utils.content.RouteKazan1
 import io.travel_tunes.utils.content.RouteSealedInfo
 
 class RoutesViewModel : ViewModel() {
     val routesNew: MutableLiveData<List<RouteSealedInfo>> = MutableLiveData()
 
     init {
-        routesNew.value = listOf(RouteIvanovo1())
+        routesNew.value = listOf(RouteIvanovo1(), RouteKazan1())
     }
 }
 
