@@ -8,6 +8,11 @@ import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.model.route.RouteItemInfo
 
 sealed class RouteSealedInfo: Parcelable {
+    /**
+     * количество доступных для ознакомления с маршрутом точек
+     */
+    open fun getCountFreePoints(): Int = 5
+
     @DrawableRes
     abstract fun getRoutePictureRes(): Int
 
