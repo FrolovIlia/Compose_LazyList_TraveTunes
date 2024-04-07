@@ -17,4 +17,7 @@
     <string name="city_items_show">▶ В путь</string>
     <string name="point_item_info_show">▶ Пройтись</string>
     <string name="show_more_button_text">Подробнее</string>
+    <string name="location_permission_denied">location permission denied</string>
+    <string name="permission_required_toast">permission required toast</string>
+    <string name="permission_rationale_location">permission rationale location</string>
 </resources>
