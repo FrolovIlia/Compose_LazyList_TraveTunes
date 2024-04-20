@@ -57,12 +57,14 @@ class SplashActivity : AppCompatActivity() {
                         // ...
                     }
                 usersDao.child("users").child(uniqueId).get().addOnSuccessListener { result ->
-                    val resultHashMap = result.value as HashMap<*, *>
-                    @Suppress("UNCHECKED_CAST") val userFirebase = UserFirebase(
-                        userId = resultHashMap["userId"].toString(),
-                        userRoutes = resultHashMap["userRoutes"] as? List<String> ?: emptyList()
-                    )
-                    Timber.i("firebase", "Got value $userFirebase")
+                    val resultHashMap = result.value as? HashMap<*, *>?
+                    resultHashMap?.let { hashMap ->
+                        @Suppress("UNCHECKED_CAST") val userFirebase = UserFirebase(
+                            userId = resultHashMap["userId"].toString(),
+                            userRoutes = resultHashMap["userRoutes"] as? List<String> ?: emptyList()
+                        )
+                        Timber.i("firebase", "Got value $userFirebase")
+                    }
                     startMain()
                 }.addOnFailureListener {
                     Timber.e("firebase", "Error getting data", it)
