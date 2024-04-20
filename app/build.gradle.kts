@@ -4,18 +4,20 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
     namespace = "io.travel_tunes"
     compileSdk = 34
+    val versionName = "1.0"
+    val versionCode = 1
 
     defaultConfig {
         applicationId = "io.travel_tunes"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,6 +55,26 @@ android {
     kapt {
         arguments {
             arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
+
+    buildTypes {
+        getByName("release") {
+            defaultConfig.versionName = versionName
+            defaultConfig.versionCode = versionCode
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            isDebuggable = false
+        }
+        getByName("debug") {
+            //            firebaseCrashlytics {
+            //                // If you don't need crash reporting for your debug build,
+            //                // you can speed up your build by disabling mapping file uploading.
+            //                mappingFileUploadEnabled false
+            //            }
+            defaultConfig.versionName = versionName
+            defaultConfig.versionCode = versionCode
+            isDebuggable = true
         }
     }
 
@@ -96,4 +118,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-database")
 }
