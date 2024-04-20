@@ -39,13 +39,18 @@ android {
             )
         }
     }
+
+    val javaVersion = JavaVersion.VERSION_17
+    val javaVersionCode = 17
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    kotlin {
+        jvmToolchain(javaVersionCode)
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -115,6 +120,8 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    implementation("androidx.datastore:datastore-preferences:1.1.0")
 
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
