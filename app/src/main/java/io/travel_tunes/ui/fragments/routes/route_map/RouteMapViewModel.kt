@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
-import io.travel_tunes.utils.BaseViewModelFactory
+import io.travel_tunes.utils.base.BaseViewModelFactory
 import io.travel_tunes.utils.content.RouteSealedInfo
 
 class RouteMapViewModel(

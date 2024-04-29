@@ -1,4 +1,4 @@
-/.idea/
+/.idea
 /local.properties
-/.gradle/
+/.gradle
 /lint.xml

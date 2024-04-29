@@ -17,4 +17,12 @@
     <string name="city_items_show">▶ В путь</string>
     <string name="point_item_info_show">▶ Пройтись</string>
     <string name="show_more_button_text">Подробнее</string>
+
+    <string name="restore_screen_title">Восстановление покупок</string>
+    <string name="restore_screen_copy_id_description">Для восстановления покупок обратитесь к нам. Также предоставьте свой uid, скопировав с помощью кнопки «Скопировать UID». \nВнимание! Не передавайте его никому, кроме нас.</string>
+    <string name="restore_screen_copy_id">Скопировать uid</string>
+    <string name="restore_screen_sync_description">После того, как вы с нами свяжетесь, и мы удостоверимся, что ваши покупки действительно пропали, то вам потребуется обновить данные. \nНе стоит нажимать кнопку без наших указаний)</string>
+    <string name="restore_screen_sync_remote_data">Обновить данные</string>
+    <string name="restore_screen_restore_success">Данные обновлены. Попробуйте перезапустить приложение😉</string>
+    <string name="restore_screen_restore_error">К сожалению, что-то пошло не так. Пожалуйста, попробуйте снова</string>
 </resources>

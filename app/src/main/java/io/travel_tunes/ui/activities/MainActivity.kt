@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.travel_tunes.R
 import io.travel_tunes.databinding.ActivityDefaultBinding
+import io.travel_tunes.ui.fragments.restore.RestoreFragment
 import io.travel_tunes.ui.fragments.routes.list.RoutesFragment
 import io.travel_tunes.ui.fragments.routes.route_info.RouteInfoFragment
 import io.travel_tunes.ui.fragments.routes.route_map.RouteMapFragment
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionLi
     override fun openRouteInfoScreen(routeSealedInfo: RouteSealedInfo) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, RouteInfoFragment.getInstance(routeSealedInfo))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun openRestoreScreen() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, RestoreFragment.getInstance())
             .addToBackStack(null)
             .commit()
     }

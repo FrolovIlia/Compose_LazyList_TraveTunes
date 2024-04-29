@@ -3,7 +3,7 @@ package io.travel_tunes.ui.fragments.points.info
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.travel_tunes.model.route.PointItemFullInfo
-import io.travel_tunes.utils.BaseViewModelFactory
+import io.travel_tunes.utils.base.BaseViewModelFactory
 
 class PointInfoViewModel(
     pointItemFullInfo: PointItemFullInfo

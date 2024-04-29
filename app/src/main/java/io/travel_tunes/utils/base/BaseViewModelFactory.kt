@@ -1,4 +1,4 @@
-package io.travel_tunes.utils
+package io.travel_tunes.utils.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
