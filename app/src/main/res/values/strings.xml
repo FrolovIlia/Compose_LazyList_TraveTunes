@@ -23,6 +23,7 @@
     <string name="restore_screen_copy_id">Скопировать uid</string>
     <string name="restore_screen_sync_description">После того, как вы с нами свяжетесь, и мы удостоверимся, что ваши покупки действительно пропали, то вам потребуется обновить данные. \nНе стоит нажимать кнопку без наших указаний)</string>
     <string name="restore_screen_sync_remote_data">Обновить данные</string>
-    <string name="restore_screen_restore_success">Данные обновлены. Попробуйте перезапустить приложение😉</string>
+    <string name="restore_screen_restore_success_with_changes">Данные обновлены. Попробуйте перезапустить приложение😉</string>
+    <string name="restore_screen_restore_success">Данные актуальны. Свяжитесь с нами, если что-то не так</string>
     <string name="restore_screen_restore_error">К сожалению, что-то пошло не так. Пожалуйста, попробуйте снова</string>
 </resources>

@@ -3,6 +3,7 @@ package io.travel_tunes.ui.fragments.restore
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import io.travel_tunes.R
+import io.travel_tunes.model.UserDeviceData
 import io.travel_tunes.utils.CrashlyticsUtils
 import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
@@ -20,6 +21,7 @@ class RestoreDataViewModel(
     private val usersDao by lazy { Firebase.database(pathFirebaseDB).reference }
 
     private var lastUniqueId: String? = null
+    private var userDeviceInfo: UserDeviceData? = null
 
     fun getUID(onUniqueIdReady: (uniqueId: String) -> Unit) {
         if (lastUniqueId.isNullOrBlank()) {
@@ -31,16 +33,18 @@ class RestoreDataViewModel(
                     preferenceManager.setUniqueId(uniqueId)
                 }
                 lastUniqueId = uniqueId
+                sendToDBRequest(uniqueId)
                 onUniqueIdReady(uniqueId)
             }
         } else {
             onUniqueIdReady(lastUniqueId!!)
+            sendToDBRequest(lastUniqueId!!)
         }
     }
 
     fun syncRemoteData(resultUpdate: (resultStringRes: Int) -> Unit) {
         getUID { uniqueId ->
-            usersDao.child("users").child(uniqueId).get()
+            usersDao.child("table").child("users_routes").child(uniqueId).get()
                 .addOnSuccessListener { result ->
                     Timber.e("result = $result")
                     val resultHashMap =
@@ -48,14 +52,15 @@ class RestoreDataViewModel(
                     Timber.e("resultHashMap = $resultHashMap")
                     resultHashMap.let {
                         @Suppress("UNCHECKED_CAST") val routes =
-                            resultHashMap["userRoutes"] as? List<String> ?: emptyList()
+                            resultHashMap["routes"] as? List<String> ?: emptyList()
                         if (routes.isNotEmpty()) {
                             Timber.e("routes = $routes")
+                            resultUpdate.invoke(R.string.restore_screen_restore_success_with_changes)
                         } else {
                             Timber.e("routes are empty")
+                            resultUpdate.invoke(R.string.restore_screen_restore_success)
                         }
                     }
-                    resultUpdate.invoke(R.string.restore_screen_restore_success)
                 }
                 .addOnCanceledListener {
                     CrashlyticsUtils.sendThrowableNonFatal("syncRemoteData cancelled")
@@ -66,6 +71,33 @@ class RestoreDataViewModel(
                     resultUpdate.invoke(R.string.restore_screen_restore_error)
                 }
         }
+    }
+
+    private fun sendToDBRequest(uniqueId: String) {
+        userDeviceInfo = if (userDeviceInfo == null) {
+            UserDeviceData(
+                model = UserDeviceData.getDeviceInfoModel(),
+                androidOS = UserDeviceData.getDeviceInfoOSVersion(),
+                uniqueId = uniqueId,
+                currentDateTime = UserDeviceData.getCurrentDateTime()
+            )
+        } else {
+            userDeviceInfo?.copy(currentDateTime = UserDeviceData.getCurrentDateTime())
+        }
+        usersDao.child("table").child("users_restore_requests").child(uniqueId)
+            .setValue(userDeviceInfo)
+            .addOnSuccessListener {
+                Timber.e("add data success")
+            }
+            .addOnCanceledListener {
+                CrashlyticsUtils.sendThrowableNonFatal("add data cancelable")
+            }
+            .addOnFailureListener {
+                CrashlyticsUtils.sendThrowableNonFatal(it)
+            }
+            .addOnCompleteListener {
+                Timber.e("add data complete")
+            }
     }
 }
 

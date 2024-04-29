@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RouteItemInfo(
     private val id: String,
+    @SerializedName("item_key") private val itemKey: String,
     private val title: String,
     private val tag: String,
     private val description: String,

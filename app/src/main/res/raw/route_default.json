@@ -3,6 +3,7 @@
   "description": "полное_описание",
   "distance": "9_км",
   "duration": "2_часа",
+  "item_key": "route_item_key",
   "id": "1",
   "points": [
     {
