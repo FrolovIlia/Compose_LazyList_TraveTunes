@@ -117,10 +117,11 @@ class PlayerView @JvmOverloads constructor(
      * для приостановки воспроизведения
      */
     fun pause() {
-        mediaPlayer?.pause()?.let {
-            updateActionDrawable(false)
-            stopUpdatingProgressTimer()
+        if (mediaPlayer?.isPlaying == true) {
+            mediaPlayer?.pause()
         }
+        updateActionDrawable(false)
+        stopUpdatingProgressTimer()
     }
 
     /**
