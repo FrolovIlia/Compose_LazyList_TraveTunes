@@ -109,9 +109,10 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
         }
     }
 
+    // FIXME: заменить kml на что-то другое - иначе будет перехватывать нажатия на маркеры 
     override fun updateKml(context: Context, kmlRes: Int, mapPadding: Int) {
-        kmlLayer?.removeLayerFromMap()
-        kmlLayer = KmlLayer(googleMap, kmlRes, context)
-        kmlLayer?.addLayerToMap()
+//        kmlLayer?.removeLayerFromMap()
+//        kmlLayer = KmlLayer(googleMap, kmlRes, context)
+//        kmlLayer?.addLayerToMap()
     }
 }
