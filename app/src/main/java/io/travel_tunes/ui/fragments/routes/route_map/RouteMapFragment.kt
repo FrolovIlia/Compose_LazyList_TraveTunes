@@ -18,6 +18,7 @@ import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
 import io.travel_tunes.utils.extencions.toDp
 import io.travel_tunes.utils.map.SomeMapInterface
+import io.travel_tunes.utils.prefs.PreferenceManager
 
 class RouteMapFragment : Fragment() {
 
@@ -132,7 +133,8 @@ class RouteMapFragment : Fragment() {
 
     private fun initViewModel() {
         val routeSealedInfo = arguments?.parcelable<RouteSealedInfo>(EXTRA_ROUTE_INFO) ?: return
-        viewModelFactory = RouteMapViewModelFactory(routeSealedInfo)
+        val preferenceManager = PreferenceManager(requireContext())
+        viewModelFactory = RouteMapViewModelFactory(routeSealedInfo, preferenceManager)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteMapViewModel::class.java]
         viewModel.initRouteInfo(requireContext())
@@ -153,6 +155,18 @@ class RouteMapFragment : Fragment() {
                 kmlRes = it,
                 mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
             )
+        }
+        viewModel.openPointInfoScreen.observe(viewLifecycleOwner) { pointInfo ->
+            if (pointInfo == null) return@observe
+            openPointInfoBottomFragment(
+                pointItemFullInfo = pointInfo
+            )
+            viewModel.clearOpenPointInfoScreen()
+        }
+        viewModel.openPaymentsScreen.observe(viewLifecycleOwner) { route ->
+            if (route == null) return@observe
+
+            viewModel.clearOpenPaymentsScreen()
         }
     }
 
@@ -186,13 +200,6 @@ class RouteMapFragment : Fragment() {
             context = requireContext(),
             pointItemClickCallback = { pointItemInfo ->
                 viewModel.handleOnMarkerPointClick(pointItemInfo)
-                if (!pointItemInfo.isSelected()) {
-                    viewModel.getPointItemFullInfo(pointItemInfo.getId())?.let {
-                        openPointInfoBottomFragment(
-                            pointItemFullInfo = it
-                        )
-                    }
-                }
             }
         )
 

@@ -13,6 +13,7 @@ data class PointItemInfo(
     private val description: String,
     private val locationLat: String,
     private val locationLon: String,
+    @IgnoredOnParcel private val isEnabled: Boolean = true,
     @IgnoredOnParcel private var isSelected: Boolean = false
 ) : Parcelable, ClusterItem {
 
@@ -20,6 +21,8 @@ data class PointItemInfo(
     override fun getSnippet() = ""
     override fun getZIndex(): Float? = null
     override fun getPosition() = LatLng(locationLat.toDouble(), locationLon.toDouble())
+
+    fun isEnabled() = isEnabled
 
     fun isSelected() = isSelected
     fun getId() = id

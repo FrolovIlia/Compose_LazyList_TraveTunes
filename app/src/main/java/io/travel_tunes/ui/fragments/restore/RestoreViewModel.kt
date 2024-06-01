@@ -7,6 +7,7 @@ import io.travel_tunes.model.UserDeviceData
 import io.travel_tunes.utils.CrashlyticsUtils
 import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
+import io.travel_tunes.utils.content.ProjectSetup
 import io.travel_tunes.utils.prefs.PreferenceManager
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
@@ -28,7 +29,7 @@ class RestoreDataViewModel(
             launchAtViewModelScope {
                 val deferred = async { preferenceManager.uniqueIdFlow.first() }
                 val uniqueIdFromPrefs = deferred.await()
-                val uniqueId = uniqueIdFromPrefs.orEmpty().ifBlank { UUID.randomUUID().toString() }
+                val uniqueId = uniqueIdFromPrefs.ifBlank { UUID.randomUUID().toString() }
                 if (uniqueId != uniqueIdFromPrefs) {
                     preferenceManager.setUniqueId(uniqueId)
                 }
@@ -44,20 +45,21 @@ class RestoreDataViewModel(
 
     fun syncRemoteData(resultUpdate: (resultStringRes: Int) -> Unit) {
         getUID { uniqueId ->
-            usersDao.child("table").child("users_routes").child(uniqueId).get()
+            usersDao.child(ProjectSetup.TABLE_NAME).child("users_payments").child(uniqueId).get()
                 .addOnSuccessListener { result ->
                     Timber.e("result = $result")
                     val resultHashMap =
                         result.value as? HashMap<*, *>? ?: return@addOnSuccessListener
                     Timber.e("resultHashMap = $resultHashMap")
                     resultHashMap.let {
-                        @Suppress("UNCHECKED_CAST") val routes =
-                            resultHashMap["routes"] as? List<String> ?: emptyList()
-                        if (routes.isNotEmpty()) {
-                            Timber.e("routes = $routes")
+                        @Suppress("UNCHECKED_CAST") val payments =
+                            resultHashMap["payments"] as? List<String> ?: emptyList()
+                        if (payments.isNotEmpty()) {
+                            Timber.e("payments = $payments")
+                            addToPrefsInfo(payments.toSet())
                             resultUpdate.invoke(R.string.restore_screen_restore_success_with_changes)
                         } else {
-                            Timber.e("routes are empty")
+                            Timber.e("payments are empty")
                             resultUpdate.invoke(R.string.restore_screen_restore_success)
                         }
                     }
@@ -84,7 +86,7 @@ class RestoreDataViewModel(
         } else {
             userDeviceInfo?.copy(currentDateTime = UserDeviceData.getCurrentDateTime())
         }
-        usersDao.child("table").child("users_restore_requests").child(uniqueId)
+        usersDao.child(ProjectSetup.TABLE_NAME).child("users_restore_requests").child(uniqueId)
             .setValue(userDeviceInfo)
             .addOnSuccessListener {
                 Timber.e("add data success")
@@ -98,6 +100,13 @@ class RestoreDataViewModel(
             .addOnCompleteListener {
                 Timber.e("add data complete")
             }
+    }
+
+    private fun addToPrefsInfo(newPaymentsInfo: Set<String>) {
+        launchAtViewModelScope {
+            val deferred = async { preferenceManager.updatePaymentsAndRoutesInfo(newPaymentsInfo) }
+            deferred.await()
+        }
     }
 }
 

@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRoutesBinding
-import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.RoutesAdapter
@@ -18,6 +16,9 @@ import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.changeVisibilityInvisible
+import io.travel_tunes.utils.extencions.launchWhenAtLeastLifecycleStateStarted
+import io.travel_tunes.utils.prefs.PreferenceManager
+import kotlinx.coroutines.flow.combine
 
 class RoutesFragment : Fragment() {
 
@@ -72,7 +73,7 @@ class RoutesFragment : Fragment() {
     private fun initViews() {
         initToolbar()
         adapterRoutes = RoutesAdapter { route ->
-            listener?.openRouteInfoScreen(route)
+            viewModel.handleOpenRouteEventFromAdapter(route)
         }
 
         binding.routesRV.adapter = adapterRoutes
@@ -111,12 +112,25 @@ class RoutesFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        viewModelFactory = RoutesViewModelFactory()
-
+        val preferenceManager = PreferenceManager(requireContext())
+        viewModelFactory = RoutesViewModelFactory(preferenceManager)
         viewModel = ViewModelProvider(this, viewModelFactory)[RoutesViewModel::class.java]
 
-        viewModel.routesNew.observe(viewLifecycleOwner) { routesSealed ->
-            adapterRoutes.updateData(routesSealed)
+        launchWhenAtLeastLifecycleStateStarted {
+            viewModel.routesNew.combine(viewModel.routePaidTagsSet) { routesList, routesPaidTagsSet ->
+                routesList.map { routeSealedInfo ->
+                    routeSealedInfo.setIsPaid(routesPaidTagsSet.contains(routeSealedInfo.getRouteTag()))
+                    routeSealedInfo
+                }
+            }.collect { resultList ->
+                adapterRoutes.updateData(resultList)
+            }
+        }
+
+        viewModel.openRouteInfoScreenEvent.observe(viewLifecycleOwner) { route ->
+            if (route == null) return@observe
+            viewModel.clearOpenRouteInfoScreenEvent()
+            listener?.openRouteInfoScreen(route)
         }
     }
 }

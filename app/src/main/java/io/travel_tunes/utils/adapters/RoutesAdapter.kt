@@ -10,6 +10,7 @@ import io.travel_tunes.R
 import io.travel_tunes.databinding.RouteItemBinding
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
+import io.travel_tunes.utils.extencions.changeVisibility
 
 class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit) :
     RecyclerView.Adapter<RoutesAdapter.RouteItemHolder>() {
@@ -55,6 +56,8 @@ class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit
             binding.showRouteInfo.setOnClickListener { onButtonClickListener.invoke(routeSealedInfo) }
 
             val pictureRes = routeSealedInfo.getRouteMainPictureRes()
+
+            binding.isPaid.changeVisibility(routeSealedInfo.isRoutePaid())
 
             with(binding.image) {
                 Glide

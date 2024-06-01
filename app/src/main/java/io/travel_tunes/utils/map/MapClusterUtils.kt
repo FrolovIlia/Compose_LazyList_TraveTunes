@@ -41,19 +41,24 @@ fun getPointMarkerBitmapOrDrawableRes(
     pointItemInfo: PointItemInfo,
     zoom: Float
 ): BitmapOrDrawableRes {
-    return if (pointItemInfo.isSelected()) {
-        val clusterView =
-            LayoutInflater.from(context)
-                .inflate(R.layout.marker_selected_layout, null)
-        (clusterView.findViewById<View>(R.id.text) as TextView).changeText(pointItemInfo.getId())
-        BitmapOrDrawableRes(bitmap = getBitmapFromView(clusterView))
-    } else {
-        val clusterView =
-            LayoutInflater.from(context)
-                .inflate(R.layout.marker_default_layout, null)
-        (clusterView.findViewById<View>(R.id.text) as TextView).changeText(pointItemInfo.getId())
-        BitmapOrDrawableRes(bitmap = getBitmapFromView(clusterView))
+    val layoutId = when {
+        !pointItemInfo.isEnabled() -> {
+            R.layout.marker_disabled_layout
+        }
+
+        pointItemInfo.isSelected() -> {
+            R.layout.marker_selected_layout
+        }
+
+        else -> {
+            R.layout.marker_default_layout
+        }
     }
+    val clusterView =
+        LayoutInflater.from(context)
+            .inflate(layoutId, null)
+    (clusterView.findViewById<View>(R.id.text) as TextView).changeText(pointItemInfo.getId())
+    return BitmapOrDrawableRes(bitmap = getBitmapFromView(clusterView))
 }
 
 fun bitmapDescriptorFromVector(context: Context?, vectorResId: Int): BitmapDescriptor {

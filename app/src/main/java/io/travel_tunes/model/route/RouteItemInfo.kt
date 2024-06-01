@@ -28,6 +28,9 @@ data class RouteItemInfo(
     fun getDistance() = distance
     fun getDuration() = duration
     fun getPoints() = points
+    fun getPoints(isPaid: Boolean) = if (isPaid) points.map { pointItemInfo -> pointItemInfo.copy(isEnabled = true) } else points.mapIndexed { index, pointItemInfo ->
+        pointItemInfo.copy(isEnabled = index < 5)
+    }
     fun getNortheast() = LatLngNew(northeastLat.toDoubleOrNull() ?: 0.0, northeastLon.toDoubleOrNull() ?: 0.0)
     fun getSouthwest() = LatLngNew(southwestLat.toDoubleOrNull() ?: 0.0, southwestLon.toDoubleOrNull() ?: 0.0)
 }
