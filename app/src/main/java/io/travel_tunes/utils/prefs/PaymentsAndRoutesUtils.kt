@@ -1,5 +1,6 @@
 package io.travel_tunes.utils.prefs
 
+import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.utils.content.ProjectSetup
 
 object PaymentsAndRoutesUtils {
@@ -28,11 +29,23 @@ object PaymentsAndRoutesUtils {
     /**
      * вернет список доступных платежей по текущему списку платежей и текущему маршруту
      */
-    fun getRouteTagListFromPayments(currentRouteTag: String,paymentsFromPrefs: Set<String>): Set<String> {
-        val result = mutableSetOf("")
-        if (paymentsFromPrefs.isEmpty()) return emptySet()
+    fun getPaymentVariantsForBuy(
+        currentRouteTag: String,
+        alreadyPaidRouteTags: Set<String>
+    ): List<PaymentVariant> {
         val paymentVariants = ProjectSetup.PAYMENT_VARIANTS
-        // FIXME: доработать метод
-        return result
+
+        // FIXME: добавить сортировку?
+        val paymentVariantsWithCurrentRoute =
+            paymentVariants.filter { it.getRouteTagSet().contains(currentRouteTag) }
+        return if (alreadyPaidRouteTags.isEmpty())
+            paymentVariantsWithCurrentRoute
+        else {
+            // FIXME: проверить это на нескольких вариантах покупки
+            val resultList = paymentVariantsWithCurrentRoute.filter {
+                it.getRouteTagSet().none { routeTag -> !alreadyPaidRouteTags.contains(routeTag) }
+            }
+            resultList
+        }
     }
 }

@@ -1,8 +1,4 @@
 <resources>
-    <string name="app_name">TravelTunes</string>
-
-    <string name="fragment_routes_title">Иваново</string>
-
     <string name="fragment_route_info_distance_label">Расстояние</string>
     <string name="fragment_route_info_travel_mode_label">Транспорт</string>
     <string name="fragment_route_info_travel_mode_value">Пешком</string>
@@ -12,7 +8,7 @@
     <string name="fragment_route_info_description_label">Коротко про…</string>
     <string name="fragment_route_info_button_text">Пройтись по маршруту</string>
 
-    <string name="empty"></string>
+    <string name="empty" translatable="false"></string>
 
     <string name="city_items_show">▶ В путь</string>
     <string name="point_item_info_show">▶ Пройтись</string>
@@ -26,4 +22,10 @@
     <string name="restore_screen_restore_success_with_changes">Данные обновлены. Попробуйте перезапустить приложение😉</string>
     <string name="restore_screen_restore_success">Данные актуальны. Свяжитесь с нами, если что-то не так</string>
     <string name="restore_screen_restore_error">К сожалению, что-то пошло не так. Пожалуйста, попробуйте снова</string>
+
+    <string name="payments_screen_title">Оформление экскурсии</string>
+    <string name="payments_screen_current_label_pattern">Купить маршрут «%s»</string>
+    <string name="payments_screen_current_amount_pattern">%1$s%2$s</string>
+    <string name="payments_screen_both_label_pattern">Купить оба маршрута «%1$s» и «%2$s»</string>
+    <string name="payments_screen_both_amount_pattern">%1$s%2$s</string>
 </resources>

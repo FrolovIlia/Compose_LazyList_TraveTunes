@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRouteMapBinding
+import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
+import io.travel_tunes.ui.fragments.payments.PaymentsFragment
 import io.travel_tunes.ui.fragments.points.info.PointInfoFragment
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
@@ -163,9 +165,9 @@ class RouteMapFragment : Fragment() {
             )
             viewModel.clearOpenPointInfoScreen()
         }
-        viewModel.openPaymentsScreen.observe(viewLifecycleOwner) { route ->
-            if (route == null) return@observe
-
+        viewModel.openPaymentsScreen.observe(viewLifecycleOwner) { paymentVariants ->
+            if (paymentVariants == null) return@observe
+            showPaymentsFragment(paymentVariants)
             viewModel.clearOpenPaymentsScreen()
         }
     }
@@ -250,6 +252,14 @@ class RouteMapFragment : Fragment() {
             childFragmentManager.findFragmentByTag(PointInfoFragment.POINT_INFO_BOTTOM) as? PointInfoFragment
         if (fragment != null) {
             childFragmentManager.beginTransaction().hide(fragment).commit()
+        }
+    }
+
+    private fun showPaymentsFragment(paymentVariants: List<PaymentVariant>) {
+        val tag = "bottom_payments"
+        if (childFragmentManager.findFragmentByTag(tag) == null) {
+            val bottomFragment = PaymentsFragment.getInstance(paymentVariants)
+            bottomFragment.show(childFragmentManager, tag)
         }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
+import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.utils.extencions.dataStore
 import io.travel_tunes.utils.extencions.getValueFlow
 import io.travel_tunes.utils.extencions.setValue
@@ -42,6 +43,22 @@ class PreferenceManager(context: Context) {
             }
         }
         return true
+    }
+
+    suspend fun getPaymentVariantsForBuy(onResultReady: (List<PaymentVariant>) -> Unit) {
+        dataStore.edit { preferences ->
+            val currentRouteTag = preferences[ROUTE_CURRENT_TAG]
+            if (currentRouteTag.isNullOrBlank()) {
+                onResultReady.invoke(emptyList())
+                return@edit
+            } else {
+                val result = PaymentsAndRoutesUtils.getPaymentVariantsForBuy(
+                    currentRouteTag,
+                    alreadyPaidRouteTags = preferences[ROUTE_PAID_TAGS_LIST] ?: emptySet()
+                )
+                onResultReady.invoke(result)
+            }
+        }
     }
 
     suspend fun setCurrentRouteTag(routeTag: String): Boolean {
