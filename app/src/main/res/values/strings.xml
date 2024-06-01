@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TravelTunes</string>
 
-    <string name="fragment_routes_title">Иваново</string>
+    <string name="fragment_routes_title">Казань</string>
 
     <string name="fragment_route_info_distance_label">Расстояние</string>
     <string name="fragment_route_info_travel_mode_label">Транспорт</string>
