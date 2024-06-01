@@ -61,6 +61,19 @@ android {
         arg("room.schemaLocation", "$projectDir/schemas")
     }
 
+    flavorDimensions.add("city")
+    productFlavors {
+        create("ivanovo") {
+            applicationId = "io.travel_tunes.ivanovo"
+            resValue("string", "app_name", "Иваново: Маршруты")
+        }
+        create("kazan") {
+            applicationId = "io.travel_tunes.kazan"
+            resValue("string", "app_name", "Казань: Маршруты")
+        }
+    }
+
+
     buildTypes {
         getByName("release") {
             defaultConfig.versionName = versionName
@@ -85,6 +98,14 @@ android {
         getByName("androidTest") {
             // Adds exported schema location as test app assets.
             assets.srcDirs("$projectDir/schemas")
+        }
+        getByName("ivanovo") {
+            java.srcDir("src/ivanovo/java")
+            res.srcDir("src/ivanovo/res")
+        }
+        getByName("kazan") {
+            java.srcDir("src/kazan/java")
+            res.srcDir("src/kazan/res")
         }
     }
 }

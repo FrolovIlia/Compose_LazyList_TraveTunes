@@ -17,6 +17,7 @@ data class RouteKazan1(
     private val pictureDescriptionRes: Int = R.drawable.route_kazan_1_description,
     private val audioRes: Int = R.raw.route_kazan_1_description
 ) : RouteSealedInfo() {
+    override fun getRouteTag() = tag.lowercase()
 
     @IgnoredOnParcel
     private var routeInfo: RouteItemInfo? = null

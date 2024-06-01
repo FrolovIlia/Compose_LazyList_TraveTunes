@@ -20,6 +20,7 @@ data class RouteIvanovo1(
 
     @IgnoredOnParcel
     private var routeInfo: RouteItemInfo? = null
+    override fun getRouteTag() = tag
 
     override fun getRouteKml() = routeKml
 
