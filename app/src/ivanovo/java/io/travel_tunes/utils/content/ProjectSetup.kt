@@ -1,5 +1,6 @@
 package io.travel_tunes.utils.content
 
+import io.travel_tunes.R
 import io.travel_tunes.model.payments.PaymentVariant
 
 object ProjectSetup {
@@ -9,6 +10,7 @@ object ProjectSetup {
     val PAYMENT_VARIANTS = setOf(
         PaymentVariant(
             name = "ivanovo_1_item_key",
+            labelStringRes = R.string.payment_variant_1_label,
             routeTagItems = setOf(RouteIvanovo1().getRouteTag()),
             amount = "499₽"
         )

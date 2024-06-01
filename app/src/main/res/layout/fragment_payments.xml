@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dialogTitle"
+            style="@style/FontSemiBold.Dark20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/payments_screen_title" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/dialogClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?actionBarItemBackground"
+            android:padding="@dimen/spacing_12"
+            android:layout_marginEnd="@dimen/spacing_4"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@id/dialogTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/dialogTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/dialogInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?actionBarItemBackground"
+            android:padding="@dimen/spacing_12"
+            android:layout_marginEnd="@dimen/spacing_1"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@id/dialogTitle"
+            app:layout_constraintEnd_toStartOf="@id/dialogClose"
+            app:layout_constraintTop_toTopOf="@id/dialogTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/buyCurrentLabel"
+            style="@style/FontRegular.Gray14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_16"
+            app:layout_constraintBottom_toBottomOf="@id/buyCurrentBtn"
+            app:layout_constraintEnd_toStartOf="@id/buyCurrentBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/buyCurrentBtn"
+            tools:text="Купить маршрут «История текстильного края»" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buyCurrentBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogTitle"
+            tools:text="499₽" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/buyBothLabel"
+            style="@style/FontRegular.Gray14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_16"
+            app:layout_constraintBottom_toBottomOf="@id/buyBothBtn"
+            app:layout_constraintEnd_toStartOf="@id/buyBothBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/buyBothBtn"
+            tools:text="Купить маршруты «История текстильного края» и «По Вахитовскому району»" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buyBothBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buyCurrentLabel"
+            tools:text="899₽" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

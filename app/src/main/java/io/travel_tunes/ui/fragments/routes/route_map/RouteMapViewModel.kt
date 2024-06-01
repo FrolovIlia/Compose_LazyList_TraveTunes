@@ -3,10 +3,11 @@ package io.travel_tunes.ui.fragments.routes.route_map
 import android.content.Context
 import androidx.annotation.RawRes
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
+import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.SingleLiveEvent
@@ -15,13 +16,13 @@ import io.travel_tunes.utils.prefs.PreferenceManager
 class RouteMapViewModel(
     private val routeSealedInfo: RouteSealedInfo,
     private val preferences: PreferenceManager
-) : ViewModel() {
+) : BaseViewModel() {
 
     val routeTitle = MutableLiveData<String>()
 
     val routeItemInfo = MutableLiveData<RouteItemInfo>()
 
-    private val _openPaymentsScreen = SingleLiveEvent<RouteSealedInfo?>()
+    private val _openPaymentsScreen = SingleLiveEvent<List<PaymentVariant>?>()
     val openPaymentsScreen
         get() = _openPaymentsScreen
 
@@ -49,9 +50,7 @@ class RouteMapViewModel(
     fun handleOnMarkerPointClick(pointItemInfo: PointItemInfo) {
         when {
             !pointItemInfo.isEnabled() -> {
-                if (_openPaymentsScreen.value != routeSealedInfo) {
-                    _openPaymentsScreen.postValue(routeSealedInfo)
-                }
+                preparePaymentVariantsAndStartEvent()
             }
             !pointItemInfo.isSelected() -> {
                 val currentRouteInfo = routeItemInfo.value
@@ -89,6 +88,17 @@ class RouteMapViewModel(
 
     fun clearOpenPaymentsScreen() {
         _openPaymentsScreen.call()
+    }
+
+    private fun preparePaymentVariantsAndStartEvent() {
+        launchAtViewModelScope {
+            preferences.getPaymentVariantsForBuy { result ->
+                if (result.isEmpty()) return@getPaymentVariantsForBuy
+                if (_openPaymentsScreen.value != result) {
+                    _openPaymentsScreen.postValue(result)
+                }
+            }
+        }
     }
 }
 
