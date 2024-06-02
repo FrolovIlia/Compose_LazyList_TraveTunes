@@ -1,19 +1,23 @@
 package io.travel_tunes.ui.fragments.routes.route_map
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRouteMapBinding
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
+import io.travel_tunes.ui.fragments.offer.OfferAgreementFragment
 import io.travel_tunes.ui.fragments.payments.PaymentsFragment
 import io.travel_tunes.ui.fragments.points.info.PointInfoFragment
+import io.travel_tunes.utils.FragmentResultUtils
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
@@ -32,6 +36,8 @@ class RouteMapFragment : Fragment() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
+    private var listener: OnFragmentInteractionListener? = null
+
     companion object {
         private const val EXTRA_ROUTE_INFO = "route_info"
         private const val MAP_VIEW_BUNDLE_KEY = "map_view_bundle_key"
@@ -42,6 +48,25 @@ class RouteMapFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    interface OnFragmentInteractionListener {
+        fun openPaymentsFragment(paymentVariants: List<PaymentVariant>)
+        fun openOfferAgreementsFragment()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     override fun onCreateView(
@@ -59,6 +84,16 @@ class RouteMapFragment : Fragment() {
         initViews()
         initBottomSheet()
         initViewModel()
+        initFragmentResultListeners()
+    }
+
+    private fun initFragmentResultListeners() {
+        setFragmentResultListener(FragmentResultUtils.REQUEST_OPEN_OFFER_AGREEMENTS) { _, bundle ->
+            val isOpenNeed = bundle.getBoolean(FragmentResultUtils.BUNDLE_OPEN_OFFER_AGREEMENTS)
+            if (isOpenNeed) {
+                listener?.openOfferAgreementsFragment()
+            }
+        }
     }
 
     override fun onStart() {
@@ -167,7 +202,7 @@ class RouteMapFragment : Fragment() {
         }
         viewModel.openPaymentsScreen.observe(viewLifecycleOwner) { paymentVariants ->
             if (paymentVariants == null) return@observe
-            showPaymentsFragment(paymentVariants)
+            listener?.openPaymentsFragment(paymentVariants)
             viewModel.clearOpenPaymentsScreen()
         }
     }
@@ -252,14 +287,6 @@ class RouteMapFragment : Fragment() {
             childFragmentManager.findFragmentByTag(PointInfoFragment.POINT_INFO_BOTTOM) as? PointInfoFragment
         if (fragment != null) {
             childFragmentManager.beginTransaction().hide(fragment).commit()
-        }
-    }
-
-    private fun showPaymentsFragment(paymentVariants: List<PaymentVariant>) {
-        val tag = "bottom_payments"
-        if (childFragmentManager.findFragmentByTag(tag) == null) {
-            val bottomFragment = PaymentsFragment.getInstance(paymentVariants)
-            bottomFragment.show(childFragmentManager, tag)
         }
     }
 }

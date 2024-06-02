@@ -6,13 +6,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.travel_tunes.R
 import io.travel_tunes.databinding.ActivityDefaultBinding
+import io.travel_tunes.model.payments.PaymentVariant
+import io.travel_tunes.ui.fragments.payments.PaymentsFragment
 import io.travel_tunes.ui.fragments.restore.RestoreFragment
 import io.travel_tunes.ui.fragments.routes.list.RoutesFragment
 import io.travel_tunes.ui.fragments.routes.route_info.RouteInfoFragment
 import io.travel_tunes.ui.fragments.routes.route_map.RouteMapFragment
 import io.travel_tunes.utils.content.RouteSealedInfo
 
-class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionListener, RouteInfoFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionListener, RouteInfoFragment.OnFragmentInteractionListener, RouteMapFragment.OnFragmentInteractionListener {
 
     private lateinit var binding: ActivityDefaultBinding
 
@@ -54,5 +56,17 @@ class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionLi
             .replace(R.id.container, RouteMapFragment.getInstance(routeSealedInfo))
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun openPaymentsFragment(paymentVariants: List<PaymentVariant>) {
+        val tag = "bottom_payments"
+        if (supportFragmentManager.findFragmentByTag(tag) == null) {
+            val bottomFragment = PaymentsFragment.getInstance(paymentVariants)
+            bottomFragment.show(supportFragmentManager, tag)
+        }
+    }
+
+    override fun openOfferAgreementsFragment() {
+        startActivity(OfferAgreementsActivity.getInstance(this))
     }
 }

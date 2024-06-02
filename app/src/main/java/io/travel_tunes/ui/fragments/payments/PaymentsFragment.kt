@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.databinding.FragmentPaymentsBinding
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.payments.PaymentVariantsParcelable
+import io.travel_tunes.utils.FragmentResultUtils
 import io.travel_tunes.utils.base.BaseBottomSheetDialogFragment
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
@@ -51,11 +54,10 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
     private fun initViews() {
         binding.dialogClose.setOnClickListener { dismiss() }
         binding.dialogInfo.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                "Показать всплывашку оферты",
-                Toast.LENGTH_SHORT
-            ).show()
+            setFragmentResult(
+                FragmentResultUtils.REQUEST_OPEN_OFFER_AGREEMENTS,
+                bundleOf(FragmentResultUtils.BUNDLE_OPEN_OFFER_AGREEMENTS to true)
+            )
         }
     }
 
