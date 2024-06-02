@@ -9,4 +9,8 @@
     <color name="color_status_bar_background">#1F000000</color>
     <color name="color_background">#eee</color>
     <color name="color_transparent">#00000000</color>
+
+    <color name="color_icons_dark">#000000</color>
+    <color name="color_icons_white">@color/main_white</color>
+    <color name="color_icons_accent">@color/main_blue</color>
 </resources>

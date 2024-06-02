@@ -8,16 +8,21 @@
     <string name="fragment_route_info_description_label">Коротко про…</string>
     <string name="fragment_route_info_button_text">Пройтись по маршруту</string>
 
-    <string name="empty" translatable="false"></string>
+    <string name="empty"></string>
 
     <string name="city_items_show">▶ В путь</string>
     <string name="point_item_info_show">▶ Пройтись</string>
     <string name="show_more_button_text">Подробнее</string>
 
     <string name="restore_screen_title">Восстановление покупок</string>
-    <string name="restore_screen_copy_id_description">Для восстановления покупок обратитесь к нам. Также предоставьте свой uid, скопировав с помощью кнопки «Скопировать UID». \nВнимание! Не передавайте его никому, кроме нас.</string>
-    <string name="restore_screen_copy_id">Скопировать uid</string>
-    <string name="restore_screen_sync_description">После того, как вы с нами свяжетесь, и мы удостоверимся, что ваши покупки действительно пропали, то вам потребуется обновить данные. \nНе стоит нажимать кнопку без наших указаний)</string>
+    <string name="contacts_mail_link_pattern" translatable="false">mailto: %1$s</string>
+    <string name="contacts_select_mail">Выберите приложение</string>
+    <string name="application_not_found">Нет подходящего приложения</string>
+    <string name="restore_screen_copy_id_description">1. Нажмите на кнопку «Скопировать UID» ниже, чтобы скопировать ID вашего устройства.</string>
+    <string name="restore_screen_copy_id">Скопировать UID</string>
+    <string name="restore_screen_copy_id_contacts">2. Для восстановления покупок обратитесь к нам по email: pixel.rabbit.soft@gmail.com. В письме укажите ваш UID, дату и время осуществления покупок маршрутов. Мы проверим вашу информацию и восстановим доступ.</string>
+    <string name="restore_screen_send_mail">Отправить</string>
+    <string name="restore_screen_sync_description">3. После проверки, мы сообщим вам по почте о готовности к восстановлению покупок. Чтобы обновить информацию на вашем текущем устройстве, необходимо будет нажать кнопку «Обновить данные» ниже. Мы сообщим, когда это сделать, не стоит нажимать на неё до завершения проверки.</string>
     <string name="restore_screen_sync_remote_data">Обновить данные</string>
     <string name="restore_screen_restore_success_with_changes">Данные обновлены. Попробуйте перезапустить приложение😉</string>
     <string name="restore_screen_restore_success">Данные актуальны. Свяжитесь с нами, если что-то не так</string>
@@ -28,4 +33,6 @@
     <string name="payments_screen_current_amount_pattern">%1$s%2$s</string>
     <string name="payments_screen_both_label_pattern">Купить оба маршрута «%1$s» и «%2$s»</string>
     <string name="payments_screen_both_amount_pattern">%1$s%2$s</string>
+
+    <string name="offer_screen_title">Оферта</string>
 </resources>
