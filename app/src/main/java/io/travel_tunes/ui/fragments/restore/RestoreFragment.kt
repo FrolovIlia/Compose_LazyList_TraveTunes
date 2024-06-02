@@ -11,6 +11,7 @@ import io.travel_tunes.R
 import io.travel_tunes.databinding.FragmentRestoreBinding
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.copyToClipboard
+import io.travel_tunes.utils.extencions.openEmailApp
 import io.travel_tunes.utils.prefs.PreferenceManager
 
 class RestoreFragment : Fragment() {
@@ -45,13 +46,16 @@ class RestoreFragment : Fragment() {
         initToolbar()
         with(binding) {
             toolbarLayout.toolbarTitle.setText(R.string.restore_screen_title)
+            // FIXME: возможно стоит выпилить копирование адреса по клику на текстовое поле 
             descriptionContacts.setOnClickListener {
-                // FIXME: также тут можно запускать почту и вставлять наш адрес - возможно это будет лучшим решением
                 requireActivity().copyToClipboard(
                     label = "email",
                     textForCopy = "pixel.rabbit.soft@gmail.com",
                     textForToast = "Е-mail скопирован"
                 )
+            }
+            actionSendMail.setOnClickListener {
+                requireActivity().openEmailApp("pixel.rabbit.soft@gmail.com")
             }
             actionCopyID.setOnClickListener {
                 viewModel.getUID { uniqueId ->

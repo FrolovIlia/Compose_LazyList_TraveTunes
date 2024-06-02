@@ -15,9 +15,13 @@
     <string name="show_more_button_text">Подробнее</string>
 
     <string name="restore_screen_title">Восстановление покупок</string>
-    <string name="restore_screen_copy_id_contacts">1. Для восстановления покупок обратитесь к нам по email: pixel.rabbit.soft@gmail.com</string>
-    <string name="restore_screen_copy_id_description">2. После обращения, нажмите на кнопку «Передать UID» ниже, чтобы передать нам ваш ID. Мы проверим текущее состояние ваших покупок.</string>
+    <string name="contacts_mail_link_pattern" translatable="false">mailto: %1$s</string>
+    <string name="contacts_select_mail">Выберите приложение</string>
+    <string name="application_not_found">Нет подходящего приложения</string>
+    <string name="restore_screen_copy_id_description">1. Нажмите на кнопку «Скопировать UID» ниже, чтобы скопировать ID вашего устройства.</string>
     <string name="restore_screen_copy_id">Скопировать UID</string>
+    <string name="restore_screen_copy_id_contacts">2. Для восстановления покупок обратитесь к нам по email: pixel.rabbit.soft@gmail.com. В письме укажите ваш UID, дату и время осуществления покупок маршрутов. Мы проверим вашу информацию и восстановим доступ.</string>
+    <string name="restore_screen_send_mail">Отправить</string>
     <string name="restore_screen_sync_description">3. После проверки, мы сообщим вам по почте о готовности к восстановлению покупок. Чтобы обновить информацию на вашем текущем устройстве, необходимо будет нажать кнопку «Обновить данные» ниже. Мы сообщим, когда это сделать, не стоит нажимать на неё до завершения проверки.</string>
     <string name="restore_screen_sync_remote_data">Обновить данные</string>
     <string name="restore_screen_restore_success_with_changes">Данные обновлены. Попробуйте перезапустить приложение😉</string>

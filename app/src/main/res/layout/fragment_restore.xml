@@ -15,17 +15,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/descriptionContacts"
-        style="@style/FontRegular.Gray14"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_16"
-        android:text="@string/restore_screen_copy_id_contacts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarLayout" />
-
-    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/descriptionCopyID"
         style="@style/FontRegular.Gray14"
         android:layout_width="0dp"
@@ -35,7 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionContacts" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLayout" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/actionCopyID"
@@ -50,6 +39,29 @@
         app:layout_constraintTop_toBottomOf="@+id/descriptionCopyID" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/descriptionContacts"
+        style="@style/FontRegular.Gray14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_16"
+        android:text="@string/restore_screen_copy_id_contacts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actionCopyID" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/actionSendMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_16"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:backgroundTint="@color/main_blue"
+        android:text="@string/restore_screen_send_mail"
+        android:textAppearance="@style/FontRegular.Dark16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionContacts" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/descriptionSyncData"
         style="@style/FontRegular.Gray14"
         android:layout_width="0dp"
@@ -58,7 +70,7 @@
         android:text="@string/restore_screen_sync_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionCopyID" />
+        app:layout_constraintTop_toBottomOf="@+id/actionSendMail" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/actionSyncRemoteData"
