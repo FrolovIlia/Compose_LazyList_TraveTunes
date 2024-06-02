@@ -4,10 +4,10 @@
     android:viewportWidth="50"
     android:viewportHeight="51">
     <path
-        android:fillColor="#047CFF"
+        android:fillColor="@color/color_icons_accent"
         android:pathData="M25,25.5m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0" />
     <path
-        android:fillColor="#F4F4F4"
+        android:fillColor="@color/color_icons_white"
         android:fillType="evenOdd"
         android:pathData="M18,34.12H22.749V17.5H18V34.12ZM27.497,34.12H32.246V17.5H27.497V34.12Z" />
 </vector>
