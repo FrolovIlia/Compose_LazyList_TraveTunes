@@ -45,9 +45,21 @@ class RestoreFragment : Fragment() {
         initToolbar()
         with(binding) {
             toolbarLayout.toolbarTitle.setText(R.string.restore_screen_title)
+            descriptionContacts.setOnClickListener {
+                // FIXME: также тут можно запускать почту и вставлять наш адрес - возможно это будет лучшим решением
+                requireActivity().copyToClipboard(
+                    label = "email",
+                    textForCopy = "pixel.rabbit.soft@gmail.com",
+                    textForToast = "Е-mail скопирован"
+                )
+            }
             actionCopyID.setOnClickListener {
                 viewModel.getUID { uniqueId ->
-                    requireActivity().copyToClipboard(label = "label", textForCopy = uniqueId)
+                    requireActivity().copyToClipboard(
+                        label = "label",
+                        textForCopy = uniqueId,
+                        textForToast = "UID скопирован"
+                    )
                 }
             }
             actionSyncRemoteData.setOnClickListener {

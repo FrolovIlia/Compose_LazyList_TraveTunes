@@ -9,7 +9,12 @@ import android.os.Build
 import android.os.PersistableBundle
 import android.widget.Toast
 
-fun Activity.copyToClipboard(label: String, textForCopy: String, isTextSensitive: Boolean = true) {
+fun Activity.copyToClipboard(
+    label: String,
+    textForCopy: String,
+    textForToast: String,
+    isTextSensitive: Boolean = true
+) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText(label, textForCopy)
     clip.description.extras = PersistableBundle().apply {
@@ -22,5 +27,5 @@ fun Activity.copyToClipboard(label: String, textForCopy: String, isTextSensitive
     clipboard.setPrimaryClip(clip)
     // Only show a toast for Android 12 and lower.
     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2)
-        Toast.makeText(this, "Скопировано", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, textForToast, Toast.LENGTH_SHORT).show()
 }
