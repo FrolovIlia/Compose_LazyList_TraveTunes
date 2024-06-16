@@ -52,6 +52,10 @@ class PointInfoFragment : Fragment() {
         viewModel.updateData(pointItemFullInfo)
     }
 
+    fun stopPlayer() {
+        binding.playerView.pause()
+    }
+
     private fun initViews() {
         binding.showMoreButton.setOnClickListener {
             Toast.makeText(requireContext(), "add me later", Toast.LENGTH_SHORT).show()

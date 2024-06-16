@@ -286,6 +286,7 @@ class RouteMapFragment : Fragment() {
         val fragment =
             childFragmentManager.findFragmentByTag(PointInfoFragment.POINT_INFO_BOTTOM) as? PointInfoFragment
         if (fragment != null) {
+            fragment.stopPlayer()
             childFragmentManager.beginTransaction().hide(fragment).commit()
         }
     }
