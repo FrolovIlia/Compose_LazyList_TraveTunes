@@ -1,5 +1,6 @@
 package io.travel_tunes.ui.fragments.points.info
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +9,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
+import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentPointInfoBinding
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
+import javax.inject.Inject
 
 class PointInfoFragment : Fragment() {
 
-    private lateinit var viewModelFactory: PointInfoViewModelFactory
+    @Inject
+    lateinit var viewModelFactoryInner: PointInfoViewModelFactory.Factory
     private lateinit var viewModel: PointInfoViewModel
 
     private lateinit var binding: FragmentPointInfoBinding
@@ -48,6 +52,11 @@ class PointInfoFragment : Fragment() {
         initViewModel()
     }
 
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this)
+        super.onAttach(context)
+    }
+
     fun updateData(pointItemFullInfo: PointItemFullInfo) {
         viewModel.updateData(pointItemFullInfo)
     }
@@ -64,7 +73,7 @@ class PointInfoFragment : Fragment() {
 
     private fun initViewModel() {
         val pointItemFullInfo = arguments?.parcelable<PointItemFullInfo>(EXTRA_POINT_INFO) ?: return
-        viewModelFactory = PointInfoViewModelFactory(pointItemFullInfo)
+        val viewModelFactory = viewModelFactoryInner.create(pointItemFullInfo)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[PointInfoViewModel::class.java]
 

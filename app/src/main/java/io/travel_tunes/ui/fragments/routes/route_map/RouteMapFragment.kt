@@ -11,11 +11,10 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.travel_tunes.R
+import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentRouteMapBinding
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
-import io.travel_tunes.ui.fragments.offer.OfferAgreementFragment
-import io.travel_tunes.ui.fragments.payments.PaymentsFragment
 import io.travel_tunes.ui.fragments.points.info.PointInfoFragment
 import io.travel_tunes.utils.FragmentResultUtils
 import io.travel_tunes.utils.content.RouteSealedInfo
@@ -24,13 +23,15 @@ import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
 import io.travel_tunes.utils.extencions.toDp
 import io.travel_tunes.utils.map.SomeMapInterface
-import io.travel_tunes.utils.prefs.PreferenceManager
+import javax.inject.Inject
 
 class RouteMapFragment : Fragment() {
 
     private lateinit var binding: FragmentRouteMapBinding
-    private lateinit var viewModelFactory: RouteMapViewModelFactory
     private lateinit var viewModel: RouteMapViewModel
+
+    @Inject
+    lateinit var viewModelFactoryInner: RouteMapViewModelFactory.Factory
 
     private var someMap: SomeMapInterface? = null
 
@@ -57,6 +58,7 @@ class RouteMapFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        context.appComponent.inject(this)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -170,8 +172,7 @@ class RouteMapFragment : Fragment() {
 
     private fun initViewModel() {
         val routeSealedInfo = arguments?.parcelable<RouteSealedInfo>(EXTRA_ROUTE_INFO) ?: return
-        val preferenceManager = PreferenceManager(requireContext())
-        viewModelFactory = RouteMapViewModelFactory(routeSealedInfo, preferenceManager)
+        val viewModelFactory = viewModelFactoryInner.create(routeSealedInfo)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteMapViewModel::class.java]
         viewModel.initRouteInfo(requireContext())

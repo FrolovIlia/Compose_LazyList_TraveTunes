@@ -3,19 +3,21 @@ package io.travel_tunes.ui.fragments.restore
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
 import io.travel_tunes.R
+import io.travel_tunes.data.repository.DefaultRepository
+import io.travel_tunes.di.FirebaseDBInfo
 import io.travel_tunes.model.UserDeviceData
 import io.travel_tunes.utils.CrashlyticsUtils
 import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
 import io.travel_tunes.utils.content.ProjectSetup
-import io.travel_tunes.utils.prefs.PreferenceManager
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import timber.log.Timber
 import java.util.UUID
+import javax.inject.Inject
 
 class RestoreDataViewModel(
-    private val preferenceManager: PreferenceManager,
+    private val defaultRepository: DefaultRepository,
     private val pathFirebaseDB: String
 ) : BaseViewModel() {
 
@@ -27,11 +29,11 @@ class RestoreDataViewModel(
     fun getUID(onUniqueIdReady: (uniqueId: String) -> Unit) {
         if (lastUniqueId.isNullOrBlank()) {
             launchAtViewModelScope {
-                val deferred = async { preferenceManager.uniqueIdFlow.first() }
+                val deferred = async { defaultRepository.uniqueIdFlow.first() }
                 val uniqueIdFromPrefs = deferred.await()
                 val uniqueId = uniqueIdFromPrefs.ifBlank { UUID.randomUUID().toString() }
                 if (uniqueId != uniqueIdFromPrefs) {
-                    preferenceManager.setUniqueId(uniqueId)
+                    defaultRepository.setUniqueId(uniqueId)
                 }
                 lastUniqueId = uniqueId
                 sendToDBRequest(uniqueId)
@@ -104,17 +106,21 @@ class RestoreDataViewModel(
 
     private fun addToPrefsInfo(newPaymentsInfo: Set<String>) {
         launchAtViewModelScope {
-            val deferred = async { preferenceManager.updatePaymentsAndRoutesInfo(newPaymentsInfo) }
+            val deferred = async { defaultRepository.updatePaymentsAndRoutesInfo(newPaymentsInfo) }
             deferred.await()
         }
     }
 }
 
-class RestoreDataViewModelFactory(
-    private val preferenceManager: PreferenceManager,
-    private val pathFirebaseDB: String
+class RestoreDataViewModelFactory @Inject constructor(
+    @FirebaseDBInfo private val pathFirebaseDB: String,
+    private val defaultRepository: DefaultRepository,
 ) : BaseViewModelFactory<RestoreDataViewModel>() {
+
+    companion object {
+        private const val tag = "path_firebase_db"
+    }
     override fun getViewModel(): RestoreDataViewModel {
-        return RestoreDataViewModel(preferenceManager, pathFirebaseDB)
+        return RestoreDataViewModel(defaultRepository, pathFirebaseDB)
     }
 }

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
+import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentRouteInfoBinding
 import io.travel_tunes.utils.adapters.MyOuterHorizontalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
@@ -17,10 +18,12 @@ import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
+import javax.inject.Inject
 
 class RouteInfoFragment : Fragment() {
 
-    private lateinit var viewModelFactory: RouteInfoViewModelFactory
+    @Inject
+    lateinit var viewModelFactoryInner: RouteInfoViewModelFactory.Factory
     private lateinit var viewModel: RouteInfoViewModel
 
     private lateinit var binding: FragmentRouteInfoBinding
@@ -34,6 +37,7 @@ class RouteInfoFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        context.appComponent.inject(this)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -125,7 +129,7 @@ class RouteInfoFragment : Fragment() {
 
     private fun initViewModel() {
         val routeSealedInfo = arguments?.parcelable<RouteSealedInfo>(EXTRA_ROUTE_INFO) ?: return
-        viewModelFactory = RouteInfoViewModelFactory(routeSealedInfo)
+        val viewModelFactory = viewModelFactoryInner.create(routeSealedInfo)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteInfoViewModel::class.java]
 

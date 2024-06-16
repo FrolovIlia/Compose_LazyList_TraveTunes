@@ -3,6 +3,9 @@ package io.travel_tunes.ui.fragments.routes.route_map
 import android.content.Context
 import androidx.annotation.RawRes
 import androidx.lifecycle.MutableLiveData
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.model.route.PointItemInfo
@@ -11,11 +14,11 @@ import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.SingleLiveEvent
-import io.travel_tunes.utils.prefs.PreferenceManager
+import io.travel_tunes.data.repository.DefaultRepository
 
 class RouteMapViewModel(
     private val routeSealedInfo: RouteSealedInfo,
-    private val preferences: PreferenceManager
+    private val defaultRepository: DefaultRepository
 ) : BaseViewModel() {
 
     val routeTitle = MutableLiveData<String>()
@@ -113,7 +116,7 @@ class RouteMapViewModel(
 
     private fun preparePaymentVariantsAndStartEvent() {
         launchAtViewModelScope {
-            preferences.getPaymentVariantsForBuy { result ->
+            defaultRepository.getPaymentVariantsForBuy { result ->
                 if (result.isEmpty()) return@getPaymentVariantsForBuy
                 if (_openPaymentsScreen.value != result) {
                     _openPaymentsScreen.postValue(result)
@@ -124,11 +127,20 @@ class RouteMapViewModel(
     }
 }
 
-class RouteMapViewModelFactory(
-    private val routeSealedInfo: RouteSealedInfo,
-    private val preferences: PreferenceManager
+class RouteMapViewModelFactory @AssistedInject constructor(
+    @Assisted(tag) private val routeSealedInfo: RouteSealedInfo,
+    private val defaultRepository: DefaultRepository
 ) : BaseViewModelFactory<RouteMapViewModel>() {
+
+    companion object {
+        private const val tag = "route_sealed_info"
+    }
     override fun getViewModel(): RouteMapViewModel {
-        return RouteMapViewModel(routeSealedInfo, preferences)
+        return RouteMapViewModel(routeSealedInfo, defaultRepository)
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(@Assisted(tag) routeSealedInfo: RouteSealedInfo): RouteMapViewModelFactory
     }
 }

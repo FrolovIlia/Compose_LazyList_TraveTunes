@@ -1,17 +1,18 @@
 package io.travel_tunes.ui.fragments.routes.list
 
+import io.travel_tunes.data.repository.DefaultRepository
 import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
 import io.travel_tunes.utils.content.ProjectSetup.ROUTES_LIST
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.SingleLiveEvent
-import io.travel_tunes.utils.prefs.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class RoutesViewModel(private val preferences: PreferenceManager) :
+class RoutesViewModel(private val defaultRepository: DefaultRepository) :
     BaseViewModel() {
-    val routePaidTagsSet = preferences.routePaidTagsSet
+    val routePaidTagsSet = defaultRepository.routePaidTagsSet
     val routesNew: Flow<List<RouteSealedInfo>> = MutableStateFlow(ROUTES_LIST)
 
     private var _openRouteInfoScreenEvent = SingleLiveEvent<RouteSealedInfo?>()
@@ -20,7 +21,7 @@ class RoutesViewModel(private val preferences: PreferenceManager) :
 
     fun handleOpenRouteEventFromAdapter(route: RouteSealedInfo) {
         launchAtViewModelScope {
-            preferences.setCurrentRouteTag(route.getRouteTag())
+            defaultRepository.setCurrentRouteTag(route.getRouteTag())
             startOpenRouteInfoScreenEvent(route)
         }
     }
@@ -36,10 +37,10 @@ class RoutesViewModel(private val preferences: PreferenceManager) :
     }
 }
 
-class RoutesViewModelFactory(
-    private val preferenceManager: PreferenceManager
+class RoutesViewModelFactory @Inject constructor(
+    private val defaultRepository: DefaultRepository
 ) : BaseViewModelFactory<RoutesViewModel>() {
     override fun getViewModel(): RoutesViewModel {
-        return RoutesViewModel(preferenceManager)
+        return RoutesViewModel(defaultRepository)
     }
 }

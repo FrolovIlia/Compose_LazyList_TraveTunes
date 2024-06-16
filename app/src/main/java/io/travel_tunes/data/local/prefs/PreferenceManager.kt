@@ -1,4 +1,4 @@
-package io.travel_tunes.utils.prefs
+package io.travel_tunes.data.local.prefs
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
@@ -8,16 +8,32 @@ import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.utils.extencions.dataStore
 import io.travel_tunes.utils.extencions.getValueFlow
 import io.travel_tunes.utils.extencions.setValue
+import io.travel_tunes.utils.prefs.PaymentsAndRoutesUtils
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class PreferenceManager(context: Context) {
+class PreferenceManager @Inject constructor(context: Context) {
     private val dataStore = context.dataStore
 
     companion object {
+        private val KEY_AUTH = stringPreferencesKey("key_auth")
         private val UNIQUE_ID = stringPreferencesKey("unique_id")
 
         private val PAYMENTS_LIST = stringSetPreferencesKey("payments_list")
         private val ROUTE_PAID_TAGS_LIST = stringSetPreferencesKey("route_paid_tags_list")
         private val ROUTE_CURRENT_TAG = stringPreferencesKey("route_current_tag")
+    }
+
+    val authToken: Flow<String?>
+        get() = dataStore.data.map { preferences ->
+            preferences[KEY_AUTH]
+        }
+
+    suspend fun saveAuthToken(authToken: String) {
+        dataStore.edit { preferences ->
+            preferences[KEY_AUTH] = authToken
+        }
     }
 
     val uniqueIdFlow = dataStore.getValueFlow(UNIQUE_ID, "")

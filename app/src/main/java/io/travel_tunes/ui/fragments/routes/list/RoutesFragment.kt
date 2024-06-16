@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
+import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentRoutesBinding
 import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
@@ -17,12 +18,13 @@ import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.changeVisibilityInvisible
 import io.travel_tunes.utils.extencions.launchWhenAtLeastLifecycleStateStarted
-import io.travel_tunes.utils.prefs.PreferenceManager
 import kotlinx.coroutines.flow.combine
+import javax.inject.Inject
 
 class RoutesFragment : Fragment() {
 
-    private lateinit var viewModelFactory: RoutesViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: RoutesViewModelFactory
     private lateinit var viewModel: RoutesViewModel
 
     private lateinit var binding: FragmentRoutesBinding
@@ -45,6 +47,7 @@ class RoutesFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        context.appComponent.inject(this)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -112,8 +115,6 @@ class RoutesFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val preferenceManager = PreferenceManager(requireContext())
-        viewModelFactory = RoutesViewModelFactory(preferenceManager)
         viewModel = ViewModelProvider(this, viewModelFactory)[RoutesViewModel::class.java]
 
         launchWhenAtLeastLifecycleStateStarted {

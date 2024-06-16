@@ -1,5 +1,6 @@
 package io.travel_tunes.ui.fragments.restore
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +9,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
+import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentRestoreBinding
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.copyToClipboard
 import io.travel_tunes.utils.extencions.openEmailApp
-import io.travel_tunes.utils.prefs.PreferenceManager
+import javax.inject.Inject
 
 class RestoreFragment : Fragment() {
 
-    private lateinit var viewModelFactory: RestoreDataViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: RestoreDataViewModelFactory
     private lateinit var viewModel: RestoreDataViewModel
 
     private lateinit var binding: FragmentRestoreBinding
@@ -40,6 +43,11 @@ class RestoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initViewModel()
+    }
+
+    override fun onAttach(context: Context) {
+        context.appComponent.inject(this)
+        super.onAttach(context)
     }
 
     private fun initViews() {
@@ -86,10 +94,6 @@ class RestoreFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val preferenceManager = PreferenceManager(requireContext())
-        val pathFirebaseDB = resources.getString(R.string.fb_db_path)
-        viewModelFactory = RestoreDataViewModelFactory(preferenceManager, pathFirebaseDB)
-
         viewModel = ViewModelProvider(this, viewModelFactory)[RestoreDataViewModel::class.java]
     }
 }
