@@ -205,6 +205,13 @@ class RouteMapFragment : Fragment() {
             listener?.openPaymentsFragment(paymentVariants)
             viewModel.clearOpenPaymentsScreen()
         }
+
+        viewModel.hidePointInfoBottomFragmentEvent.observe(viewLifecycleOwner) { isHideNeed ->
+            if (isHideNeed == true) {
+                viewModel.clearHidePointInfoBottomFragmentEvent()
+                hidePointInfoBottomFragment()
+            }
+        }
     }
 
     private fun initBottomSheet() {
@@ -242,8 +249,6 @@ class RouteMapFragment : Fragment() {
 
         map.setOnMapClickListener {
             viewModel.handleOnMapClick()
-            // FIXME: move it to viewModel
-            hidePointInfoBottomFragment()
         }
         viewModel.onMapReady()
     }

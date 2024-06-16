@@ -26,6 +26,10 @@ class RouteMapViewModel(
     val openPaymentsScreen
         get() = _openPaymentsScreen
 
+    private val _hidePointInfoBottomFragmentEvent = SingleLiveEvent<Boolean?>()
+    val hidePointInfoBottomFragmentEvent
+        get() = _hidePointInfoBottomFragmentEvent
+
     private val _openPointInfoScreen = SingleLiveEvent<PointItemFullInfo?>()
     val openPointInfoScreen
         get() = _openPointInfoScreen
@@ -35,7 +39,8 @@ class RouteMapViewModel(
 
     fun initRouteInfo(context: Context) {
         val routeInfo = routeSealedInfo.getRouteItemInfo(context)
-        val updatedRouteInfo = routeInfo.copy(points = routeInfo.getPoints(isPaid = routeSealedInfo.isRoutePaid()))
+        val updatedRouteInfo =
+            routeInfo.copy(points = routeInfo.getPoints(isPaid = routeSealedInfo.isRoutePaid()))
         val routeKmlRes = routeSealedInfo.getRouteKml()
         routeItemInfo.value = updatedRouteInfo
         routeTitle.value = updatedRouteInfo.getTitle()
@@ -52,6 +57,7 @@ class RouteMapViewModel(
             !pointItemInfo.isEnabled() -> {
                 preparePaymentVariantsAndStartEvent()
             }
+
             !pointItemInfo.isSelected() -> {
                 val currentRouteInfo = routeItemInfo.value
                 val updatedPoints = currentRouteInfo?.getPoints().orEmpty().map { point ->
@@ -67,6 +73,12 @@ class RouteMapViewModel(
     }
 
     fun handleOnMapClick() {
+        clearSelectedPoint()
+    }
+
+    private fun getPointItemFullInfo(id: String) = routeSealedInfo.getPointItemFullInfo(id)
+
+    private fun clearSelectedPoint() {
         val currentRouteInfo = routeItemInfo.value
         val updatedPoints = currentRouteInfo?.getPoints().orEmpty().map { point ->
             point.copy(isSelected = false)
@@ -74,9 +86,14 @@ class RouteMapViewModel(
         routeItemInfo.value = currentRouteInfo?.copy(points = updatedPoints)
 
         // скрыть плашку если есть
+        startHidePointInfoBottomFragmentEvent()
     }
 
-    private fun getPointItemFullInfo(id: String) = routeSealedInfo.getPointItemFullInfo(id)
+    private fun startHidePointInfoBottomFragmentEvent() {
+        if (_hidePointInfoBottomFragmentEvent.value != true) {
+            _hidePointInfoBottomFragmentEvent.postValue(true)
+        }
+    }
 
     fun bottomSheetIsHidden() {
         handleOnMapClick()
@@ -90,6 +107,10 @@ class RouteMapViewModel(
         _openPaymentsScreen.call()
     }
 
+    fun clearHidePointInfoBottomFragmentEvent() {
+        _hidePointInfoBottomFragmentEvent.call()
+    }
+
     private fun preparePaymentVariantsAndStartEvent() {
         launchAtViewModelScope {
             preferences.getPaymentVariantsForBuy { result ->
@@ -97,6 +118,7 @@ class RouteMapViewModel(
                 if (_openPaymentsScreen.value != result) {
                     _openPaymentsScreen.postValue(result)
                 }
+                clearSelectedPoint()
             }
         }
     }
