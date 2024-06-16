@@ -12,9 +12,8 @@ import io.travel_tunes.databinding.FragmentPaymentsBinding
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.payments.PaymentVariantsParcelable
 import io.travel_tunes.utils.FragmentResultUtils
+import io.travel_tunes.utils.adapters.PaymentVariantAdapter
 import io.travel_tunes.utils.base.BaseBottomSheetDialogFragment
-import io.travel_tunes.utils.extencions.changeText
-import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.parcelable
 import io.travel_tunes.utils.prefs.PreferenceManager
 
@@ -23,6 +22,7 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
     private lateinit var viewModelFactory: PaymentsViewModelFactory
     private lateinit var viewModel: PaymentsViewModel
 
+    private lateinit var paymentVariantAdapter: PaymentVariantAdapter
     private lateinit var binding: FragmentPaymentsBinding
 
     companion object {
@@ -59,6 +59,14 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
                 bundleOf(FragmentResultUtils.BUNDLE_OPEN_OFFER_AGREEMENTS to true)
             )
         }
+        paymentVariantAdapter = PaymentVariantAdapter {
+            Toast.makeText(
+                binding.root.context,
+                "${it.getName()} покупаем",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.rvPayments.adapter = paymentVariantAdapter
     }
 
     private fun initViewModel() {
@@ -69,33 +77,8 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
         viewModelFactory = PaymentsViewModelFactory(paymentVariants, preferenceManager)
         viewModel = ViewModelProvider(this, viewModelFactory)[PaymentsViewModel::class.java]
 
-        viewModel.paymentVariantsLiveData.observe(viewLifecycleOwner) { paymentVariants ->
-            paymentVariants.first().let { paymentVariant ->
-                binding.buyCurrentLabel.changeText(
-                    paymentVariant.getTextForUser(binding.root.context)
-                )
-                binding.buyCurrentBtn.changeText(paymentVariant.getAmount())
-                binding.buyCurrentBtn.setOnClickListener {
-                    Toast.makeText(
-                        requireContext(),
-                        "${paymentVariant.getName()} покупаем",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            paymentVariants.getOrNull(1).let { paymentVariant ->
-                if (paymentVariant == null) {
-                    binding.buyBothLabel.changeVisibility(false)
-                    binding.buyBothBtn.changeVisibility(false)
-                } else {
-                    binding.buyBothLabel.changeVisibility(true)
-                    binding.buyBothBtn.changeVisibility(true)
-                    binding.buyCurrentLabel.changeText(
-                        paymentVariant.getTextForUser(binding.root.context)
-                    )
-                    binding.buyCurrentBtn.changeText(paymentVariant.getAmount())
-                }
-            }
+        viewModel.paymentVariantsLiveData.observe(viewLifecycleOwner) { variants ->
+            paymentVariantAdapter.updateData(variants)
         }
     }
 }

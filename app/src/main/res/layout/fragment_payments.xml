@@ -46,48 +46,21 @@
             app:layout_constraintEnd_toStartOf="@id/dialogClose"
             app:layout_constraintTop_toTopOf="@id/dialogTitle" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/buyCurrentLabel"
-            style="@style/FontRegular.Gray14"
-            android:layout_width="0dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_16"
-            app:layout_constraintBottom_toBottomOf="@id/buyCurrentBtn"
-            app:layout_constraintEnd_toStartOf="@id/buyCurrentBtn"
+            android:id="@+id/rvPayments"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/buyCurrentBtn"
-            tools:text="Купить маршрут «История текстильного края»" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buyCurrentBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dialogTitle"
-            tools:text="499₽" />
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/buyBothLabel"
-            style="@style/FontRegular.Gray14"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_16"
-            app:layout_constraintBottom_toBottomOf="@id/buyBothBtn"
-            app:layout_constraintEnd_toStartOf="@id/buyBothBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/buyBothBtn"
-            tools:text="Купить маршруты «История текстильного края» и «По Вахитовскому району»" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buyBothBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buyCurrentLabel"
-            tools:text="899₽" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:itemCount="2"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:layout_marginBottom="@dimen/spacing_8"
+            tools:listitem="@layout/payment_variant_item"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
