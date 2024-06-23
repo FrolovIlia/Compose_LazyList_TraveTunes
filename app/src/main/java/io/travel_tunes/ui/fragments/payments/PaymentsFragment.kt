@@ -1,14 +1,18 @@
 package io.travel_tunes.ui.fragments.payments
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
+import io.travel_tunes.R
 import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentPaymentsBinding
 import io.travel_tunes.model.payments.PaymentVariant
@@ -17,6 +21,7 @@ import io.travel_tunes.utils.FragmentResultUtils
 import io.travel_tunes.utils.adapters.PaymentVariantAdapter
 import io.travel_tunes.utils.base.BaseBottomSheetDialogFragment
 import io.travel_tunes.utils.extencions.parcelable
+import io.travel_tunes.utils.payment.UkassaHelper
 import javax.inject.Inject
 
 class PaymentsFragment : BaseBottomSheetDialogFragment() {
@@ -39,6 +44,26 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
         }
     }
 
+    private val tokenizeLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            when (result.resultCode) {
+                Activity.RESULT_OK -> {
+                    // show token = result.data
+                    handleTokenizeSuccess(result.data)
+                }
+
+                Activity.RESULT_CANCELED -> {
+                    //show error
+                    showTokenizeError()
+                }
+            }
+        }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        context.appComponent.inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,11 +79,6 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
         initViewModel()
     }
 
-    override fun onAttach(context: Context) {
-        context.appComponent.inject(this)
-        super.onAttach(context)
-    }
-
     private fun initViews() {
         binding.dialogClose.setOnClickListener { dismiss() }
         binding.dialogInfo.setOnClickListener {
@@ -67,12 +87,9 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
                 bundleOf(FragmentResultUtils.BUNDLE_OPEN_OFFER_AGREEMENTS to true)
             )
         }
-        paymentVariantAdapter = PaymentVariantAdapter {
-            Toast.makeText(
-                binding.root.context,
-                "${it.getName()} покупаем",
-                Toast.LENGTH_SHORT
-            ).show()
+        paymentVariantAdapter = PaymentVariantAdapter { paymentVariant ->
+            viewModel.handleOnPaymentsAdapterClick(paymentVariant)
+            startTokenizeInit(paymentVariant)
         }
         binding.rvPayments.adapter = paymentVariantAdapter
     }
@@ -88,4 +105,25 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
             paymentVariantAdapter.updateData(variants)
         }
     }
+
+    private fun startTokenizeInit(paymentVariant: PaymentVariant) {
+        val intentTokenize =
+            UkassaHelper.generateIntentForTokenize(requireContext(), paymentVariant)
+        tokenizeLauncher.launch(intentTokenize)
+    }
+
+    private fun handleTokenizeSuccess(data: Intent?) {
+        if (data == null) {
+            showTokenizeError()
+        } else {
+            val token = UkassaHelper.getTokenFromResult(data)
+            viewModel.saveTokenResult(token)
+            viewModel.sendPayment()
+        }
+    }
+
+    private fun showTokenizeError() {
+        Toast.makeText(requireContext(), R.string.tokenization_canceled, Toast.LENGTH_SHORT).show()
+    }
+
 }

@@ -35,4 +35,6 @@
     <string name="payments_screen_both_amount_pattern">%1$s%2$s</string>
 
     <string name="offer_screen_title">Оферта</string>
+
+    <string name="tokenization_canceled">Не удается создать платеж, попробуйте снова позже</string>
 </resources>
