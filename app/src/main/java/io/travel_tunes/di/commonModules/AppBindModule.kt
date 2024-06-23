@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import io.travel_tunes.data.repository.DefaultRepository
 import io.travel_tunes.data.repository.DefaultRepositoryImpl
+import io.travel_tunes.data.repository.PaymentsRepository
+import io.travel_tunes.data.repository.PaymentsRepositoryImpl
 
 @Module
 interface AppBindModule {
@@ -13,6 +15,12 @@ interface AppBindModule {
     fun bindDefaultRepositoryImpl_to_DefaultRepository(
         defaultRepositoryImpl: DefaultRepositoryImpl
     ): DefaultRepository
+
+    @Suppress("FunctionName")
+    @Binds
+    fun bindPaymentsRepositoryImpl_to_PaymentsRepository(
+        paymentsRepositoryImpl: PaymentsRepositoryImpl
+    ): PaymentsRepository
 
 //    companion object {
 //        @Provides
