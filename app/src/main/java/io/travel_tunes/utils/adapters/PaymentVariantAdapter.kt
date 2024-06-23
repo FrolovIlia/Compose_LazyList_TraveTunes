@@ -49,7 +49,7 @@ class PaymentVariantAdapter(private val onButtonClickListener: (PaymentVariant) 
             binding.label.changeText(
                 paymentVariant.getTextForUser(binding.root.context)
             )
-            binding.button.changeText(paymentVariant.getAmount())
+            binding.button.changeText(paymentVariant.getAmountWithCurrency())
             binding.button.setOnClickListener {
                 onButtonClickListener.invoke(paymentVariant)
             }
