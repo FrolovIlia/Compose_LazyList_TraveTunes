@@ -11,7 +11,7 @@ plugins {
 android {
     namespace = "io.travel_tunes"
     compileSdk = 34
-    val versionName = "1.0"
+    val versionName = "0.8"
     val versionCode = 1
 
     defaultConfig {
