@@ -12,8 +12,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.travel_tunes.R
 import io.travel_tunes.appComponent
+import io.travel_tunes.data.remote.Resource
 import io.travel_tunes.databinding.FragmentPaymentsBinding
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.payments.PaymentVariantsParcelable
@@ -103,6 +105,38 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
 
         viewModel.paymentVariantsLiveData.observe(viewLifecycleOwner) { variants ->
             paymentVariantAdapter.updateData(variants)
+        }
+
+        viewModel.progressDialogText.observe(viewLifecycleOwner) {
+            handleMessageProgress(it, requireContext())
+        }
+
+        viewModel.sendPaymentsResult.observe(viewLifecycleOwner) { result ->
+            if (result == null) return@observe
+            when (result) {
+                is Resource.Success -> {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.payment_success_title)
+                        .setMessage(R.string.payment_success_message)
+                        .setPositiveButton(
+                            R.string.payment_success_positive_btn
+                        ) { _, _ ->
+                            this.dismiss()
+                        }
+                        .show()
+                }
+
+                is Resource.Failure -> {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setMessage(R.string.payment_error_message)
+                        .setPositiveButton(
+                            R.string.payment_error_positive_btn
+                        ) { _, _ -> }
+                        .show()
+                }
+
+                else -> {}
+            }
         }
     }
 

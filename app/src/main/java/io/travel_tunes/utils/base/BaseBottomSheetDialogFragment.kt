@@ -1,5 +1,6 @@
 package io.travel_tunes.utils.base
 
+import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -7,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.travel_tunes.R
+import io.travel_tunes.utils.MessageProgress
 
 abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
@@ -25,6 +27,15 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
 				behavior.state = BottomSheetBehavior.STATE_EXPANDED
 				behavior.skipCollapsed = skipCollapsed
 			}
+		}
+	}
+
+	fun handleMessageProgress(messageProgress: MessageProgress?, context: Context) {
+		val message = messageProgress?.getText(context)
+		if (!message.isNullOrBlank()) {
+			(activity as BaseActivity).showProgressDialog(message)
+		} else {
+			(activity as BaseActivity).hideProgressDialog()
 		}
 	}
 }

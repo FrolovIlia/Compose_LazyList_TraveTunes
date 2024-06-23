@@ -3,7 +3,6 @@ package io.travel_tunes.ui.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import io.travel_tunes.R
 import io.travel_tunes.databinding.ActivityDefaultBinding
 import io.travel_tunes.model.payments.PaymentVariant
@@ -12,9 +11,10 @@ import io.travel_tunes.ui.fragments.restore.RestoreFragment
 import io.travel_tunes.ui.fragments.routes.list.RoutesFragment
 import io.travel_tunes.ui.fragments.routes.route_info.RouteInfoFragment
 import io.travel_tunes.ui.fragments.routes.route_map.RouteMapFragment
+import io.travel_tunes.utils.base.BaseActivity
 import io.travel_tunes.utils.content.RouteSealedInfo
 
-class MainActivity : AppCompatActivity(), RoutesFragment.OnFragmentInteractionListener, RouteInfoFragment.OnFragmentInteractionListener, RouteMapFragment.OnFragmentInteractionListener {
+class MainActivity : BaseActivity(), RoutesFragment.OnFragmentInteractionListener, RouteInfoFragment.OnFragmentInteractionListener, RouteMapFragment.OnFragmentInteractionListener {
 
     private lateinit var binding: ActivityDefaultBinding
 

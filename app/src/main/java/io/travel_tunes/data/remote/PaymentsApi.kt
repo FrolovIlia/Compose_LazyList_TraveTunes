@@ -1,6 +1,7 @@
 package io.travel_tunes.data.remote
 
 import io.travel_tunes.model.remote.PaymentsRequest
+import io.travel_tunes.model.remote.PaymentsResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -21,5 +22,5 @@ interface PaymentsApi {
     @POST("v3/payments")
     suspend fun sendPayments(
         @Body paymentsRequest: PaymentsRequest
-    ): String
+    ): PaymentsResponse
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_background"
+    android:minHeight="96dp">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_margin="@dimen/spacing_24"
+        android:indeterminate="true"
+        android:theme="@style/ThemeOverlay.AppTheme.ProgressBar"
+        app:layout_constraintBottom_toBottomOf="@id/progress_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/progress_text" />
+
+    <TextView
+        android:id="@+id/progress_text"
+        style="@style/FontRegular.Gray14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/progress_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Please waiting" />
+</androidx.constraintlayout.widget.ConstraintLayout>

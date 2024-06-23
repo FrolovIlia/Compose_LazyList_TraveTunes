@@ -37,4 +37,13 @@
     <string name="offer_screen_title">Оферта</string>
 
     <string name="tokenization_canceled">Не удается создать платеж, попробуйте снова позже</string>
+
+    <string name="payment_success_title">Успешно!</string>
+    <string name="payment_success_message">Оплата прошла успешно. Наслаждайтесь путешествием:)</string>
+    <string name="payment_success_positive_btn">Ок</string>
+
+    <string name="payment_error_message">Что-то пошло не так:(</string>
+    <string name="payment_error_positive_btn">Ок</string>
+
+    <string name="message_loading">Запрос выполняется…</string>
 </resources>
