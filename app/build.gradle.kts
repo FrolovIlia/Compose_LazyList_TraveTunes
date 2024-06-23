@@ -66,10 +66,14 @@ android {
         create("ivanovo") {
             applicationId = "io.travel_tunes.ivanovo"
             resValue("string", "app_name", "Иваново: Маршруты")
+            buildConfigField("String", "MERCHANT_TOKEN", "\"merchant_token\"")
+            buildConfigField("String", "SHOP_ID", "\"shop_id\"")
         }
         create("kazan") {
             applicationId = "io.travel_tunes.kazan"
             resValue("string", "app_name", "Казань: Маршруты")
+            buildConfigField("String", "MERCHANT_TOKEN", "\"merchant_token\"")
+            buildConfigField("String", "SHOP_ID", "\"shop_id\"")
         }
     }
 
@@ -158,6 +162,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:6.8.0")
 
     debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
