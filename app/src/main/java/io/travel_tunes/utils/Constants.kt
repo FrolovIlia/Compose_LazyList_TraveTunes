@@ -10,3 +10,7 @@ object FragmentResultUtils {
     const val REQUEST_OPEN_OFFER_AGREEMENTS = "request_open_agreements"
     const val BUNDLE_OPEN_OFFER_AGREEMENTS = "bundle_open_agreements"
 }
+
+object Payments {
+    const val CURRENCY_RUB = "RUB"
+}
