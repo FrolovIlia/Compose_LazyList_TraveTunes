@@ -4,7 +4,8 @@ import io.travel_tunes.BuildConfig
 
 object BuildConfigUtils {
 fun isDebugMode() = BuildConfig.DEBUG
-    fun getBaseUrl() = ""
+    fun getBaseUrl() = "https://api.yookassa.ru/"
     fun getMerchantToken() = BuildConfig.MERCHANT_TOKEN
+    fun getSecretKey() = BuildConfig.SECRET_KEY
     fun getShopId() = BuildConfig.SHOP_ID
 }
