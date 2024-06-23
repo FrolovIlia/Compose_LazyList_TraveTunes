@@ -8,17 +8,17 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface PaymentsApi {
-    @GET("payments/{payment_id}")
+    @GET("v3/payments/{payment_id}")
     suspend fun getPaymentById(
         @Path("payment_id") paymentId: String
     ): String
 
-    @GET("payments")
+    @GET("v3/payments")
     suspend fun getPayments(
         @Query("status") status: String = "succeeded"
     ): String
 
-    @POST("payments")
+    @POST("v3/payments")
     suspend fun sendPayments(
         @Body paymentsRequest: PaymentsRequest
     ): String

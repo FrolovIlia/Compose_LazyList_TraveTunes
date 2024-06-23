@@ -8,6 +8,10 @@ annotation class TokenInterceptor
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
+annotation class IdempotenceInterceptor
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
 annotation class ChuckInterceptor
 
 @Qualifier

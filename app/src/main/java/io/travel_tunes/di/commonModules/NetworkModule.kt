@@ -10,18 +10,17 @@ import dagger.Module
 import dagger.Provides
 import io.travel_tunes.data.remote.PaymentsApi
 import io.travel_tunes.di.ChuckInterceptor
+import io.travel_tunes.di.IdempotenceInterceptor
 import io.travel_tunes.di.TokenInterceptor
 import io.travel_tunes.utils.BuildConfigUtils
-import io.travel_tunes.data.local.prefs.PreferenceManager
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
+import io.travel_tunes.utils.payment.UkassaHelper
+import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.DateFormat
-import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -30,16 +29,25 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    @TokenInterceptor
-    fun provideTokenInterceptor(
-        preferences: PreferenceManager
-    ): Interceptor {
+    @IdempotenceInterceptor
+    fun provideIdempotenceInterceptor(): Interceptor {
         return Interceptor { chain ->
-            val authToken = runBlocking { preferences.authToken.first() }
             chain.proceed(chain.request().newBuilder().also {
-                if (!authToken.isNullOrBlank())
-                    it.addHeader("Authorization", "Bearer $authToken")
-                it.addHeader("Accept-Language", Locale.getDefault().language)
+                val idempotence = UkassaHelper.generateIdempotenceKey()
+                it.addHeader("Idempotence-Key", idempotence)
+            }.build())
+        }
+    }
+
+    @Provides
+    @Singleton
+    @TokenInterceptor
+    fun provideTokenInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val credentials =
+                Credentials.basic(BuildConfigUtils.getShopId(), BuildConfigUtils.getSecretKey())
+            chain.proceed(chain.request().newBuilder().also {
+                it.addHeader("Authorization", credentials)
             }.build())
         }
     }
@@ -93,10 +101,12 @@ class NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         @ChuckInterceptor chuckInterceptor: Interceptor,
-        @TokenInterceptor tokenInterceptor: Interceptor
+        @TokenInterceptor tokenInterceptor: Interceptor,
+        @IdempotenceInterceptor idempotenceInterceptor: Interceptor
     ): OkHttpClient {
         with(OkHttpClient.Builder()) {
             addInterceptor(tokenInterceptor)
+            addInterceptor(idempotenceInterceptor)
             connectTimeout(60, TimeUnit.SECONDS)
             readTimeout(60, TimeUnit.SECONDS)
             writeTimeout(60, TimeUnit.SECONDS)
