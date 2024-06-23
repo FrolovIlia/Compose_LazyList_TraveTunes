@@ -58,6 +58,7 @@ class PaymentsRepositoryImpl @Inject constructor(
         if (result.isSuccess() && (result as Resource.Success).value.isStatusSucceeded()) {
             preferenceManager.updatePaymentsAndRoutesInfo(newPaymentsSet = setOf(paymentVariant.getName()))
         }
+        // TODO: надо обновлять инфу на экране карты после успешного запроса
         return result
     }
 

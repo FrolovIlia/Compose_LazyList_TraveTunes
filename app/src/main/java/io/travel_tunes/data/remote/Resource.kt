@@ -1,5 +1,6 @@
 package io.travel_tunes.data.remote
 
+// TODO: разобрать разные кейсы ошибок, чтобы выаодить информацию правильно юзеру (например, включите инет)
 sealed class Resource<out T> {
 
     data class Success<out T>(val value: T) : Resource<T>()
