@@ -54,7 +54,8 @@ class PaymentsRepositoryImpl @Inject constructor(
         val result = safeApiCall {
             paymentsApi.sendPayments(paymentsRequest)
         }
-        if (result.isSuccess()) {
+        // TODO: возможно тут стоит запрашивать инфу о всех покупках юзера?
+        if (result.isSuccess() && (result as Resource.Success).value.isStatusSucceeded()) {
             preferenceManager.updatePaymentsAndRoutesInfo(newPaymentsSet = setOf(paymentVariant.getName()))
         }
         return result
