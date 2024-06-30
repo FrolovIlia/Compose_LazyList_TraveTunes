@@ -153,6 +153,14 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
             }
         }
 
+        viewModel.paymentErrorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
+            if (errorMessage != null) {
+                viewModel.clearPaymentErrorMessageLiveData()
+                val messageText = errorMessage.getText(requireContext())
+                showErrorDialog(messageText)
+            }
+        }
+
         viewModel.buyPaymentResultSuccess.observe(viewLifecycleOwner) { result ->
             if (result == true) {
                 viewModel.clearSendPaymentsResultSuccess()
@@ -172,14 +180,6 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
                     .show()
             }
         }
-
-
-        //MaterialAlertDialogBuilder(requireContext())
-        //                        .setMessage(R.string.payment_error_message)
-        //                        .setPositiveButton(
-        //                            R.string.payment_error_positive_btn
-        //                        ) { _, _ -> }
-        //                        .show()
     }
 
     private fun startTokenizeInit(paymentVariant: PaymentVariant) {
@@ -202,4 +202,12 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
         Toast.makeText(requireContext(), R.string.tokenization_canceled, Toast.LENGTH_SHORT).show()
     }
 
+    private fun showErrorDialog(errorMessage: String) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(errorMessage)
+            .setPositiveButton(
+                R.string.payment_error_positive_btn
+            ) { _, _ -> }
+            .show()
+    }
 }
