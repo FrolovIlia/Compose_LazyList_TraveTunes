@@ -6,6 +6,7 @@ import io.travel_tunes.R
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.utils.BuildConfigUtils
 import ru.yoomoney.sdk.kassa.payments.Checkout
+import ru.yoomoney.sdk.kassa.payments.TokenizationResult
 import ru.yoomoney.sdk.kassa.payments.checkoutParameters.Amount
 import ru.yoomoney.sdk.kassa.payments.checkoutParameters.PaymentMethodType
 import ru.yoomoney.sdk.kassa.payments.checkoutParameters.PaymentParameters
@@ -18,7 +19,6 @@ import java.util.UUID
 
 object UkassaHelper {
     fun generateIntentForTokenize(context: Context, paymentVariant: PaymentVariant): Intent {
-        // FIXME: поддержка 3ds? добавить customReturnUrl??
         val paymentParameters = PaymentParameters(
             amount = Amount(
                 BigDecimal.valueOf(paymentVariant.getAmount()),
@@ -31,26 +31,41 @@ object UkassaHelper {
             savePaymentMethod = SavePaymentMethod.OFF,
             paymentMethodTypes = setOf(PaymentMethodType.BANK_CARD, PaymentMethodType.SBP)
         )
-        val uiParameters = UiParameters(
-            showLogo = false,
-            colorScheme = ColorScheme(context.resources.getColor(R.color.main_blue))
-        )
         return Checkout.createTokenizeIntent(
             context,
             paymentParameters = paymentParameters,
-//            testParameters = testParameters,
-            uiParameters = uiParameters
+            uiParameters = generateUiParameters(context)
         )
     }
 
-    fun getTokenFromResult(data: Intent): String {
-        val tokenizationResult = Checkout.createTokenizationResult(data)
-        //        val paymentMethod = tokenizationResult.paymentMethodType
-        return tokenizationResult.paymentToken
+    fun getTokenizationResultFromResult(data: Intent): TokenizationResult {
+        return Checkout.createTokenizationResult(data)
     }
 
     fun generateIdempotenceKey(): String {
         val uuid = UUID.randomUUID().toString()
         return uuid.uppercase(Locale.CANADA)
     }
+
+    fun getConfirmationIntent(context: Context, confirmationIntentData: ConfirmationIntentData): Intent {
+        return Checkout.createConfirmationIntent(
+            context,
+            confirmationIntentData.getConfirmationUrl(),
+            confirmationIntentData.getPaymentMethodType(),
+            colorScheme = generateUiParameters(context).colorScheme
+        )
+    }
+
+    private fun generateUiParameters(context: Context) = UiParameters(
+        showLogo = false,
+        colorScheme = ColorScheme(context.resources.getColor(R.color.main_blue))
+    )
+}
+
+data class ConfirmationIntentData(
+    private val confirmationUrl: String,
+    private val paymentMethodType: PaymentMethodType
+) {
+    fun getConfirmationUrl() = confirmationUrl
+    fun getPaymentMethodType() = paymentMethodType
 }

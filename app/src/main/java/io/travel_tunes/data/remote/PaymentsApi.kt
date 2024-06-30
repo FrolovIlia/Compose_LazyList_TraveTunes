@@ -12,7 +12,7 @@ interface PaymentsApi {
     @GET("v3/payments/{payment_id}")
     suspend fun getPaymentById(
         @Path("payment_id") paymentId: String
-    ): String
+    ): PaymentsResponse
 
     @GET("v3/payments")
     suspend fun getPayments(

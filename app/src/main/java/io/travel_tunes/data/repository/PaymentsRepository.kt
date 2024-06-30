@@ -55,15 +55,23 @@ class PaymentsRepositoryImpl @Inject constructor(
             paymentsApi.sendPayments(paymentsRequest)
         }
         // TODO: возможно тут стоит запрашивать инфу о всех покупках юзера?
-        if (result.isSuccess() && (result as Resource.Success).value.isStatusSucceeded()) {
+        if (result.isSuccess() && (result as Resource.Success).value.isPaymentPaidSuccess()) {
             preferenceManager.updatePaymentsAndRoutesInfo(newPaymentsSet = setOf(paymentVariant.getName()))
         }
-        // TODO: надо обновлять инфу на экране карты после успешного запроса
         return result
     }
 
     override suspend fun getPaymentById(paymentId: String): Resource<PaymentsResponse> {
-        TODO("Not yet implemented")
+        val result = safeApiCall {
+            paymentsApi.getPaymentById(paymentId)
+        }
+        if (result.isSuccess() && (result as Resource.Success).value.isPaymentPaidSuccess()) {
+            val paymentVariantTag = result.value.getMetadataPaymentTag().orEmpty()
+            if (paymentVariantTag.isNotBlank()) {
+                preferenceManager.updatePaymentsAndRoutesInfo(newPaymentsSet = setOf(paymentVariantTag))
+            }
+        }
+        return result
     }
 
     override suspend fun getPayments(): Resource<PaymentsResponsesList> {

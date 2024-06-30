@@ -18,8 +18,6 @@ sealed class Resource<out T> {
         fun getErrorBodyAsString() = errorBodyString
         fun getThrowable() = throwable
     }
-
-    data object Loading : Resource<Nothing>()
 }
 
 fun Resource<*>.isFailureErrorAuth(): Boolean {
