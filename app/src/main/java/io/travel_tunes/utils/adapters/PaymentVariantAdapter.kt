@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.travel_tunes.databinding.PaymentVariantItemBinding
 import io.travel_tunes.model.payments.PaymentVariant
+import io.travel_tunes.utils.extencions.changeEnabled
 import io.travel_tunes.utils.extencions.changeText
+import io.travel_tunes.utils.extencions.changeVisibility
+import io.travel_tunes.utils.extencions.delayOnLifecycle
 
 class PaymentVariantAdapter(private val onButtonClickListener: (PaymentVariant) -> Unit) :
     RecyclerView.Adapter<PaymentVariantAdapter.PaymentVariantItemHolder>() {
@@ -49,9 +52,17 @@ class PaymentVariantAdapter(private val onButtonClickListener: (PaymentVariant) 
             binding.label.changeText(
                 paymentVariant.getTextForUser(binding.root.context)
             )
-            binding.button.changeText(paymentVariant.getAmountWithCurrency())
-            binding.button.setOnClickListener {
-                onButtonClickListener.invoke(paymentVariant)
+
+            with(binding.button) {
+                changeText(paymentVariant.getAmountWithCurrency())
+                setOnClickListener {
+                    changeEnabled(false)
+                    onButtonClickListener.invoke(paymentVariant)
+                    delayOnLifecycle(2_000) {
+                        changeEnabled(true)
+                    }
+                }
+
             }
         }
     }
