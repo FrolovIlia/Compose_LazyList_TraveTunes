@@ -29,12 +29,7 @@ class RestoreDataViewModel(
     fun getUID(onUniqueIdReady: (uniqueId: String) -> Unit) {
         if (lastUniqueId.isNullOrBlank()) {
             launchAtViewModelScope {
-                val deferred = async { defaultRepository.uniqueIdFlow.first() }
-                val uniqueIdFromPrefs = deferred.await()
-                val uniqueId = uniqueIdFromPrefs.ifBlank { UUID.randomUUID().toString() }
-                if (uniqueId != uniqueIdFromPrefs) {
-                    defaultRepository.setUniqueId(uniqueId)
-                }
+                val uniqueId = defaultRepository.uniqueIdFlow.first()
                 lastUniqueId = uniqueId
                 sendToDBRequest(uniqueId)
                 onUniqueIdReady(uniqueId)

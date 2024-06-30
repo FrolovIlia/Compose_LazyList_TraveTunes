@@ -10,6 +10,8 @@ import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.SingleLiveEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import java.util.UUID
 import javax.inject.Inject
 
 class RoutesViewModel(private val defaultRepository: DefaultRepository) :
@@ -20,6 +22,10 @@ class RoutesViewModel(private val defaultRepository: DefaultRepository) :
     private var _openRouteInfoScreenEvent = SingleLiveEvent<Boolean?>()
     val openRouteInfoScreenEvent
         get() = _openRouteInfoScreenEvent
+
+    init {
+        initDeviceID()
+    }
 
     fun handleOpenRouteEventFromAdapter(route: RouteSealedInfo, context: Context) {
         launchAtViewModelScope {
@@ -37,6 +43,15 @@ class RoutesViewModel(private val defaultRepository: DefaultRepository) :
     private fun startOpenRouteInfoScreenEvent() {
         if (true != _openRouteInfoScreenEvent.value) {
             _openRouteInfoScreenEvent.postValue(true)
+        }
+    }
+
+    private fun initDeviceID() {
+        launchAtViewModelScope {
+            val deviceId = defaultRepository.uniqueIdFlow.first()
+            if (deviceId.isBlank()) {
+                defaultRepository.setUniqueId(UUID.randomUUID().toString())
+            }
         }
     }
 }
