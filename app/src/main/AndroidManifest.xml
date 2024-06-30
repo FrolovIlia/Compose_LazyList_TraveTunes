@@ -19,10 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/TravelTunes">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBRi3oBvp7FI7dqfAqxCX3U95-Zgo1n6nI" />
-
         <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
@@ -44,8 +40,8 @@
             android:screenOrientation="portrait" />
 
         <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-    </application>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
 
+    </application>
 </manifest>
