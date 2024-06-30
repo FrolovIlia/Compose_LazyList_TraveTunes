@@ -17,10 +17,8 @@ import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.ui.fragments.points.info.PointInfoFragment
 import io.travel_tunes.utils.FragmentResultUtils
-import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
-import io.travel_tunes.utils.extencions.parcelable
 import io.travel_tunes.utils.extencions.toDp
 import io.travel_tunes.utils.map.SomeMapInterface
 import javax.inject.Inject
@@ -31,7 +29,7 @@ class RouteMapFragment : Fragment() {
     private lateinit var viewModel: RouteMapViewModel
 
     @Inject
-    lateinit var viewModelFactoryInner: RouteMapViewModelFactory.Factory
+    lateinit var viewModelFactory: RouteMapViewModelFactory
 
     private var someMap: SomeMapInterface? = null
 
@@ -40,12 +38,10 @@ class RouteMapFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     companion object {
-        private const val EXTRA_ROUTE_INFO = "route_info"
         private const val MAP_VIEW_BUNDLE_KEY = "map_view_bundle_key"
-        fun getInstance(routeSealedInfo: RouteSealedInfo): RouteMapFragment {
+        fun getInstance(): RouteMapFragment {
             val args = Bundle()
             val fragment = RouteMapFragment()
-            args.putParcelable(EXTRA_ROUTE_INFO, routeSealedInfo)
             fragment.arguments = args
             return fragment
         }
@@ -94,6 +90,13 @@ class RouteMapFragment : Fragment() {
             val isOpenNeed = bundle.getBoolean(FragmentResultUtils.BUNDLE_OPEN_OFFER_AGREEMENTS)
             if (isOpenNeed) {
                 listener?.openOfferAgreementsFragment()
+            }
+        }
+        setFragmentResultListener(FragmentResultUtils.REQUEST_UPDATE_ROUTE_PAID_AFTER_BUY) { _, bundle ->
+            val isUpdateNeed =
+                bundle.getBoolean(FragmentResultUtils.BUNDLE_UPDATE_ROUTE_PAID_AFTER_BUY)
+            if (isUpdateNeed) {
+                viewModel.updateRouteInfoAfterSuccessBuy()
             }
         }
     }
@@ -171,11 +174,7 @@ class RouteMapFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        val routeSealedInfo = arguments?.parcelable<RouteSealedInfo>(EXTRA_ROUTE_INFO) ?: return
-        val viewModelFactory = viewModelFactoryInner.create(routeSealedInfo)
-
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteMapViewModel::class.java]
-        viewModel.initRouteInfo(requireContext())
 
         viewModel.routeTitle.observe(viewLifecycleOwner) { routeTitle ->
             binding.toolbarLayout.toolbarTitle.changeText(routeTitle)
@@ -188,11 +187,13 @@ class RouteMapFragment : Fragment() {
             )
         }
         viewModel.routeKmlInfo.observe(viewLifecycleOwner) {
-            someMap?.updateKml(
-                requireContext(),
-                kmlRes = it,
-                mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
-            )
+            if (it != null) {
+                someMap?.updateKml(
+                    requireContext(),
+                    kmlRes = it,
+                    mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
+                )
+            }
         }
         viewModel.openPointInfoScreen.observe(viewLifecycleOwner) { pointInfo ->
             if (pointInfo == null) return@observe
@@ -201,6 +202,7 @@ class RouteMapFragment : Fragment() {
             )
             viewModel.clearOpenPointInfoScreen()
         }
+        viewModel.selectedRouteSealedInfo.observe(viewLifecycleOwner) {}
         viewModel.openPaymentsScreen.observe(viewLifecycleOwner) { paymentVariants ->
             if (paymentVariants == null) return@observe
             listener?.openPaymentsFragment(paymentVariants)

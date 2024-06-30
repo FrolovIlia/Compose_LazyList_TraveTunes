@@ -9,6 +9,9 @@ object Constants {
 object FragmentResultUtils {
     const val REQUEST_OPEN_OFFER_AGREEMENTS = "request_open_agreements"
     const val BUNDLE_OPEN_OFFER_AGREEMENTS = "bundle_open_agreements"
+
+    const val REQUEST_UPDATE_ROUTE_PAID_AFTER_BUY = "request_update_route_paid_after_buy"
+    const val BUNDLE_UPDATE_ROUTE_PAID_AFTER_BUY = "bundle_update_route_paid_after_buy"
 }
 
 object Payments {

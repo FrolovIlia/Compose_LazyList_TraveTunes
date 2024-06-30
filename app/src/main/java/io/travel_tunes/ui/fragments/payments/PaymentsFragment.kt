@@ -121,6 +121,10 @@ class PaymentsFragment : BaseBottomSheetDialogFragment() {
                         .setPositiveButton(
                             R.string.payment_success_positive_btn
                         ) { _, _ ->
+                            setFragmentResult(
+                                FragmentResultUtils.REQUEST_UPDATE_ROUTE_PAID_AFTER_BUY,
+                                bundleOf(FragmentResultUtils.BUNDLE_UPDATE_ROUTE_PAID_AFTER_BUY to true)
+                            )
                             this.dismiss()
                         }
                         .show()

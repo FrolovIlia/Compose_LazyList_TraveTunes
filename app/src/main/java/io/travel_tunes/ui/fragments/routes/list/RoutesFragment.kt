@@ -13,7 +13,6 @@ import io.travel_tunes.databinding.FragmentRoutesBinding
 import io.travel_tunes.utils.adapters.MyOuterVerticalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.RoutesAdapter
-import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.changeVisibilityInvisible
@@ -41,7 +40,7 @@ class RoutesFragment : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun openRouteInfoScreen(routeSealedInfo: RouteSealedInfo)
+        fun openRouteInfoScreen()
         fun openRestoreScreen()
     }
 
@@ -76,7 +75,7 @@ class RoutesFragment : Fragment() {
     private fun initViews() {
         initToolbar()
         adapterRoutes = RoutesAdapter { route ->
-            viewModel.handleOpenRouteEventFromAdapter(route)
+            viewModel.handleOpenRouteEventFromAdapter(route, requireContext())
         }
 
         binding.routesRV.adapter = adapterRoutes
@@ -128,10 +127,11 @@ class RoutesFragment : Fragment() {
             }
         }
 
-        viewModel.openRouteInfoScreenEvent.observe(viewLifecycleOwner) { route ->
-            if (route == null) return@observe
-            viewModel.clearOpenRouteInfoScreenEvent()
-            listener?.openRouteInfoScreen(route)
+        viewModel.openRouteInfoScreenEvent.observe(viewLifecycleOwner) { result ->
+            if (true == result) {
+                viewModel.clearOpenRouteInfoScreenEvent()
+                listener?.openRouteInfoScreen()
+            }
         }
     }
 }

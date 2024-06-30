@@ -11,19 +11,18 @@ import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
 import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentRouteInfoBinding
+import io.travel_tunes.model.route.RouteInfoForView
 import io.travel_tunes.utils.adapters.MyOuterHorizontalSpaceItemDecoration
 import io.travel_tunes.utils.adapters.MySpaceItemDecoration
 import io.travel_tunes.utils.adapters.PhotoMiniAdapter
-import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
-import io.travel_tunes.utils.extencions.parcelable
 import javax.inject.Inject
 
 class RouteInfoFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactoryInner: RouteInfoViewModelFactory.Factory
+    lateinit var viewModelFactory: RouteInfoViewModelFactory
     private lateinit var viewModel: RouteInfoViewModel
 
     private lateinit var binding: FragmentRouteInfoBinding
@@ -32,7 +31,7 @@ class RouteInfoFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     interface OnFragmentInteractionListener {
-        fun openRouteMapScreen(routeSealedInfo: RouteSealedInfo)
+        fun openRouteMapScreen()
     }
 
     override fun onAttach(context: Context) {
@@ -51,11 +50,9 @@ class RouteInfoFragment : Fragment() {
     }
 
     companion object {
-        private const val EXTRA_ROUTE_INFO = "route_info"
-        fun getInstance(routeSealedInfo: RouteSealedInfo): RouteInfoFragment {
+        fun getInstance(): RouteInfoFragment {
             val args = Bundle()
             val fragment = RouteInfoFragment()
-            args.putParcelable(EXTRA_ROUTE_INFO, routeSealedInfo)
             fragment.arguments = args
             return fragment
         }
@@ -119,27 +116,25 @@ class RouteInfoFragment : Fragment() {
                 }
             }
             binding.button.setOnClickListener {
-                viewModel.routeInfo.value?.let {
                     binding.playerView.pause()
-                    listener?.openRouteMapScreen(routeSealedInfo = it)
+                viewModel.routeInfoForView.value?.let {
+                    listener?.openRouteMapScreen()
                 }
             }
         }
     }
 
     private fun initViewModel() {
-        val routeSealedInfo = arguments?.parcelable<RouteSealedInfo>(EXTRA_ROUTE_INFO) ?: return
-        val viewModelFactory = viewModelFactoryInner.create(routeSealedInfo)
-
         viewModel = ViewModelProvider(this, viewModelFactory)[RouteInfoViewModel::class.java]
 
-        viewModel.routeInfo.observe(viewLifecycleOwner) { routeInfo ->
+        viewModel.routeInfoForView.observe(viewLifecycleOwner) { routeInfo ->
+            if (routeInfo != null)
             showRouteInfo(routeInfo)
         }
     }
 
-    private fun showRouteInfo(routeSealedInfo: RouteSealedInfo) {
-        val routeItemInfo = routeSealedInfo.getRouteItemInfo(requireContext())
+    private fun showRouteInfo(routeInfoForView: RouteInfoForView) {
+        val routeItemInfo = routeInfoForView.getRouteItemInfo()
         with(binding) {
             toolbarLayout.toolbarTitle.apply {
                 changeVisibility(true)
@@ -150,9 +145,9 @@ class RouteInfoFragment : Fragment() {
             pointsValue.changeText(routeItemInfo.getPoints().size.toString())
             descriptionValue.changeText(routeItemInfo.getDescription())
 
-            routeDescriptionImage.setImageResource(routeSealedInfo.getRouteDescriptionPictureRes())
+            routeDescriptionImage.setImageResource(routeInfoForView.getRoutePictureDescriptionRes())
 
-            val audioRes = routeSealedInfo.getRouteAudioRes()
+            val audioRes = routeInfoForView.getRouteAudioRes()
             if (audioRes != null) {
                 playerView.changeVisibility(true)
                 playerView.setAudioRaw(audioRes)
@@ -160,7 +155,7 @@ class RouteInfoFragment : Fragment() {
                 playerView.changeVisibility(false)
             }
 
-            val photos = routeSealedInfo.getPointPictureResList()
+            val photos = routeInfoForView.getRoutePointsPicturesResList()
             if (photos.isEmpty()) {
                 photosRV.changeVisibility(false)
             } else {

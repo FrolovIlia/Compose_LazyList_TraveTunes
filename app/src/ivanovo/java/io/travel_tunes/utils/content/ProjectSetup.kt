@@ -14,7 +14,8 @@ object ProjectSetup {
             name = "ivanovo_1_item_key",
             labelStringRes = R.string.payment_variant_1_label,
             routeTagItems = setOf(RouteIvanovo1().getRouteTag()),
-            amount = 499.0,
+//            amount = 499.0,
+            amount = 9.0,
             currency = Currency.getInstance(Payments.CURRENCY_RUB)
         )
     )

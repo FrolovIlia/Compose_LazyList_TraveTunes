@@ -31,14 +31,6 @@ object UkassaHelper {
             savePaymentMethod = SavePaymentMethod.OFF,
             paymentMethodTypes = setOf(PaymentMethodType.BANK_CARD, PaymentMethodType.SBP)
         )
-//        // FIXME: перед релизом можно выпилить это
-//        val testParameters = TestParameters(
-//            showLogs = true,
-//            mockConfiguration = MockConfiguration(
-////                completeWithError = true,
-//                serviceFee = Amount(BigDecimal.ONE, Currency.getInstance(Payments.CURRENCY_RUB))
-//            )
-//        )
         val uiParameters = UiParameters(
             showLogo = false,
             colorScheme = ColorScheme(context.resources.getColor(R.color.main_blue))

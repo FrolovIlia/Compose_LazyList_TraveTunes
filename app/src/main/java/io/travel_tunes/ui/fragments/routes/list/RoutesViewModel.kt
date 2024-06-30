@@ -1,6 +1,8 @@
 package io.travel_tunes.ui.fragments.routes.list
 
+import android.content.Context
 import io.travel_tunes.data.repository.DefaultRepository
+import io.travel_tunes.utils.Mapper
 import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
 import io.travel_tunes.utils.content.ProjectSetup.ROUTES_LIST
@@ -15,14 +17,16 @@ class RoutesViewModel(private val defaultRepository: DefaultRepository) :
     val routePaidTagsSet = defaultRepository.routePaidTagsSet
     val routesNew: Flow<List<RouteSealedInfo>> = MutableStateFlow(ROUTES_LIST)
 
-    private var _openRouteInfoScreenEvent = SingleLiveEvent<RouteSealedInfo?>()
+    private var _openRouteInfoScreenEvent = SingleLiveEvent<Boolean?>()
     val openRouteInfoScreenEvent
         get() = _openRouteInfoScreenEvent
 
-    fun handleOpenRouteEventFromAdapter(route: RouteSealedInfo) {
+    fun handleOpenRouteEventFromAdapter(route: RouteSealedInfo, context: Context) {
         launchAtViewModelScope {
+            val routeInfoForView = Mapper.mapRouteSealedInfoToRouteView(route, context)
             defaultRepository.setCurrentRouteTag(route.getRouteTag())
-            startOpenRouteInfoScreenEvent(route)
+            defaultRepository.setSelectedRouteInfoForView(routeInfoForView)
+            startOpenRouteInfoScreenEvent()
         }
     }
 
@@ -30,9 +34,9 @@ class RoutesViewModel(private val defaultRepository: DefaultRepository) :
         _openRouteInfoScreenEvent.call()
     }
 
-    private fun startOpenRouteInfoScreenEvent(route: RouteSealedInfo) {
-        if (route != _openRouteInfoScreenEvent.value) {
-            _openRouteInfoScreenEvent.postValue(route)
+    private fun startOpenRouteInfoScreenEvent() {
+        if (true != _openRouteInfoScreenEvent.value) {
+            _openRouteInfoScreenEvent.postValue(true)
         }
     }
 }

@@ -2,6 +2,8 @@ package io.travel_tunes.ui.fragments.payments
 
 import androidx.lifecycle.MutableLiveData
 import io.travel_tunes.data.remote.Resource
+import io.travel_tunes.data.remote.isSuccess
+import io.travel_tunes.data.repository.DefaultRepository
 import io.travel_tunes.data.repository.PaymentsRepository
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.remote.PaymentsResponse
@@ -11,7 +13,8 @@ import kotlinx.coroutines.async
 
 class PaymentsViewModel(
     paymentVariants: List<PaymentVariant>,
-    private val paymentsRepository: PaymentsRepository
+    private val paymentsRepository: PaymentsRepository,
+    private val defaultRepository: DefaultRepository
 ) : BaseViewModel() {
 
     private var selectedPaymentVariant: PaymentVariant? = null
@@ -42,6 +45,9 @@ class PaymentsViewModel(
                 )
             }
             val result = deferred.await()
+            if (result.isSuccess()) {
+                defaultRepository.updateRouteInfoAfterSuccessBuy()
+            }
             if (_sendPaymentsResult.value != result) {
                 _sendPaymentsResult.postValue(result)
             }

@@ -1,29 +1,26 @@
 package io.travel_tunes.ui.fragments.routes.route_map
 
-import android.content.Context
 import androidx.annotation.RawRes
 import androidx.lifecycle.MutableLiveData
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import io.travel_tunes.data.repository.DefaultRepository
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
-import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.SingleLiveEvent
-import io.travel_tunes.data.repository.DefaultRepository
+import javax.inject.Inject
 
 class RouteMapViewModel(
-    private val routeSealedInfo: RouteSealedInfo,
     private val defaultRepository: DefaultRepository
 ) : BaseViewModel() {
 
     val routeTitle = MutableLiveData<String>()
 
     val routeItemInfo = MutableLiveData<RouteItemInfo>()
+
+    val selectedRouteSealedInfo = defaultRepository.selectedRouteInfoForView
 
     private val _openPaymentsScreen = SingleLiveEvent<List<PaymentVariant>?>()
     val openPaymentsScreen
@@ -38,13 +35,18 @@ class RouteMapViewModel(
         get() = _openPointInfoScreen
 
     @RawRes
-    val routeKmlInfo = MutableLiveData<Int>()
+    val routeKmlInfo = MutableLiveData<Int?>()
 
-    fun initRouteInfo(context: Context) {
-        val routeInfo = routeSealedInfo.getRouteItemInfo(context)
+    init {
+        initRouteInfo()
+    }
+
+    private fun initRouteInfo() {
+        val routeInfoForView = defaultRepository.selectedRouteInfoForView.value ?: return
+        val routeInfo = routeInfoForView.getRouteItemInfo()
         val updatedRouteInfo =
-            routeInfo.copy(points = routeInfo.getPoints(isPaid = routeSealedInfo.isRoutePaid()))
-        val routeKmlRes = routeSealedInfo.getRouteKml()
+            routeInfo.copy(points = routeInfo.getPoints(isPaid = routeInfoForView.isPaid()))
+        val routeKmlRes = routeInfoForView.getRouteKmlRes()
         routeItemInfo.value = updatedRouteInfo
         routeTitle.value = updatedRouteInfo.getTitle()
         routeKmlInfo.value = routeKmlRes
@@ -79,7 +81,8 @@ class RouteMapViewModel(
         clearSelectedPoint()
     }
 
-    private fun getPointItemFullInfo(id: String) = routeSealedInfo.getPointItemFullInfo(id)
+    private fun getPointItemFullInfo(id: String) =
+        selectedRouteSealedInfo.value?.getPointItemFullInfo(id)
 
     private fun clearSelectedPoint() {
         val currentRouteInfo = routeItemInfo.value
@@ -125,22 +128,17 @@ class RouteMapViewModel(
             }
         }
     }
+
+    fun updateRouteInfoAfterSuccessBuy() {
+        initRouteInfo()
+    }
 }
 
-class RouteMapViewModelFactory @AssistedInject constructor(
-    @Assisted(tag) private val routeSealedInfo: RouteSealedInfo,
+class RouteMapViewModelFactory @Inject constructor(
     private val defaultRepository: DefaultRepository
 ) : BaseViewModelFactory<RouteMapViewModel>() {
 
-    companion object {
-        private const val tag = "route_sealed_info"
-    }
     override fun getViewModel(): RouteMapViewModel {
-        return RouteMapViewModel(routeSealedInfo, defaultRepository)
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(@Assisted(tag) routeSealedInfo: RouteSealedInfo): RouteMapViewModelFactory
+        return RouteMapViewModel(defaultRepository)
     }
 }

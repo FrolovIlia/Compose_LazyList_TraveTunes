@@ -12,7 +12,6 @@ import io.travel_tunes.ui.fragments.routes.list.RoutesFragment
 import io.travel_tunes.ui.fragments.routes.route_info.RouteInfoFragment
 import io.travel_tunes.ui.fragments.routes.route_map.RouteMapFragment
 import io.travel_tunes.utils.base.BaseActivity
-import io.travel_tunes.utils.content.RouteSealedInfo
 
 class MainActivity : BaseActivity(), RoutesFragment.OnFragmentInteractionListener, RouteInfoFragment.OnFragmentInteractionListener, RouteMapFragment.OnFragmentInteractionListener {
 
@@ -37,9 +36,9 @@ class MainActivity : BaseActivity(), RoutesFragment.OnFragmentInteractionListene
             .commit()
     }
 
-    override fun openRouteInfoScreen(routeSealedInfo: RouteSealedInfo) {
+    override fun openRouteInfoScreen() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RouteInfoFragment.getInstance(routeSealedInfo))
+            .replace(R.id.container, RouteInfoFragment.getInstance())
             .addToBackStack(null)
             .commit()
     }
@@ -51,9 +50,9 @@ class MainActivity : BaseActivity(), RoutesFragment.OnFragmentInteractionListene
             .commit()
     }
 
-    override fun openRouteMapScreen(routeSealedInfo: RouteSealedInfo) {
+    override fun openRouteMapScreen() {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, RouteMapFragment.getInstance(routeSealedInfo))
+            .replace(R.id.container, RouteMapFragment.getInstance())
             .addToBackStack(null)
             .commit()
     }
