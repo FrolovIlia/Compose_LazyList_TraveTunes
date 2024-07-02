@@ -14,7 +14,8 @@ data class RouteKazan1(
     private val jsonDescription: Int = R.raw.route_kazan_1,
     private val routeKml: Int = R.raw.route_kazan_1_kml,
     private val pictureMainRes: Int = R.drawable.route_kazan_1_main,
-    private val pictureDescriptionRes: Int = R.drawable.route_kazan_1_description,
+    //Используем изображение первой точки маршрута в описании маршрута
+    private val pictureDescriptionRes: Int = R.drawable.route_kazan_1_1,
     private val audioRes: Int = R.raw.route_kazan_1_description
 ) : RouteSealedInfo() {
     override fun getRouteTag() = tag.lowercase()

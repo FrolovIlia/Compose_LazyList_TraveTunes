@@ -38,34 +38,34 @@
 
     <string name="tokenization_canceled">Не удается создать платеж, попробуйте снова позже</string>
 
-    <string name="payment_success_title">Успешно!</string>
-    <string name="payment_success_message">Оплата прошла успешно. Наслаждайтесь путешествием:)</string>
+    <string name="payment_success_title">Отлично!</string>
+    <string name="payment_success_message">Оплата прошла успешно. Хорошего путешествия!</string>
     <string name="payment_success_positive_btn">Ок</string>
 
-    <string name="payment_error_message">Что-то пошло не так:(</string>
+    <string name="payment_error_message">Что-то пошло не так…</string>
     <string name="payment_error_positive_btn">Ок</string>
 
     <string name="message_loading">Запрос выполняется…</string>
 
     // cancel errors
-    <string name="cancel_error_undefined">Что-то пошло не так:(</string>
-    <string name="cancel_error_3d_secure_failed">Не пройдена аутентификация по 3-D Secure. При новой попытке оплаты Вам следует пройти аутентификацию, использовать другое платежное средство или обратиться в банк за уточнениями</string>
-    <string name="cancel_error_call_issuer">Оплата данным платежным средством отклонена по неизвестным причинам. Вам следует обратиться в организацию, выпустившую платежное средство</string>
-    <string name="cancel_error_card_expired">Истек срок действия банковской карты. Вам следует использовать другое платежное средство</string>
+    <string name="cancel_error_undefined">Что-то пошло не так…</string>
+    <string name="cancel_error_3d_secure_failed">Не пройдена аутентификация по 3-D Secure. При новой попытке оплаты Вам следует пройти аутентификацию, использовать другое платежное средство или обратиться ваш в банк за уточнениями.</string>
+    <string name="cancel_error_call_issuer">Оплата данным платежным средством отклонена по неизвестным причинам. Вам следует обратиться в организацию, выпустившую платежное средство.</string>
+    <string name="cancel_error_card_expired">Истек срок действия банковской карты. Вам следует использовать другое платежное средство.</string>
     <string name="cancel_error_country_forbidden">Нельзя заплатить банковской картой, выпущенной в этой стране. При новой попытке оплаты Вам следует использовать другое платежное средство.</string>
-    <string name="cancel_error_fraud_suspected">Платеж заблокирован из-за подозрения в мошенничестве. При новой попытке оплаты Вам следует использовать другое платежное средство</string>
+    <string name="cancel_error_fraud_suspected">Платеж заблокирован из-за подозрения в мошенничестве. При новой попытке оплаты Вам следует использовать другое платежное средство.</string>
     <string name="cancel_error_expired_on_confirmation">Истек срок оплаты: Вы не подтвердили платеж за время, отведенное на оплату выбранным способом.</string>
-    <string name="cancel_error_insufficient_funds">Не хватает денег для оплаты. Вам следует пополнить баланс или использовать другое платежное средство</string>
-    <string name="cancel_error_internal_timeout">Технические неполадки: не удалось обработать запрос. Пожалуйста, попробуйте снова</string>
-    <string name="cancel_error_invalid_card_number">Неправильно указан номер карты. При новой попытке оплаты Вам следует ввести корректные данные</string>
-    <string name="cancel_error_invalid_csc">Неправильно указан код CVV2 (CVC2, CID). При новой попытке оплаты Вам следует ввести корректные данные</string>
-    <string name="cancel_error_issuer_unavailable">Организация, выпустившая платежное средство, недоступна. При новой попытке оплаты Вам следует использовать другое платежное средство или повторить оплату позже</string>
-    <string name="cancel_error_payment_method_limit_exceeded">Исчерпан лимит платежей для данного платежного средства или нашего магазина. При новой попытке оплаты Вам следует использовать другое платежное средство или повторить оплату на следующий день</string>
-    <string name="cancel_error_payment_method_restricted">Запрещены операции данным платежным средством (например, карта заблокирована из-за утери, кошелек — из-за взлома мошенниками). Вам следует обратиться в организацию, выпустившую платежное средство</string>
+    <string name="cancel_error_insufficient_funds">Не хватает денег для оплаты. Вам следует пополнить баланс или использовать другое платежное средство.</string>
+    <string name="cancel_error_internal_timeout">Технические неполадки: не удалось обработать запрос. Пожалуйста, попробуйте снова.</string>
+    <string name="cancel_error_invalid_card_number">Неправильно указан номер карты. При новой попытке оплаты Вам следует ввести корректные данные.</string>
+    <string name="cancel_error_invalid_csc">Неправильно указан код CVV2 (CVC2, CID). При новой попытке оплаты Вам следует ввести корректные данные.</string>
+    <string name="cancel_error_issuer_unavailable">Организация, выпустившая платежное средство, недоступна. При новой попытке оплаты Вам следует использовать другое платежное средство или повторить оплату позже.</string>
+    <string name="cancel_error_payment_method_limit_exceeded">Исчерпан лимит платежей для данного платежного средства или нашего магазина. При новой попытке оплаты Вам следует использовать другое платежное средство или повторить оплату на следующий день.</string>
+    <string name="cancel_error_payment_method_restricted">Запрещены операции данным платежным средством (например, карта заблокирована из-за утери, кошелек — из-за взлома мошенниками). Вам следует обратиться в организацию, выпустившую платежное средство.</string>
 
     // failure errors
-    <string name="failure_error_is_network_error">Проверьте настройки интернет-соединения и попробуйте снова</string>
-    <string name="failure_error_temporary_problem">Возникли технические неполадки с оплатой. Пожалуйста, попробуйте снова чуть позже</string>
-    <string name="failure_error_undefined_need_fix">Что-то пошло не так:( Пожалуйста, сообщите нам о случившемся</string>
+    <string name="failure_error_is_network_error">Проверьте настройки интернет-соединения и попробуйте снова.</string>
+    <string name="failure_error_temporary_problem">Возникли технические неполадки с оплатой. Пожалуйста, попробуйте снова чуть позже.</string>
+    <string name="failure_error_undefined_need_fix">Что-то пошло не так… Пожалуйста, сообщите нам о случившемся.</string>
 
 </resources>
