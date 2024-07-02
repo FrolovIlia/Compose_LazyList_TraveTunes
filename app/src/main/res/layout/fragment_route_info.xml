@@ -261,7 +261,7 @@
         android:paddingRight="17dp"
         android:text="@string/fragment_route_info_button_text"
         android:textAppearance="@style/FontRegular.Dark16"
-        app:cornerRadius="8dp"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
