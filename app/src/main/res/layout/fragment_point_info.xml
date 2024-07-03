@@ -11,7 +11,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_background_corners_top_white_color_8"
+        android:background="@drawable/bottom_background_corners_top_white_color_12"
         android:overScrollMode="never">
 
         <androidx.constraintlayout.widget.ConstraintLayout

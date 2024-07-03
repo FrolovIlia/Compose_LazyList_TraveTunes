@@ -15,6 +15,7 @@
 
     <dimen name="corner_0">0dp</dimen>
     <dimen name="corner_8">8dp</dimen>
+    <dimen name="corner_12">12dp</dimen>
     <dimen name="corner_24">24dp</dimen>
 
     <dimen name="text_8">8dp</dimen>
