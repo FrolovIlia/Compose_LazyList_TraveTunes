@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="@dimen/elevation_0"
+    app:strokeColor="@color/main_blue">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/route_ivanovo_1_main" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_text_gradient_background"
+            >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/routeTitle"
+                style="@style/FontBold.White20"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="История текстильного края" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/routeDescription"
+                style="@style/FontRegular.White14"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/spacing_16"
+                android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_marginStart="@dimen/spacing_16"
+                android:layout_marginBottom="@dimen/spacing_12"
+                app:layout_constraintBottom_toTopOf="@id/showRouteInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/routeTitle"
+                app:layout_constraintVertical_bias="0"
+                tools:text="Город административного значения в центральной части России. Нередко Иваново называют – «город невест», а также «родина Первого Совета», «ситцевый край» и «текстильная столица России». " />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showRouteInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/main_blue"
+                android:text="@string/point_item_info_show"
+                android:textAppearance="@style/FontRegular.White14"
+                app:cornerRadius="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
