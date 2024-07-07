@@ -36,9 +36,10 @@ data class RouteInfoForView(
     fun getRouteItemInfo() = routeItemInfo
 
     fun getPointItemFullInfo(id: String): PointItemFullInfo? {
+        val idForResources = id.toInt()-1
         val point = routeItemInfo.getPoints().firstOrNull { id == it.getId() } ?: return null
-        val audioRes = getRoutePointsAudiosResList().getOrNull(id.toInt())
-        val drawableRes = getRoutePointsPicturesResList().getOrNull(id.toInt())
+        val audioRes = getRoutePointsAudiosResList().getOrNull(idForResources)
+        val drawableRes = getRoutePointsPicturesResList().getOrNull(idForResources)
         return PointItemFullInfo(
             pointItemInfo = point,
             audioRes = audioRes,
