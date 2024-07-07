@@ -97,4 +97,8 @@ class PointInfoFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        binding.playerView.pause()
+        super.onDestroy()
+    }
 }
