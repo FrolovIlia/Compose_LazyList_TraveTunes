@@ -1,7 +1,10 @@
 package io.travel_tunes.utils.adapters
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,7 +13,7 @@ import io.travel_tunes.R
 import io.travel_tunes.databinding.RouteItemBinding
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
-import io.travel_tunes.utils.extencions.changeVisibility
+
 
 class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit) :
     RecyclerView.Adapter<RoutesAdapter.RouteItemHolder>() {
@@ -52,12 +55,20 @@ class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit
         fun bind(routeSealedInfo: RouteSealedInfo) {
             val routeItemInfo = routeSealedInfo.getRouteItemInfo(binding.root.context)
             binding.routeTitle.changeText(routeItemInfo.getTitle())
-            binding.routeDescription.changeText(routeItemInfo.getDescriptionShort())
+//            binding.routeDescription.changeText(routeItemInfo.getDescriptionShort())
             binding.showRouteInfo.setOnClickListener { onButtonClickListener.invoke(routeSealedInfo) }
 
             val pictureRes = routeSealedInfo.getRouteMainPictureRes()
 
-            binding.isPaid.changeVisibility(routeSealedInfo.isRoutePaid())
+            with(binding.root) {
+                strokeWidth = if (routeSealedInfo.isRoutePaid()) {
+                    resources.getDimensionPixelOffset(R.dimen.stroke_2)
+                } else {
+                    resources.getDimensionPixelOffset(R.dimen.stroke_0)
+                }
+            }
+
+            hotfixForApplyEllipsize(binding.routeDescription, routeItemInfo.getDescriptionShort())
 
             with(binding.image) {
                 Glide
@@ -67,6 +78,23 @@ class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(this)
             }
+
+
+        }
+    }
+
+    private fun hotfixForApplyEllipsize(textView: TextView, text: String) {
+        with(textView) {
+            viewTreeObserver
+                .addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        val noOfLinesVisible: Int = height / lineHeight
+                        setText(text)
+                        maxLines = noOfLinesVisible
+                        ellipsize = android.text.TextUtils.TruncateAt.END
+                    }
+                })
         }
     }
 }

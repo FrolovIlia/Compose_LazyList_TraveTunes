@@ -18,6 +18,10 @@
     <dimen name="corner_12">12dp</dimen>
     <dimen name="corner_24">24dp</dimen>
 
+    <dimen name="stroke_0">0dp</dimen>
+    <dimen name="stroke_1">1dp</dimen>
+    <dimen name="stroke_2">2dp</dimen>
+
     <dimen name="text_8">8dp</dimen>
     <dimen name="text_9">9dp</dimen>
     <dimen name="text_10">10dp</dimen>
