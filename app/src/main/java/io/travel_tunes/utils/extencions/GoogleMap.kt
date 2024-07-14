@@ -25,13 +25,13 @@ fun GoogleMap.setMapStyle(context: Context, jsonResourceId: Int = R.raw.style_js
     }
 }
 
-fun GoogleMap.addPolylineGeofence(positions: List<LatLng>): Polyline? {
+fun GoogleMap.addPolylineLatLng(positions: List<LatLng>): Polyline? {
     return if (positions.isNotEmpty()) {
         val mapPoints = positions.toTypedArray()
-        val color = Color.BLUE
+        val strokeColor = Color.parseColor("#004590")
         val polylineOptions = PolylineOptions()
             .add(*mapPoints)
-            .color(color)
+            .color(strokeColor)
         val polyline = addPolyline(polylineOptions)
         polyline
     } else null

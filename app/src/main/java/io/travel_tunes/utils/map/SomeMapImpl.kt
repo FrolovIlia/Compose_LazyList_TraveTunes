@@ -7,10 +7,9 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Polyline
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.collections.MarkerManager
-import com.google.maps.android.data.kml.KmlLayer
 import io.travel_tunes.model.route.PointItemInfo
 import io.travel_tunes.model.route.RouteItemInfo
-import io.travel_tunes.utils.extencions.addPolylineGeofence
+import io.travel_tunes.utils.extencions.addPolylineLatLng
 import io.travel_tunes.utils.extencions.setMapStyle
 import io.travel_tunes.utils.extencions.toLatLng
 import io.travel_tunes.utils.extencions.toLatLngNew
@@ -20,7 +19,6 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
     private var pointsClusterManager: ClusterManager<PointItemInfo>? = null
 
     private var polylineShape: Polyline? = null
-    private var kmlLayer: KmlLayer? = null
     private var isFirstStart: Boolean = true
 
     override fun setUiSettings(
@@ -109,10 +107,8 @@ class SomeMapImpl(private val googleMap: GoogleMap) : SomeMapInterface {
         }
     }
 
-    // FIXME: заменить kml на что-то другое - иначе будет перехватывать нажатия на маркеры 
-    override fun updateKml(context: Context, kmlRes: Int, mapPadding: Int) {
-//        kmlLayer?.removeLayerFromMap()
-//        kmlLayer = KmlLayer(googleMap, kmlRes, context)
-//        kmlLayer?.addLayerToMap()
+    override fun updatePolygon(context: Context, routeMapPoints: List<LatLngNew>, mapPadding: Int) {
+        polylineShape?.remove()
+        polylineShape = googleMap.addPolylineLatLng(positions = routeMapPoints.map { it.toLatLng() })
     }
 }

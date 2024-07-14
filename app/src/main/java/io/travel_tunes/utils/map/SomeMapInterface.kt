@@ -27,7 +27,7 @@ interface SomeMapInterface {
     fun setOnMapClickListener(function: (LatLngNew?) -> Unit)
 
     fun updateRouteMarkers(context: Context, routeInfo: RouteItemInfo, mapPadding: Int)
-    fun updateKml(context: Context, @RawRes kmlRes: Int, mapPadding: Int)
+    fun updatePolygon(context: Context, routeMapPoints: List<LatLngNew>, mapPadding: Int)
 
     fun centerMapAtPosition(
         position: LatLngNew,
