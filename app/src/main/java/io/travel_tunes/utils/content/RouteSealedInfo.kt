@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.model.route.RouteItemInfo
+import io.travel_tunes.utils.map.LatLngNew
 
 sealed class RouteSealedInfo : Parcelable {
 
@@ -23,9 +24,6 @@ sealed class RouteSealedInfo : Parcelable {
     }
 
     fun isRoutePaid() = isPaid
-
-    @RawRes
-    abstract fun getRouteKml(): Int
 
     /**
      * изображение для экрана со списком маршрутов
@@ -51,4 +49,6 @@ sealed class RouteSealedInfo : Parcelable {
     abstract fun getRouteItemInfo(context: Context): RouteItemInfo
 
     abstract fun getPointItemFullInfo(id: String): PointItemFullInfo?
+
+    abstract fun getRoutePolygon(): List<LatLngNew>
 }

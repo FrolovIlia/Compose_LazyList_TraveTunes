@@ -5,6 +5,7 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
 import io.travel_tunes.utils.content.RouteSealedInfo
+import io.travel_tunes.utils.map.LatLngNew
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -16,7 +17,7 @@ data class RouteInfoForView(
     private val isPaid: Boolean,
     private val freePointsCount: Int,
     private val routeTag: String,
-    @RawRes private val routeKmlRes: Int?,
+    private val routeMapPoints: List<LatLngNew>,
     @DrawableRes private val routePictureMainRes: Int,
     @DrawableRes private val routePictureDescriptionRes: Int,
     @RawRes private val routeAudioRes: Int?,
@@ -27,7 +28,7 @@ data class RouteInfoForView(
     fun isPaid() = isPaid
     fun getFreePointsCount() = freePointsCount
     fun getRouteTag() = routeTag
-    fun getRouteKmlRes() = routeKmlRes
+    fun getRouteMapPoints() = routeMapPoints
     fun getRoutePictureMainRes() = routePictureMainRes
     fun getRoutePictureDescriptionRes() = routePictureDescriptionRes
     fun getRouteAudioRes() = routeAudioRes

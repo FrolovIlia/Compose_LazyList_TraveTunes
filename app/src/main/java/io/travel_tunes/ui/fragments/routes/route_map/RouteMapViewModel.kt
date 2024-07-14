@@ -10,6 +10,7 @@ import io.travel_tunes.model.route.RouteItemInfo
 import io.travel_tunes.utils.base.BaseViewModel
 import io.travel_tunes.utils.base.BaseViewModelFactory
 import io.travel_tunes.utils.extencions.SingleLiveEvent
+import io.travel_tunes.utils.map.LatLngNew
 import javax.inject.Inject
 
 class RouteMapViewModel(
@@ -34,8 +35,7 @@ class RouteMapViewModel(
     val openPointInfoScreen
         get() = _openPointInfoScreen
 
-    @RawRes
-    val routeKmlInfo = MutableLiveData<Int?>()
+    val routeMapPoints = MutableLiveData<List<LatLngNew>>()
 
     init {
         initRouteInfo()
@@ -46,15 +46,14 @@ class RouteMapViewModel(
         val routeInfo = routeInfoForView.getRouteItemInfo()
         val updatedRouteInfo =
             routeInfo.copy(points = routeInfo.getPoints(isPaid = routeInfoForView.isPaid()))
-        val routeKmlRes = routeInfoForView.getRouteKmlRes()
         routeItemInfo.value = updatedRouteInfo
         routeTitle.value = updatedRouteInfo.getTitle()
-        routeKmlInfo.value = routeKmlRes
+        routeMapPoints.value = routeInfoForView.getRouteMapPoints()
     }
 
     fun onMapReady() {
         routeItemInfo.value = routeItemInfo.value
-        routeKmlInfo.value = routeKmlInfo.value
+        routeMapPoints.value = routeMapPoints.value
     }
 
     fun handleOnMarkerPointClick(pointItemInfo: PointItemInfo) {

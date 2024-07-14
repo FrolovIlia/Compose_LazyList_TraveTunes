@@ -186,11 +186,11 @@ class RouteMapFragment : Fragment() {
                 mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
             )
         }
-        viewModel.routeKmlInfo.observe(viewLifecycleOwner) {
+        viewModel.routeMapPoints.observe(viewLifecycleOwner) {
             if (it != null) {
-                someMap?.updateKml(
+                someMap?.updatePolygon(
                     requireContext(),
-                    kmlRes = it,
+                    routeMapPoints = it,
                     mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
                 )
             }

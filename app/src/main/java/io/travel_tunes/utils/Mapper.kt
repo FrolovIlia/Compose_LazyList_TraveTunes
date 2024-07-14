@@ -13,7 +13,7 @@ fun mapRouteSealedInfoToRouteView(
         isPaid = routeSealedInfo.isRoutePaid(),
         freePointsCount = routeSealedInfo.getCountFreePoints(),
         routeTag = routeSealedInfo.getRouteTag(),
-        routeKmlRes = routeSealedInfo.getRouteKml(),
+        routeMapPoints = routeSealedInfo.getRoutePolygon(),
         routePictureMainRes = routeSealedInfo.getRouteMainPictureRes(),
         routePictureDescriptionRes = routeSealedInfo.getRouteDescriptionPictureRes(),
         routeAudioRes = routeSealedInfo.getRouteAudioRes(),
