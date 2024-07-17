@@ -10,7 +10,6 @@ import io.travel_tunes.model.remote.AmountRequest
 import io.travel_tunes.model.remote.MetadataRequest
 import io.travel_tunes.model.remote.PaymentsRequest
 import io.travel_tunes.model.remote.PaymentsResponse
-import io.travel_tunes.model.remote.PaymentsResponsesList
 import io.travel_tunes.utils.base.BaseRepository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -22,7 +21,6 @@ interface PaymentsRepository {
     ): Resource<PaymentsResponse>
 
     suspend fun getPaymentById(paymentId: String): Resource<PaymentsResponse>
-    suspend fun getPayments(): Resource<PaymentsResponsesList>
 }
 
 //@Singleton
@@ -72,10 +70,6 @@ class PaymentsRepositoryImpl @Inject constructor(
             }
         }
         return result
-    }
-
-    override suspend fun getPayments(): Resource<PaymentsResponsesList> {
-        TODO("Not yet implemented")
     }
 
     private suspend fun getSavedUniqueId(): String {
