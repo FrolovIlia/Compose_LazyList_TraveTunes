@@ -43,15 +43,15 @@ fun getPointMarkerBitmapOrDrawableRes(
 ): BitmapOrDrawableRes {
     val layoutId = when {
         !pointItemInfo.isEnabled() -> {
-            R.layout.marker_disabled_layout
+            R.layout.marker_disabled_circle_layout
         }
 
         pointItemInfo.isSelected() -> {
-            R.layout.marker_selected_layout
+            R.layout.marker_selected_circle_layout
         }
 
         else -> {
-            R.layout.marker_default_layout
+            R.layout.marker_default_circle_layout
         }
     }
     val clusterView =
