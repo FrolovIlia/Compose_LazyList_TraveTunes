@@ -1,6 +1,5 @@
 package io.travel_tunes.utils.adapters
 
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
@@ -10,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import io.travel_tunes.R
-import io.travel_tunes.databinding.RouteItemBinding
+import io.travel_tunes.databinding.RouteItemWithGradientBinding
 import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.extencions.changeText
 
@@ -21,7 +20,7 @@ class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit
     private var itemsList: List<RouteSealedInfo> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteItemHolder {
-        val binding = RouteItemBinding
+        val binding = RouteItemWithGradientBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return RouteItemHolder(binding)
     }
@@ -50,7 +49,7 @@ class RoutesAdapter(private val onButtonClickListener: (RouteSealedInfo) -> Unit
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class RouteItemHolder(private val binding: RouteItemBinding) :
+    inner class RouteItemHolder(private val binding: RouteItemWithGradientBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(routeSealedInfo: RouteSealedInfo) {
             val routeItemInfo = routeSealedInfo.getRouteItemInfo(binding.root.context)
