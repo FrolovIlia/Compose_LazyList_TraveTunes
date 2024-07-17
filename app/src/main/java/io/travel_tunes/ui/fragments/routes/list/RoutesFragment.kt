@@ -98,11 +98,6 @@ class RoutesFragment : Fragment() {
             toolbarSettings.apply {
                 changeVisibility(true)
                 setOnClickListener {
-//                    Toast.makeText(
-//                        requireContext(),
-//                        "Неплохо бы сначала добавить экран, а потом уже тыкать 😉",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
                     listener?.openRestoreScreen()
                 }
             }
