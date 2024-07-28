@@ -14,7 +14,7 @@ data class PaymentVariant(
     private val amount: Double,
     private val currency: Currency,
     private val amountWithoutDiscount: Double? = null // если заполнено, то отобразится
-): Parcelable {
+) : Parcelable {
     fun getName() = name.lowercase()
     fun getRouteTagSet() = routeTagItems
     fun getTextForUser(context: Context) = context.resources.getString(labelStringRes)

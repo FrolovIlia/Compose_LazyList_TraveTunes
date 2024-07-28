@@ -7,9 +7,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ConfirmationData(
-    @Expose private val type: String, // redirect
+    @Expose @SerializedName("type") private val type: String, // redirect
     @Expose @SerializedName("confirmation_url") private val confirmationUrl: String
-): Parcelable {
+) : Parcelable {
     fun getConfirmationUrl() = confirmationUrl
     fun isRedirectType() = type.equals("redirect", true)
 }

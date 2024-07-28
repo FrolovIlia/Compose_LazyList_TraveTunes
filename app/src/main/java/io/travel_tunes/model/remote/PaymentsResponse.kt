@@ -7,12 +7,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PaymentsResponse(
-    @Expose private val id: String,
-    @Expose private val status: String,
-    @Expose private val paid: Boolean,
-    @Expose private val confirmation: ConfirmationData?,
-    @Expose private val metadata: MetadataRequest?,
-    @SerializedName("cancellation_details") @Expose private val cancellationDetails: CancellationDetails?
+    @Expose @SerializedName("id") private val id: String,
+    @Expose @SerializedName("status") private val status: String,
+    @Expose @SerializedName("paid") private val paid: Boolean,
+    @Expose @SerializedName("confirmation") private val confirmation: ConfirmationData?,
+    @Expose @SerializedName("metadata") private val metadata: MetadataRequest?,
+    @Expose @SerializedName("cancellation_details") private val cancellationDetails: CancellationDetails?
 ) : Parcelable {
     companion object {
         private const val STATUS_SUCCEEDED = "succeeded"

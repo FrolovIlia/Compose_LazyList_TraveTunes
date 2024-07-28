@@ -9,6 +9,6 @@ import kotlinx.parcelize.Parcelize
 data class MetadataRequest(
     @Expose @SerializedName("device_unique_id") private val uniqueId: String,
     @Expose @SerializedName("item_payment_variant") private val paymentVariant: String
-): Parcelable {
+) : Parcelable {
     fun getPaymentVariant() = paymentVariant
 }
