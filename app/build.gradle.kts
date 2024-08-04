@@ -108,8 +108,12 @@ android {
         getByName("release") {
             defaultConfig.versionName = versionName
             defaultConfig.versionCode = versionCode
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            isShrinkResources = true
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             isDebuggable = false
             signingConfig = signingConfigs.getByName("only_for_local_test_signing")
         }
@@ -121,6 +125,12 @@ android {
             //            }
             defaultConfig.versionName = versionName
             defaultConfig.versionCode = versionCode
+            isShrinkResources = true
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             isDebuggable = true
         }
     }
