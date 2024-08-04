@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import io.travel_tunes.R
 import io.travel_tunes.appComponent
 import io.travel_tunes.databinding.FragmentRestoreBinding
+import io.travel_tunes.utils.BuildConfigUtils
+import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.copyToClipboard
 import io.travel_tunes.utils.extencions.openEmailApp
@@ -52,6 +54,7 @@ class RestoreFragment : Fragment() {
 
     private fun initViews() {
         initToolbar()
+        initVersionName()
         with(binding) {
             toolbarLayout.toolbarTitle.setText(R.string.restore_screen_title)
             // FIXME: возможно стоит выпилить копирование адреса по клику на текстовое поле 
@@ -95,5 +98,10 @@ class RestoreFragment : Fragment() {
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(this, viewModelFactory)[RestoreDataViewModel::class.java]
+    }
+
+    private fun initVersionName() {
+        val versionName = resources.getString(R.string.version_name_pattern, BuildConfigUtils.getVersionName())
+        binding.version.changeText(versionName)
     }
 }

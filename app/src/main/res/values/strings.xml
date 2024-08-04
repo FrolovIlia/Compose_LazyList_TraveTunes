@@ -34,6 +34,8 @@
     <string name="payments_screen_both_label_pattern">Купить оба маршрута «%1$s» и «%2$s»</string>
     <string name="payments_screen_both_amount_pattern">%1$s%2$s</string>
 
+    <string name="version_name_pattern">Версия приложения: %1$s</string>
+
     <string name="offer_screen_title">Оферта</string>
 
     <string name="tokenization_canceled">Не удается создать платеж, попробуйте снова позже</string>

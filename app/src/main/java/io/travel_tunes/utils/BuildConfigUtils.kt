@@ -3,7 +3,8 @@ package io.travel_tunes.utils
 import io.travel_tunes.BuildConfig
 
 object BuildConfigUtils {
-fun isDebugMode() = BuildConfig.DEBUG
+    fun getVersionName() = BuildConfig.VERSION_NAME
+    fun isDebugMode() = BuildConfig.DEBUG
     fun getBaseUrl() = "https://api.yookassa.ru/"
     fun getMerchantToken() = BuildConfig.MERCHANT_TOKEN
     fun getSecretKey() = BuildConfig.SECRET_KEY
