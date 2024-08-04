@@ -115,7 +115,7 @@ class RouteInfoFragment : Fragment() {
 //                }
             }
             binding.button.setOnClickListener {
-                    binding.playerView.pause()
+                binding.playerView.pause()
                 viewModel.routeInfoForView.value?.let {
                     listener?.openRouteMapScreen()
                 }
@@ -128,7 +128,7 @@ class RouteInfoFragment : Fragment() {
 
         viewModel.routeInfoForView.observe(viewLifecycleOwner) { routeInfo ->
             if (routeInfo != null)
-            showRouteInfo(routeInfo)
+                showRouteInfo(routeInfo)
         }
     }
 
