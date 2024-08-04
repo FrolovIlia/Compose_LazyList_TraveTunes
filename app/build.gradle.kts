@@ -24,6 +24,15 @@ secrets {
 }
 
 android {
+    signingConfigs {
+        create("only_for_local_test_signing") {
+            storeFile =
+                file("..//signings/simple_test.jks")
+            storePassword = "OnlyForLocalTestKP"
+            keyAlias = "test"
+            keyPassword = "OnlyForLocalTestAP"
+        }
+    }
     namespace = "io.travel_tunes"
     compileSdk = 34
     val versionName = "1.0"
@@ -102,6 +111,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("only_for_local_test_signing")
         }
         getByName("debug") {
             //            firebaseCrashlytics {
