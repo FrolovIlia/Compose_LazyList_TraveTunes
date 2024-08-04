@@ -2,19 +2,20 @@ package io.travel_tunes.model.route
 
 import android.os.Parcelable
 import com.google.android.gms.maps.model.LatLng
+import com.google.gson.annotations.SerializedName
 import com.google.maps.android.clustering.ClusterItem
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PointItemInfo(
-    private val id: String,
-    private val title: String,
-    private val description: String,
-    private val locationLat: String,
-    private val locationLon: String,
-    @IgnoredOnParcel private val isEnabled: Boolean = true,
-    @IgnoredOnParcel private var isSelected: Boolean = false
+    @SerializedName("id") private val id: String,
+    @SerializedName("title") private val title: String,
+    @SerializedName("description") private val description: String,
+    @SerializedName("locationLat") private val locationLat: String,
+    @SerializedName("locationLon") private val locationLon: String,
+    @SerializedName("isEnabled") @IgnoredOnParcel private val isEnabled: Boolean = true,
+    @SerializedName("isSelected") @IgnoredOnParcel private var isSelected: Boolean = false
 ) : Parcelable, ClusterItem {
 
     override fun getTitle() = title

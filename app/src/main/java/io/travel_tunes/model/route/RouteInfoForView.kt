@@ -1,10 +1,8 @@
 package io.travel_tunes.model.route
 
-import android.content.Context
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
-import io.travel_tunes.utils.content.RouteSealedInfo
 import io.travel_tunes.utils.map.LatLngNew
 import kotlinx.parcelize.Parcelize
 
