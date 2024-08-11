@@ -35,8 +35,8 @@ android {
     }
     namespace = "io.travel_tunes"
     compileSdk = 34
-    val versionName = "1.0.0"
-    val versionCode = 2
+    val versionName = "1.0.1"
+    val versionCode = 3
 
     defaultConfig {
         applicationId = "io.travel_tunes"
