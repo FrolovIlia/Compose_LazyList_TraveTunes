@@ -64,7 +64,7 @@
     <string name="cancel_error_payment_method_restricted">Запрещены операции данным платежным средством (например, карта заблокирована из-за утери, кошелек — из-за взлома мошенниками). Вам следует обратиться в организацию, выпустившую платежное средство.</string>
 
     // failure errors
-    <string name="failure_error_is_network_error">Проверьте настройки интернет-соединения и попробуйте снова.</string>
+    <string name="failure_error_is_network_error">Проверьте настройки интернет - соединения и попробуйте снова.</string>
     <string name="failure_error_temporary_problem">Возникли технические неполадки с оплатой. Пожалуйста, попробуйте снова чуть позже.</string>
     <string name="failure_error_undefined_need_fix">Что-то пошло не так… Пожалуйста, сообщите нам о случившемся.</string>
 
