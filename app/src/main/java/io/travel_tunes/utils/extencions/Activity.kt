@@ -1,16 +1,19 @@
 package io.travel_tunes.utils.extencions
 
+import android.Manifest
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.PersistableBundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import io.travel_tunes.R
 import io.travel_tunes.utils.CrashlyticsUtils
 
@@ -52,4 +55,11 @@ fun Activity.openEmailApp(emailAddress: String?) {
         CrashlyticsUtils.sendThrowableNonFatal(th)
         Toast.makeText(context, R.string.application_not_found, Toast.LENGTH_SHORT).show()
     }
+}
+
+fun Activity.isLocationPermissionFineGranted(): Boolean {
+    return ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
 }

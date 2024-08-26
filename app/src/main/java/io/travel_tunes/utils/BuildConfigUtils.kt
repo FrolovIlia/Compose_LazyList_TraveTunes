@@ -9,4 +9,5 @@ object BuildConfigUtils {
     fun getMerchantToken() = BuildConfig.MERCHANT_TOKEN
     fun getSecretKey() = BuildConfig.SECRET_KEY
     fun getShopId() = BuildConfig.SHOP_ID
+    fun getApplicationId() = BuildConfig.APPLICATION_ID
 }

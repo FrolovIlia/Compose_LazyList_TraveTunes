@@ -49,6 +49,17 @@
 
     <string name="message_loading">Запрос выполняется…</string>
 
+    <string name="dialog_location_permission_title">Дайте разрешение для использования геолокации</string>
+    <string name="dialog_location_permission_content">Это требуется для отображения вашего местоположения на карте</string>
+    <string name="dialog_location_permission_positive_btn">Хорошо</string>
+    <string name="dialog_location_permission_negative_btn">Отмена</string>
+    <string name="dialog_location_permission_to_settings_btn">В настройки</string>
+
+    <string name="dialog_location_enable_title">Включите gps</string>
+    <string name="dialog_location_enable_content">Это требуется для отображения вашего местоположения на карте</string>
+    <string name="dialog_location_enable_positive_btn">Хорошо</string>
+    <string name="dialog_location_enable_negative_btn">Отмена</string>
+
     // cancel errors
     <string name="cancel_error_undefined">Что-то пошло не так…</string>
     <string name="cancel_error_3d_secure_failed">Не пройдена аутентификация по 3-D Secure. При новой попытке оплаты Вам следует пройти аутентификацию, использовать другое платежное средство или обратиться ваш в банк за уточнениями.</string>

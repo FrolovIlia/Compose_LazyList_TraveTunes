@@ -3,6 +3,8 @@ package io.travel_tunes.utils.extencions
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -11,6 +13,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import io.travel_tunes.R
 import io.travel_tunes.utils.CrashlyticsUtils
 import io.travel_tunes.utils.map.LatLngNew
+import java.util.concurrent.TimeUnit
 
 fun GoogleMap.setMapStyle(context: Context, jsonResourceId: Int = R.raw.style_json) {
     try {
@@ -39,3 +42,8 @@ fun GoogleMap.addPolylineLatLng(positions: List<LatLng>): Polyline? {
 
 fun LatLngNew.toLatLng(): LatLng = LatLng(latitude, longitude)
 fun LatLng.toLatLngNew(): LatLngNew = LatLngNew(latitude, longitude)
+
+fun createLocationRequest() = LocationRequest.Builder(
+    Priority.PRIORITY_BALANCED_POWER_ACCURACY,
+    TimeUnit.SECONDS.toMillis(10)
+).build()
