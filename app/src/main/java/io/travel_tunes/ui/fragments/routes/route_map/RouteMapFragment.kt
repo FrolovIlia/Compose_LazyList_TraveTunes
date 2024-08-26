@@ -1,5 +1,6 @@
 package io.travel_tunes.ui.fragments.routes.route_map
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.travel_tunes.R
 import io.travel_tunes.appComponent
@@ -16,10 +19,13 @@ import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.model.route.PointItemFullInfo
 import io.travel_tunes.ui.fragments.points.info.PointInfoFragment
 import io.travel_tunes.utils.FragmentResultUtils
+import io.travel_tunes.utils.base.BaseActivity
 import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.extencions.changeVisibility
 import io.travel_tunes.utils.extencions.toDp
-import io.travel_tunes.utils.map.SomeMapInterface
+import io.travel_tunes.utils.map.GoogleMapManager
+import io.travel_tunes.utils.permissions.MapLocationManager
+import io.travel_tunes.utils.permissions.PermissionLocationHelper
 import javax.inject.Inject
 
 class RouteMapFragment : Fragment() {
@@ -30,14 +36,21 @@ class RouteMapFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: RouteMapViewModelFactory
 
-    private var someMap: SomeMapInterface? = null
+    private var googleMapManager: GoogleMapManager? = null
+    private var mapLocationManager: MapLocationManager? = null
+    private var permissionHelper: PermissionLocationHelper? = null
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
     private var listener: OnFragmentInteractionListener? = null
 
     companion object {
-        private const val MAP_VIEW_BUNDLE_KEY = "map_view_bundle_key"
+        /**
+         * Request code for location permission request.
+         *
+         * @see .onRequestPermissionsResult
+         */
+        private const val REQUESTING_LOCATION_UPDATES_KEY = "location_updates_key"
         fun getInstance(): RouteMapFragment {
             val args = Bundle()
             val fragment = RouteMapFragment()
@@ -77,12 +90,27 @@ class RouteMapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initMap(savedInstanceState)
+        if (savedInstanceState != null) {
+            mapLocationManager?.setRequestingLocationUpdates(
+                isRequesting = savedInstanceState.getBoolean(REQUESTING_LOCATION_UPDATES_KEY, false)
+            )
+        }
+        initMap()
         initViews()
         initBottomSheet()
         initViewModel()
         initFragmentResultListeners()
+        initLocationManagers()
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(
+            REQUESTING_LOCATION_UPDATES_KEY,
+            mapLocationManager?.isRequestingLocationUpdates() ?: false
+        )
+        super.onSaveInstanceState(outState)
+    }
+
 
     private fun initFragmentResultListeners() {
         setFragmentResultListener(FragmentResultUtils.REQUEST_OPEN_OFFER_AGREEMENTS) { _, bundle ->
@@ -100,55 +128,15 @@ class RouteMapFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        binding.mapView.onStart()
-        super.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.mapView.onResume()
-        view?.requestApplyInsets()
-    }
-
-    override fun onPause() {
-        binding.mapView.onPause()
-        super.onPause()
-    }
-
-    override fun onStop() {
-        binding.mapView.onStop()
-        super.onStop()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        saveMapInstanceState(outState)
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding.mapView.onLowMemory()
-    }
-
-    private fun saveMapInstanceState(outState: Bundle?) {
-        val mapViewBundle = Bundle()
-        binding.mapView.onSaveInstanceState(mapViewBundle)
-        outState?.putBundle(MAP_VIEW_BUNDLE_KEY, mapViewBundle)
-    }
-
-    private fun initMap(savedInstanceState: Bundle?) {
-        val mapViewBundle = savedInstanceState?.getBundle(MAP_VIEW_BUNDLE_KEY)
-        with(binding.mapView) {
-            onCreate(mapViewBundle)
-            getMapAsync {
-                onMapReady(it)
-            }
-        }
+    private fun initMap() {
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.mapContainer) as? SupportMapFragment
+        mapFragment?.getMapAsync { onMapReady(it) }
     }
 
     private fun initViews() {
         initToolbar()
+        binding.btnLocationLayout.setOnClickListener { getMyLocation() }
     }
 
     private fun initToolbar() {
@@ -161,13 +149,6 @@ class RouteMapFragment : Fragment() {
             }
             toolbarSettings.apply {
                 changeVisibility(false)
-//                setOnClickListener {
-//                    Toast.makeText(
-//                        requireContext(),
-//                        "Неплохо бы сначала добавить экран, а потом уже тыкать 😉",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
             }
         }
     }
@@ -179,18 +160,15 @@ class RouteMapFragment : Fragment() {
             binding.toolbarLayout.toolbarTitle.changeText(routeTitle)
         }
         viewModel.routeItemInfo.observe(viewLifecycleOwner) { routeItemInfo ->
-            someMap?.updateRouteMarkers(
-                requireContext(),
+            googleMapManager?.updateRouteMarkers(
                 routeItemInfo,
                 mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
             )
         }
         viewModel.routeMapPoints.observe(viewLifecycleOwner) {
             if (it != null) {
-                someMap?.updatePolygon(
-                    requireContext(),
-                    routeMapPoints = it,
-                    mapPadding = resources.getDimensionPixelOffset(R.dimen.spacing_56)
+                googleMapManager?.updatePolygon(
+                    routeMapPoints = it
                 )
             }
         }
@@ -231,25 +209,25 @@ class RouteMapFragment : Fragment() {
         })
     }
 
-    private fun onMapReady(map: SomeMapInterface) {
-        someMap = map
-        map.setUiSettings(
+    private fun onMapReady(map: GoogleMap) {
+        googleMapManager = GoogleMapManager(map)
+        googleMapManager?.setUiSettings(
             context = requireContext(),
             isMapToolbarEnabled = false,
             isZoomControlsEnabled = true,
             isRotateGesturesEnabled = false,
             isCompassEnabled = false,
-            isMyLocationButtonEnabled = false
+            isMyLocationButtonEnabled = true
         )
 
-        map.setClusterManagers(
+        googleMapManager?.setClusterManagers(
             context = requireContext(),
             pointItemClickCallback = { pointItemInfo ->
                 viewModel.handleOnMarkerPointClick(pointItemInfo)
             }
         )
 
-        map.setOnMapClickListener {
+        googleMapManager?.setOnMapClickListener {
             viewModel.handleOnMapClick()
         }
         viewModel.onMapReady()
@@ -296,5 +274,48 @@ class RouteMapFragment : Fragment() {
             fragment.stopPlayer()
             childFragmentManager.beginTransaction().hide(fragment).commit()
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getMyLocation() {
+        permissionHelper?.launchIfLocationPermissionGrantedAndLocationEnabled(
+            action = {
+                mapLocationManager?.getMyLocation(
+                    activity = activity
+                )
+            }
+        )
+    }
+
+    private fun initLocationManagers() {
+        mapLocationManager = MapLocationManager(
+            activity = requireActivity(),
+            anotherLocationResult = {},
+            firstLocationResult = {
+                it?.let { location ->
+                    googleMapManager?.initMyLocation(
+                        location.latitude, location.longitude, isNeedCenterMap = true
+                    )
+                }
+            }
+        )
+        mapLocationManager?.initLocation()
+
+        permissionHelper = PermissionLocationHelper(
+            activity = activity as BaseActivity,
+            fragment = this,
+            onPermissionGranted = {
+                googleMapManager?.setIsMyLocationEnabled(
+                    true,
+                    requireActivity()
+                )
+            },
+            onPermissionNonGranted = {
+                googleMapManager?.setIsMyLocationEnabled(
+                    false,
+                    requireActivity()
+                )
+            }
+        )
     }
 }
