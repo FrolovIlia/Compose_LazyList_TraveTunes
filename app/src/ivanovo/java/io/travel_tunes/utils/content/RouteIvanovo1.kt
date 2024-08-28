@@ -58,7 +58,8 @@ data class RouteIvanovo1(
             R.drawable.route_ivanovo_1_29,
             R.drawable.route_ivanovo_1_30,
             R.drawable.route_ivanovo_1_31,
-            R.drawable.route_ivanovo_1_32
+            R.drawable.route_ivanovo_1_32,
+            R.drawable.route_ivanovo_1_33
         )
     }
 
@@ -95,7 +96,8 @@ data class RouteIvanovo1(
             R.raw.route_ivanovo_1_29,
             R.raw.route_ivanovo_1_30,
             R.raw.route_ivanovo_1_31,
-            R.raw.route_ivanovo_1_32
+            R.raw.route_ivanovo_1_32,
+            R.raw.route_ivanovo_1_33
         )
     }
 
