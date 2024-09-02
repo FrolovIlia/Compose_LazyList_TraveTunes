@@ -126,6 +126,8 @@ data class RouteIvanovo1(
 
     override fun getRoutePolygon(): List<LatLngNew> {
         return listOf(
+
+
             LatLngNew(57.0172738, 40.9794269),
             LatLngNew(57.01664, 40.9790889),
             LatLngNew(57.016459, 40.9786812),
@@ -194,10 +196,10 @@ data class RouteIvanovo1(
             LatLngNew(56.9981389, 40.9750349),
             LatLngNew(56.997984, 40.9753166),
             LatLngNew(56.9976582, 40.9759576),
-            LatLngNew(56.997442, 40.9755285),
-            LatLngNew(56.9967656, 40.9766845),
-            LatLngNew(56.9957108, 40.9783046),
-            LatLngNew(56.9958963, 40.9787418),
+            LatLngNew(56.9968562, 40.9772424),
+            LatLngNew(56.9964749, 40.9777842),
+            LatLngNew(56.9960702, 40.9783529),
+            LatLngNew(56.9958349, 40.978715),
             LatLngNew(56.9958145, 40.9790207),
             LatLngNew(56.9962309, 40.9798656),
             LatLngNew(56.9962528, 40.9799782),
