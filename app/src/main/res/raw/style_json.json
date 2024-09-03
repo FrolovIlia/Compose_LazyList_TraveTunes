@@ -1,7 +1,6 @@
 [
   {
-    "featureType": "administrative",
-    "elementType": "geometry",
+    "elementType": "labels",
     "stylers": [
       {
         "visibility": "off"
@@ -9,27 +8,39 @@
     ]
   },
   {
-    "featureType": "poi",
+    "featureType": "administrative.land_parcel",
     "stylers": [
       {
         "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "saturation": 15
+      },
+      {
+        "lightness": -5
       }
     ]
   },
   {
     "featureType": "road",
-    "elementType": "labels.icon",
+    "elementType": "labels.text",
     "stylers": [
       {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "transit",
-    "stylers": [
-      {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   }

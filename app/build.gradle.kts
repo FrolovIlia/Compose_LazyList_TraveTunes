@@ -24,19 +24,10 @@ secrets {
 }
 
 android {
-    signingConfigs {
-        create("only_for_local_test_signing") {
-            storeFile =
-                file("..//signings/simple_test.jks")
-            storePassword = "OnlyForLocalTestKP"
-            keyAlias = "test"
-            keyPassword = "OnlyForLocalTestAP"
-        }
-    }
     namespace = "io.travel_tunes"
     compileSdk = 34
-    val versionName = "1.0.1"
-    val versionCode = 3
+    val versionName = "1.0.3"
+    val versionCode = 5
 
     defaultConfig {
         applicationId = "io.travel_tunes"
@@ -108,14 +99,9 @@ android {
         getByName("release") {
             defaultConfig.versionName = versionName
             defaultConfig.versionCode = versionCode
-            isShrinkResources = true
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             isDebuggable = false
-            signingConfig = signingConfigs.getByName("only_for_local_test_signing")
         }
         getByName("debug") {
             //            firebaseCrashlytics {
@@ -125,12 +111,6 @@ android {
             //            }
             defaultConfig.versionName = versionName
             defaultConfig.versionCode = versionCode
-            isShrinkResources = true
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
             isDebuggable = true
         }
     }
@@ -165,6 +145,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -179,7 +160,6 @@ dependencies {
 
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.maps.android:android-maps-utils:3.8.2")
-    implementation("com.google.android.gms:play-services-location:21.3.0")
 
 
     implementation("com.google.code.gson:gson:2.10.1")
