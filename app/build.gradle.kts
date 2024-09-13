@@ -26,8 +26,8 @@ secrets {
 android {
     namespace = "io.travel_tunes"
     compileSdk = 34
-    val versionName = "1.0.3"
-    val versionCode = 5
+    val versionName = "1.0.4"
+    val versionCode = 6
 
     defaultConfig {
         applicationId = "io.travel_tunes"
@@ -81,9 +81,9 @@ android {
         create("ivanovo") {
             applicationId = "io.travel_tunes.ivanovo"
             resValue("string", "app_name", "TravelTunes Иваново")
-            buildConfigField("String", "MERCHANT_TOKEN", "\"test_NDA3NTUyT_KH6UhrXdDGpWDUat7BGE7ubpQMdQ2fNA4\"")
-            buildConfigField("String", "SECRET_KEY", "\"test__PHJmGyxUWpFrUuhx8tzfgkaVL0ALfucbqDBzwTmyqo\"")
-            buildConfigField("String", "SHOP_ID", "\"407552\"")
+            buildConfigField("String", "MERCHANT_TOKEN", "\"live_MzY4NDI5w03wj0VlTBj1iajKVLO10lme8fpvmzeUaXI\"")
+            buildConfigField("String", "SECRET_KEY", "\"live_-UQn7qmMiOQQCOntg9njEvy1w1CalDwZnLoF2m177_g\"")
+            buildConfigField("String", "SHOP_ID", "\"368429\"")
         }
         create("kazan") {
             applicationId = "io.travel_tunes.kazan"
