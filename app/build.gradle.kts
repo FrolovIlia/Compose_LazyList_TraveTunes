@@ -88,9 +88,9 @@ android {
         create("kazan") {
             applicationId = "io.travel_tunes.kazan"
             resValue("string", "app_name", "TravelTunes Казань")
-            buildConfigField("String", "MERCHANT_TOKEN", "\"merchant_token\"")
-            buildConfigField("String", "SECRET_KEY", "\"merchant_token\"")
-            buildConfigField("String", "SHOP_ID", "\"shop_id\"")
+            buildConfigField("String", "MERCHANT_TOKEN", "\"test_NDA3NTUyT_KH6UhrXdDGpWDUat7BGE7ubpQMdQ2fNA4\"")
+            buildConfigField("String", "SECRET_KEY", "\"test__PHJmGyxUWpFrUuhx8tzfgkaVL0ALfucbqDBzwTmyqo\"")
+            buildConfigField("String", "SHOP_ID", "\"407552\"")
         }
     }
 
