@@ -26,8 +26,8 @@ secrets {
 android {
     namespace = "io.travel_tunes"
     compileSdk = 34
-    val versionName = "1.0.5"
-    val versionCode = 7
+    val versionName = "1.0.6"
+    val versionCode = 9
 
     defaultConfig {
         applicationId = "io.travel_tunes"
@@ -102,6 +102,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("debug")
         }
         getByName("debug") {
             //            firebaseCrashlytics {
