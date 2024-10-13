@@ -26,8 +26,8 @@ secrets {
 android {
     namespace = "io.travel_tunes"
     compileSdk = 34
-    val versionName = "1.0.2"
-    val versionCode = 4
+    val versionName = "1.0.6"
+    val versionCode = 9
 
     defaultConfig {
         applicationId = "io.travel_tunes"
@@ -88,10 +88,18 @@ android {
         create("kazan") {
             applicationId = "io.travel_tunes.kazan"
             resValue("string", "app_name", "TravelTunes Казань")
-            buildConfigField("String", "MERCHANT_TOKEN", "\"merchant_token\"")
-            buildConfigField("String", "SECRET_KEY", "\"merchant_token\"")
-            buildConfigField("String", "SHOP_ID", "\"shop_id\"")
+            buildConfigField("String", "MERCHANT_TOKEN", "\"test_NDA3NTUyT_KH6UhrXdDGpWDUat7BGE7ubpQMdQ2fNA4\"")
+            buildConfigField("String", "SECRET_KEY", "\"test__PHJmGyxUWpFrUuhx8tzfgkaVL0ALfucbqDBzwTmyqo\"")
+            buildConfigField("String", "SHOP_ID", "\"407552\"")
         }
+        create("suzdal") {
+            applicationId = "io.travel_tunes.suzdal"
+            resValue("string", "app_name", "TravelTunes Суздаль")
+            buildConfigField("String", "MERCHANT_TOKEN", "\"test_NDA3NTUyT_KH6UhrXdDGpWDUat7BGE7ubpQMdQ2fNA4\"")
+            buildConfigField("String", "SECRET_KEY", "\"test__PHJmGyxUWpFrUuhx8tzfgkaVL0ALfucbqDBzwTmyqo\"")
+            buildConfigField("String", "SHOP_ID", "\"407552\"")
+        }
+
     }
 
 
@@ -102,6 +110,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("debug")
         }
         getByName("debug") {
             //            firebaseCrashlytics {
@@ -128,6 +137,10 @@ android {
             java.srcDir("src/kazan/java")
             res.srcDir("src/kazan/res")
         }
+        getByName("suzdal") {
+            java.srcDir("src/suzdal/java")
+            res.srcDir("src/suzdal/res")
+        }
     }
 }
 
@@ -145,6 +158,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
