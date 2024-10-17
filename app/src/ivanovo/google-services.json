@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:714237849769:android:acaed398a360f32d3c39b8",
+        "mobilesdk_app_id": "1:714237849769:android:c946acd99e8afce23c39b8",
         "android_client_info": {
-          "package_name": "io.travel_tunes.suzdal"
+          "package_name": "io.travel_tunes.ivanovo"
         }
       },
       "oauth_client": [],
