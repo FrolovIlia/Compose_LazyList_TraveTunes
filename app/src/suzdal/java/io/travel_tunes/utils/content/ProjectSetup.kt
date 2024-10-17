@@ -7,7 +7,18 @@ import java.util.Currency
 object ProjectSetup {
     const val TABLE_NAME = "suzdal_app"
 
-    val ROUTES_LIST = listOf(RouteSuzdal1())
+    val ROUTES_LIST = listOf(RouteSuzdal1(), RouteSuzdal2())
+
+//    val PAYMENT_VARIANTS = setOf(
+//        PaymentVariant(
+//            name = "suzdal_1_item_key",
+//            labelStringRes = R.string.payment_variant_1_label,
+//            routeTagItems = setOf(RouteSuzdal1().getRouteTag()),
+//            amount = 499.0,
+//            currency = Currency.getInstance(Payments.CURRENCY_RUB)
+//        )
+//    )
+
 
     val PAYMENT_VARIANTS = setOf(
         PaymentVariant(
@@ -16,21 +27,42 @@ object ProjectSetup {
             routeTagItems = setOf(RouteSuzdal1().getRouteTag()),
             amount = 499.0,
             currency = Currency.getInstance(Payments.CURRENCY_RUB)
+        ),
+        PaymentVariant(
+            name = "suzdal_2_item_key",
+            labelStringRes = R.string.payment_variant_2_label,
+            routeTagItems = setOf(RouteSuzdal2().getRouteTag()),
+            amount = 399.0,
+            currency = Currency.getInstance(Payments.CURRENCY_RUB)
+        ),
+        PaymentVariant(
+            name = "suzdal_3_item_key",
+            labelStringRes = R.string.payment_variant_3_label,
+            routeTagItems = setOf(RouteSuzdal1().getRouteTag(), RouteSuzdal2().getRouteTag()),
+            amount = 699.0,
+            currency = Currency.getInstance(Payments.CURRENCY_RUB)
         )
     )
+
+
+
+
+
+
+
 
     /**
      * как пример для 2 платежей
      */
 //        val PAYMENT_VARIANTS = setOf(
 //        PaymentVariant(
-//            name = R.string.payment_variant_1_label,
+//            name = R.string.payment_variant_1_label.toString(),
 //            routeTagItems = setOf(RouteSuzdal1().getRouteTag()),
 //            amount = 499.0,
 //            currency = Currency.getInstance(Payments.CURRENCY_RUB)
 //        ),
 //        PaymentVariant(
-//            name = R.string.payment_variant_2_label,
+//            name = R.string.payment_variant_2_label.toString(),
 //            routeTagItems = setOf(RouteSuzdal2().getRouteTag()),
 //            amount = 399.0,
 //            currency = Currency.getInstance(Payments.CURRENCY_RUB)

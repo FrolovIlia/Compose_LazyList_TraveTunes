@@ -47,20 +47,23 @@
             app:layout_constraintTop_toTopOf="@id/dialogTitle" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPayments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/rvPayments"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dialogTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            tools:itemCount="2"
             android:layout_marginTop="@dimen/spacing_8"
             android:layout_marginBottom="@dimen/spacing_8"
-            tools:listitem="@layout/payment_variant_item"
-            />
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogTitle"
+            app:layout_constraintVertical_bias="0.0"
+            tools:itemCount="4"
+            tools:listitem="@layout/payment_variant_item">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
