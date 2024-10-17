@@ -8,15 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:714237849769:android:c946acd99e8afce23c39b8",
+        "mobilesdk_app_id": "1:714237849769:android:acaed398a360f32d3c39b8",
         "android_client_info": {
-          "package_name": "io.travel_tunes.ivanovo"
+          "package_name": "io.travel_tunes.suzdal"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyB3iduTYRtzm9gVIg2k3QBA6gnQUQQw8wY"
+        },
+        {
+          "current_key": "AIzaSyDJ6J5Qky5sxOWumhxbGcOlpaJxZstx6VA"
         }
       ],
       "services": {
