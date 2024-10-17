@@ -2,4 +2,6 @@
 <resources>
     <string name="fragment_routes_title">Суздаль</string>
     <string name="payment_variant_1_label">Купить экскурсию «Южная часть Суздаля»</string>
+    <string name="payment_variant_2_label">Купить экскурсию «Северная часть Суздаля»</string>
+    <string name="payment_variant_3_label">Купить все экскурсии Суздаля</string>
 </resources>

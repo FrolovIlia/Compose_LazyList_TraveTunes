@@ -22,21 +22,24 @@ object ProjectSetup {
     /**
      * как пример для 2 платежей
      */
-//    val PAYMENT_VARIANTS = setOf(
+//        val PAYMENT_VARIANTS = setOf(
 //        PaymentVariant(
-//            name = "kazan_1_item_key",
-//            routeTagItems = setOf("kazan_1"),
-//            amount = "499₽"
+//            name = R.string.payment_variant_1_label,
+//            routeTagItems = setOf(RouteSuzdal1().getRouteTag()),
+//            amount = 499.0,
+//            currency = Currency.getInstance(Payments.CURRENCY_RUB)
 //        ),
 //        PaymentVariant(
-//            name = "kazan_2_item_key",
-//            routeTagItems = setOf("kazan_2"),
-//            amount = "499₽"
+//            name = R.string.payment_variant_2_label,
+//            routeTagItems = setOf(RouteSuzdal2().getRouteTag()),
+//            amount = 399.0,
+//            currency = Currency.getInstance(Payments.CURRENCY_RUB)
 //        ),
 //        PaymentVariant(
-//            name = "kazan_1_2_items_key",
+//            name = R.string.payment_variant_3_label,
 //            routeTagItems = setOf("kazan_1", "kazan_2"),
-//            amount = "899₽"
+//            amount = 699.0,
+//            currency = Currency.getInstance(Payments.CURRENCY_RUB)
 //        )
 //    )
 
