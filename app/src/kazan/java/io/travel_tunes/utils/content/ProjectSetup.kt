@@ -4,11 +4,11 @@ import io.travel_tunes.R
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.utils.Payments
 import java.util.Currency
+
 object ProjectSetup {
     const val TABLE_NAME = "kazan_app"
 
     val ROUTES_LIST = listOf(RouteKazan1())
-
     val PAYMENT_VARIANTS = setOf(
         PaymentVariant(
             name = "kazan_1_item_key",

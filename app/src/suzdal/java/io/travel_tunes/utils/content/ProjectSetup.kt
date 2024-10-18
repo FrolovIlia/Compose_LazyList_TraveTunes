@@ -4,6 +4,7 @@ import io.travel_tunes.R
 import io.travel_tunes.model.payments.PaymentVariant
 import io.travel_tunes.utils.Payments
 import java.util.Currency
+
 object ProjectSetup {
     const val TABLE_NAME = "suzdal_app"
 
@@ -43,12 +44,6 @@ object ProjectSetup {
             currency = Currency.getInstance(Payments.CURRENCY_RUB)
         )
     )
-
-
-
-
-
-
 
 
     /**

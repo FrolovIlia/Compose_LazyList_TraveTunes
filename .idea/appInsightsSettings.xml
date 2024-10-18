@@ -23,8 +23,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="io.travel_tunes.kazan" />
-                  <option name="mobileSdkAppId" value="1:714237849769:android:4800d6888f89779a3c39b8" />
+                  <option name="appId" value="io.travel_tunes.suzdal" />
+                  <option name="mobileSdkAppId" value="1:714237849769:android:acaed398a360f32d3c39b8" />
                   <option name="projectId" value="traveltunes-36617" />
                   <option name="projectNumber" value="714237849769" />
                 </ConnectionSetting>
