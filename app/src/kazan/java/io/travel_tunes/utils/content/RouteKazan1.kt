@@ -13,9 +13,9 @@ import kotlinx.parcelize.Parcelize
 data class RouteKazan1(
     private val tag: String = "kazan_1",
     private val jsonDescription: Int = R.raw.route_kazan_1,
-    private val pictureMainRes: Int = R.drawable.route_kazan_1_main,
+    private val pictureMainRes: Int = R.drawable.route_kazan_1_5,
     //Используем изображение первой точки маршрута в описании маршрута
-    private val pictureDescriptionRes: Int = R.drawable.route_kazan_1_1,
+    private val pictureDescriptionRes: Int = R.drawable.route_kazan_1_18,
     private val audioRes: Int = R.raw.route_kazan_1_description
 ) : RouteSealedInfo() {
     override fun getRouteTag() = tag.lowercase()

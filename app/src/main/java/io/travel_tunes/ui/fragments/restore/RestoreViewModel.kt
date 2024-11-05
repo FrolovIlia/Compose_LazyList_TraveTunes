@@ -115,6 +115,7 @@ class RestoreDataViewModelFactory @Inject constructor(
     companion object {
         private const val tag = "path_firebase_db"
     }
+
     override fun getViewModel(): RestoreDataViewModel {
         return RestoreDataViewModel(defaultRepository, pathFirebaseDB)
     }
