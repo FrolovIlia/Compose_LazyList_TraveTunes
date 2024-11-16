@@ -26,8 +26,8 @@ secrets {
 android {
     namespace = "io.travel_tunes"
     compileSdk = 34
-    val versionName = "1.0.6"
-    val versionCode = 9
+    val versionName = "1.0.1"
+    val versionCode = 2
 
     defaultConfig {
         applicationId = "io.travel_tunes"
