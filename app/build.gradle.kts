@@ -25,7 +25,7 @@ secrets {
 
 android {
     namespace = "io.travel_tunes"
-    compileSdk = 34
+    compileSdk = 35
     val versionName = "1.0.1"
     val versionCode = 2
 
