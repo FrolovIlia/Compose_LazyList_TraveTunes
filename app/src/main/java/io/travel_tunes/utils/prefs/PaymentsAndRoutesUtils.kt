@@ -43,7 +43,9 @@ object PaymentsAndRoutesUtils {
         else {
             // FIXME: проверить это на нескольких вариантах покупки
             val resultList = paymentVariantsWithCurrentRoute.filter {
-                it.getRouteTagSet().none { routeTag -> !alreadyPaidRouteTags.contains(routeTag) }
+                it.getRouteTagSet().none {
+                    routeTag -> alreadyPaidRouteTags.contains(routeTag)
+                }
             }
             resultList
         }
