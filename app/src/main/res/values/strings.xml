@@ -80,5 +80,6 @@
     <string name="failure_error_is_network_error">Проверьте настройки интернет - соединения и попробуйте снова.</string>
     <string name="failure_error_temporary_problem">Возникли технические неполадки с оплатой. Пожалуйста, попробуйте снова чуть позже.</string>
     <string name="failure_error_undefined_need_fix">Что-то пошло не так… Пожалуйста, сообщите нам о случившемся.</string>
+    <string name="payment_variant_1_2_label">Купить все экскурсии Суздаля</string>
 
 </resources>
