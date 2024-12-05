@@ -25,7 +25,7 @@ secrets {
 
 android {
     namespace = "io.travel_tunes"
-    compileSdk = 34
+    compileSdk = 35
     val versionName = "1.0.1"
     val versionCode = 2
 
@@ -170,7 +170,6 @@ android {
 
 dependencies {
 //    val roomVersion = "2.6.1"
-
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")

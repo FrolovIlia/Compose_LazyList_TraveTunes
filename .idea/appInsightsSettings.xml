@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AppInsightsSettings">
+    <option name="selectedTabId" value="Android Vitals" />
     <option name="tabSettings">
       <map>
         <entry key="Android Vitals">
@@ -22,8 +23,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="io.travel_tunes.kazan" />
-                  <option name="mobileSdkAppId" value="1:714237849769:android:4800d6888f89779a3c39b8" />
+                  <option name="appId" value="io.travel_tunes.ivanovo" />
+                  <option name="mobileSdkAppId" value="1:714237849769:android:c946acd99e8afce23c39b8" />
                   <option name="projectId" value="traveltunes-36617" />
                   <option name="projectNumber" value="714237849769" />
                 </ConnectionSetting>
