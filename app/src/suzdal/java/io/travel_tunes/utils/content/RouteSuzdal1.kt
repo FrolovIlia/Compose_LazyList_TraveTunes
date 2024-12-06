@@ -119,7 +119,7 @@ data class RouteSuzdal1(
             LatLngNew(56.419765, 40.462668),
             LatLngNew(56.419753, 40.461853),
             LatLngNew(56.419771, 40.460774),
-            LatLngNew(6.419912, 40.45583),
+            LatLngNew(56.419912, 40.45583),
             LatLngNew(56.41993, 40.452912),
             LatLngNew(56.419874, 40.450801),
             LatLngNew(56.41992, 40.449468),
