@@ -108,36 +108,36 @@ android {
             )
             buildConfigField("String", "SHOP_ID", "\"368429\"")
         }
-        create("suzdal") {
-            applicationId = "io.travel_tunes.suzdal"
-            resValue("string", "app_name", "TravelTunes Суздаль")
-            buildConfigField(
-                "String",
-                "MERCHANT_TOKEN",
-                "\"live_MzY4NDI5w03wj0VlTBj1iajKVLO10lme8fpvmzeUaXI\""
-            )
-            buildConfigField(
-                "String",
-                "SECRET_KEY",
-                "\"live_-UQn7qmMiOQQCOntg9njEvy1w1CalDwZnLoF2m177_g\""
-            )
-            buildConfigField("String", "SHOP_ID", "\"368429\"")
-        }
 //        create("suzdal") {
 //            applicationId = "io.travel_tunes.suzdal"
 //            resValue("string", "app_name", "TravelTunes Суздаль")
 //            buildConfigField(
 //                "String",
 //                "MERCHANT_TOKEN",
-//                "\"test_NDA3NTUyT_KH6UhrXdDGpWDUat7BGE7ubpQMdQ2fNA4\""
+//                "\"live_MzY4NDI5w03wj0VlTBj1iajKVLO10lme8fpvmzeUaXI\""
 //            )
 //            buildConfigField(
 //                "String",
 //                "SECRET_KEY",
-//                "\"test__PHJmGyxUWpFrUuhx8tzfgkaVL0ALfucbqDBzwTmyqo\""
+//                "\"live_-UQn7qmMiOQQCOntg9njEvy1w1CalDwZnLoF2m177_g\""
 //            )
-//            buildConfigField("String", "SHOP_ID", "\"407552\"")
+//            buildConfigField("String", "SHOP_ID", "\"368429\"")
 //        }
+        create("suzdal") {
+            applicationId = "io.travel_tunes.suzdal"
+            resValue("string", "app_name", "TravelTunes Суздаль")
+            buildConfigField(
+                "String",
+                "MERCHANT_TOKEN",
+                "\"test_NDA3NTUyT_KH6UhrXdDGpWDUat7BGE7ubpQMdQ2fNA4\""
+            )
+            buildConfigField(
+                "String",
+                "SECRET_KEY",
+                "\"test__PHJmGyxUWpFrUuhx8tzfgkaVL0ALfucbqDBzwTmyqo\""
+            )
+            buildConfigField("String", "SHOP_ID", "\"407552\"")
+        }
 
     }
 
