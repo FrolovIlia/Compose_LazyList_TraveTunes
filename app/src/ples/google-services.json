@@ -3,20 +3,45 @@
     "project_number": "714237849769",
     "firebase_url": "https://traveltunes-36617-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "traveltunes-36617",
-    "storage_bucket": "traveltunes-36617.appspot.com"
+    "storage_bucket": "traveltunes-36617.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:714237849769:android:4800d6888f89779a3c39b8",
+        "mobilesdk_app_id": "1:714237849769:android:a7a3d94f9ff9748d3c39b8",
         "android_client_info": {
-          "package_name": "io.travel_tunes.kazan"
+          "package_name": "io.travel_tunes"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyB3iduTYRtzm9gVIg2k3QBA6gnQUQQw8wY"
+        },
+        {
+          "current_key": "AIzaSyDJ6J5Qky5sxOWumhxbGcOlpaJxZstx6VA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714237849769:android:f6fbf2378e8cab213c39b8",
+        "android_client_info": {
+          "package_name": "io.travel_tunes.ples"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3iduTYRtzm9gVIg2k3QBA6gnQUQQw8wY"
+        },
+        {
+          "current_key": "AIzaSyDJ6J5Qky5sxOWumhxbGcOlpaJxZstx6VA"
         }
       ],
       "services": {
