@@ -28,21 +28,21 @@ object ProjectSetup {
             name = "suzdal_1_item_key",
             labelStringRes = R.string.payment_variant_1_label,
             routeTagItems = setOf("suzdal_1"),
-            amount = 449.0,
+            amount = 349.0,
             currency = Currency.getInstance(Payments.CURRENCY_RUB)
         ),
         PaymentVariant(
             name = "suzdal_2_item_key",
             labelStringRes = R.string.payment_variant_2_label,
             routeTagItems = setOf("suzdal_2"),
-            amount = 449.0,
+            amount = 349.0,
             currency = Currency.getInstance(Payments.CURRENCY_RUB)
         ),
         PaymentVariant(
             name = "suzdal_1_2_items_key",
             labelStringRes = R.string.payment_variant_1_2_label,
             routeTagItems = setOf("suzdal_1", "suzdal_2"),
-            amount = 749.0,
+            amount = 499.0,
             currency = Currency.getInstance(Payments.CURRENCY_RUB)
         )
     )
