@@ -13,8 +13,8 @@ import kotlinx.parcelize.Parcelize
 data class RouteNNovgorod1(
     private val tag: String = "nnovgorod_1",
     private val jsonDescription: Int = R.raw.route_nnovgorod_1,
-    private val pictureMainRes: Int = R.drawable.route_nnovgorod_1_15,
-    private val pictureDescriptionRes: Int = R.drawable.route_nnovgorod_1_19,
+    private val pictureMainRes: Int = R.drawable.route_nnovgorod_1_28,
+    private val pictureDescriptionRes: Int = R.drawable.route_nnovgorod_1_9,
     private val audioRes: Int = R.raw.route_nnovgorod_1_description
 ) : RouteSealedInfo() {
     override fun getRouteTag() = tag.lowercase()
