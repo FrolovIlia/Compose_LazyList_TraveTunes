@@ -14,7 +14,7 @@ object ProjectSetup {
             name = "kazan_1_item_key",
             labelStringRes = R.string.payment_variant_1_label,
             routeTagItems = setOf(RouteKazan1().getRouteTag()),
-            amount = 499.0,
+            amount = 349.0,
             currency = Currency.getInstance(Payments.CURRENCY_RUB)
         )
     )
