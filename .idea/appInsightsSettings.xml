@@ -23,8 +23,8 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="io.travel_tunes.ivanovo" />
-                  <option name="mobileSdkAppId" value="1:714237849769:android:c946acd99e8afce23c39b8" />
+                  <option name="appId" value="io.travel_tunes.nnovgorod" />
+                  <option name="mobileSdkAppId" value="1:714237849769:android:3f9726e38345e0553c39b8" />
                   <option name="projectId" value="traveltunes-36617" />
                   <option name="projectNumber" value="714237849769" />
                 </ConnectionSetting>
