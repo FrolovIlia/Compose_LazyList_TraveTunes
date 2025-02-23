@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RouteKaliningrad1(
     private val tag: String = "kaliningrad_1",
-    private val jsonDescription: Int = R.raw.route_suzdal_1,
+    private val jsonDescription: Int = R.raw.route_kaliningrad_1,
     //Используем общее изображение, но в данном случае первая была очень невзрачная, так что выбрана что симпотичнее
     private val pictureMainRes: Int = R.drawable.route_kaliningrad_1_4,
     //Используем изображение первой точки маршрута в описании маршрута, но в данном случае первая была очень невзрачная, так что выбрана что симпотичнее
