@@ -26,8 +26,8 @@ secrets {
 android {
     namespace = "io.travel_tunes"
     compileSdk = 35
-    val versionName = "1.0.1"
-    val versionCode = 1
+    val versionName = "1.0.2"
+    val versionCode = 2
 
     defaultConfig {
         applicationId = "io.travel_tunes"
@@ -131,19 +131,35 @@ android {
             buildConfigField(
                 "String",
                 "MERCHANT_TOKEN",
-                "\"test_NDA3NTUyT_KH6UhrXdDGpWDUat7BGE7ubpQMdQ2fNA4\""
+                "\"live_MzY4NDI5w03wj0VlTBj1iajKVLO10lme8fpvmzeUaXI\""
             )
             buildConfigField(
                 "String",
                 "SECRET_KEY",
-                "\"test__PHJmGyxUWpFrUuhx8tzfgkaVL0ALfucbqDBzwTmyqo\""
+                "\"live_-UQn7qmMiOQQCOntg9njEvy1w1CalDwZnLoF2m177_g\""
             )
-            buildConfigField("String", "SHOP_ID", "\"407552\"")
+            buildConfigField("String", "SHOP_ID", "\"368429\"")
         }
 
         create("nnovgorod") {
             applicationId = "io.travel_tunes.nnovgorod"
             resValue("string", "app_name", "TravelTunes Нижний Новгород")
+            buildConfigField(
+                "String",
+                "MERCHANT_TOKEN",
+                "\"live_MzY4NDI5w03wj0VlTBj1iajKVLO10lme8fpvmzeUaXI\""
+            )
+            buildConfigField(
+                "String",
+                "SECRET_KEY",
+                "\"live_-UQn7qmMiOQQCOntg9njEvy1w1CalDwZnLoF2m177_g\""
+            )
+            buildConfigField("String", "SHOP_ID", "\"368429\"")
+        }
+
+        create("kaliningrad") {
+            applicationId = "io.travel_tunes.kaliningrad"
+            resValue("string", "app_name", "TravelTunes Калининград")
             buildConfigField(
                 "String",
                 "MERCHANT_TOKEN",
