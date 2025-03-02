@@ -15,8 +15,7 @@ import io.travel_tunes.utils.extencions.changeText
 import io.travel_tunes.utils.coroutines.launchAtViewScope
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.ticker
-import java.text.SimpleDateFormat
-import java.util.Locale
+
 
 class PlayerView @JvmOverloads constructor(
     context: Context,
@@ -107,11 +106,15 @@ class PlayerView @JvmOverloads constructor(
      * для продолжения воспроизведения
      */
     private fun start() {
-        mediaPlayer?.start()?.let {
-            updateActionDrawable(true)
-            startUpdatingProgressTimer()
+        mediaPlayer?.let {
+            if (!it.isPlaying) {
+                it.start()
+                updateActionDrawable(true)
+                startUpdatingProgressTimer()
+            }
         }
     }
+
 
     /**
      * для приостановки воспроизведения
@@ -140,7 +143,6 @@ class PlayerView @JvmOverloads constructor(
                     syncProgressMedia()
                 }
             }
-
         }
     }
 
@@ -161,10 +163,16 @@ class PlayerView @JvmOverloads constructor(
     }
 
     private fun getTimeByProgress(progress: Int): String {
-        return if (progress == 0) {
-            "00:00"
-        } else {
-            return SimpleDateFormat("mm:ss", Locale.getDefault()).format(progress)
-        }
+        val minutes = (progress / 1000) / 60
+        val seconds = (progress / 1000) % 60
+        return String.format("%02d:%02d", minutes, seconds)
     }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        mediaPlayer?.release()  // Освобождаем ресурсы
+        mediaPlayer = null
+        stopUpdatingProgressTimer() // Останавливаем обновление прогресса
+    }
+
 }
