@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="fragment_routes_title">Казань</string>
-    <string name="payment_variant_1_label">Купить экскурсию «По Вахитовскому району»</string>
+    <string name="fragment_routes_title">Калининград</string>
+    <string name="payment_variant_1_label">Купить экскурсию «Город ворот и легенд»</string>
 </resources>
