@@ -14,9 +14,9 @@ data class RouteKaliningrad1(
     private val tag: String = "kaliningrad_1",
     private val jsonDescription: Int = R.raw.route_kaliningrad_1,
     //Используем общее изображение.
-    private val pictureMainRes: Int = R.drawable.route_kaliningrad_1_4,
+    private val pictureMainRes: Int = R.drawable.route_kaliningrad_1_10,
     //Используем изображение первой точки маршрута в описании маршрута
-    private val pictureDescriptionRes: Int = R.drawable.route_kaliningrad_1_7,
+    private val pictureDescriptionRes: Int = R.drawable.route_kaliningrad_1_1,
     private val audioRes: Int = R.raw.route_kaliningrad_1_description
 ) : RouteSealedInfo() {
     override fun getRouteTag() = tag.lowercase()
